@@ -1,0 +1,38 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de log
+*.log
+
+# Archivos de compilación
+*.o
+*.obj
+*.exe
+*.dll
+*.class
+*.pyc
+*.pyo
+
+# Directorios de dependencias
+node_modules/
+vendor/
+
+# Archivos de configuración
+.env
+*.local
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de documentación
+*.pdf
+*.docx
