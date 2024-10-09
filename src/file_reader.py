@@ -10,8 +10,15 @@ def leer_csv_o_excel(ruta_archivo):
             datos = pd.read_excel(ruta_archivo)
         print(datos.head())  
         return datos
+    
     except Exception as error:
         print(f"Error al leer el archivo: {error}")
+    except FileNotFoundError:
+        print("Archivo no encontrado ")
+    except pd.errors.ParserError:
+        print("Error al analizar el archivo ")
+    except pd.errors.EmptyDataError:
+        print("El archivo está vacío ")
 
 def leer_sqlite(ruta_bd):
     try:
@@ -25,9 +32,17 @@ def leer_sqlite(ruta_bd):
         datos = pd.read_sql_query(f"SELECT * FROM {nombre_tabla}", conexion)
         print(datos.head()) 
         return datos
-    except Exception as error:
-        print(f"Error al leer la base de datos: {error}")
-
+    
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+    except FileNotFoundError:
+        print("Archivo no encontrado ")
+    except pd.errors.ParserError:
+        print("Error al analizar el archivo ")
+    except pd.errors.EmptyDataError:
+        print("El archivo está vacío ")
+    
+        
 def importar_datos(ruta_archivo):
     if ruta_archivo.endswith('.csv') or ruta_archivo.endswith('.xlsx') or ruta_archivo.endswith('.xls'):
         return leer_csv_o_excel(ruta_archivo)
@@ -38,3 +53,10 @@ def importar_datos(ruta_archivo):
 
 arch =input("Introduzca el archivo: ")
 datos = importar_datos(arch)
+
+
+
+
+        
+
+        
