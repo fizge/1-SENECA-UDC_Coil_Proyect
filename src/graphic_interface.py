@@ -1,13 +1,5 @@
 import PySimpleGUI as sg
-import os
 import file_reader as fr 
-
-def files_in_same_folder():
-    current_folder = os.path.dirname(os.path.abspath(__file__))
-    files = os.listdir(current_folder)
-    valid_ext = ('.xls', '.xlsx', '.db', '.sqlite', '.csv')
-    valid_files = [file for file in files if file.endswith(valid_ext)]    
-    return valid_files, current_folder
 
 def show_data(data):
     if data is None or data.empty:
@@ -26,13 +18,12 @@ def show_data(data):
     window.read()
     window.close()
 
-sg.theme('LightBlue')
+sg.theme('NeutralBlue')
 
 layout = [
-    [sg.Button('Select dataset', font=('Courier New', 12), button_color=('white', 'blue'), size=(16, 2), border_width=8),
-     sg.InputText(key='-INPUT-', size=(60, 1)),
-     sg.Button('Confirm', font=('Courier New', 10), size=(10, 1))],
-    [sg.Listbox(values=[], size=(50, 10), key='-FILES-', enable_events=True)]
+    [sg.Push(),sg.Button('Select dataset', font=('Courier New', 12,'bold'), button_color=('black', 'seagreen'), size=(16, 2), border_width=8),sg.Push()],
+    [sg.InputText(key='-FILE-', size=(60, 1), readonly=True,pad=(10,10))], 
+    [sg.Button('Confirm', font=('Courier New', 10), size=(10, 1),button_color=('black', 'seagreen'), border_width=4)]
 ]
 
 window = sg.Window('Select data file', layout)
@@ -43,14 +34,11 @@ while True:
     if event == sg.WIN_CLOSED:
         break
     elif event == 'Select dataset': 
-        files, current_folder = files_in_same_folder()
-        window['-FILES-'].update(files)
-    elif event == '-FILES-':  
-        selected_file = values['-FILES-'][0]
-        full_rute = os.path.join(current_folder, selected_file)
-        window['-INPUT-'].update(full_rute)
+        file_path = sg.popup_get_file('Select a data file', no_window=True, file_types=(("CSV Files", "*.csv"), ("Excel Files", "*.xls;*.xlsx"), ("SQLite Database", "*.db;*.sqlite")))
+        if file_path:  
+            window['-FILE-'].update(file_path)
     elif event == 'Confirm':
-        file_path = values['-INPUT-']
+        file_path = values['-FILE-']
         data = fr.import_data(file_path)
 
         if data is None:
@@ -60,5 +48,3 @@ while True:
             show_data(data)
 
 window.close()
-
-
