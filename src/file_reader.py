@@ -7,45 +7,57 @@ def read_csv_or_excel(file_path):
         if file_path.endswith(".csv"):
             data = pd.read_csv(file_path)
         else:
-            data = pd.read_excel(file_path)
-        return data
-    except Exception as e:
-        return None
+            datos = pd.read_excel(ruta_archivo)
+        print(datos.head())  
+        return datos
+    
+    except Exception as error:
+        print(f"Error al leer el archivo: {error}")
     except FileNotFoundError:
-        return None
+        print("Archivo no encontrado ")
     except pd.errors.ParserError:
-        return None
+        print("Error al analizar el archivo ")
     except pd.errors.EmptyDataError:
-        return None
+        print("El archivo está vacío ")
 
 def read_sqlite(db_path):
     try:
-        if not os.path.exists(db_path):
+        if not os.path.exists(ruta_bd):
+            print("La base de datos no existe")
             return None
 
-        connection = sqlite3.connect(db_path)
-        query = "SELECT name FROM sqlite_master WHERE type='table';"
-        table_name = pd.read_sql_query(query, connection).iloc[0]['name']
-        data = pd.read_sql_query(f"SELECT * FROM {table_name}", connection)
-        return data
+        conexion = sqlite3.connect(ruta_bd)
+        consulta = "SELECT name FROM sqlite_master WHERE type='table';"
+        nombre_tabla = pd.read_sql_query(consulta, conexion).iloc[0]['name']
+        datos = pd.read_sql_query(f"SELECT * FROM {nombre_tabla}", conexion)
+        print(datos.head()) 
+        return datos
+    
     except Exception as e:
-        return None
+        print(f"Error inesperado: {e}")
     except FileNotFoundError:
-        return None
+        print("Archivo no encontrado ")
     except pd.errors.ParserError:
-        return None
+        print("Error al analizar el archivo ")
     except pd.errors.EmptyDataError:
-        return None
-
-def import_data(file_path):
-    if file_path.endswith('.csv') or file_path.endswith('.xlsx') or file_path.endswith('.xls'):
-        return read_csv_or_excel(file_path)
-    elif file_path.endswith('.sqlite') or file_path.endswith('.db'):
-        return read_sqlite(file_path)
+        print("El archivo está vacío ")
+    
+        
+def importar_datos(ruta_archivo):
+    if ruta_archivo.endswith('.csv') or ruta_archivo.endswith('.xlsx') or ruta_archivo.endswith('.xls'):
+        return leer_csv_o_excel(ruta_archivo)
+    elif ruta_archivo.endswith('.sqlite') or ruta_archivo.endswith('.db'):
+        return leer_sqlite(ruta_archivo)
     else:
-        return None
+        print("Formato de archivo no soportado")
+
+arch =input("Introduzca el archivo: ")
+datos = importar_datos(arch)
+
+
 
 
         
+
 
         
