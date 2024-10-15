@@ -25,7 +25,7 @@ sg.theme('NeutralBlue')
 layout = [
     [sg.Push(), sg.Button('Select dataset', font=('Courier New', 12, 'bold'),
                           button_color=('black', 'seagreen'), size=(16, 2), border_width=8), sg.Push()],
-    [sg.InputText(key='-FILE-', size=(60, 1), readonly=True, pad=(10, 10))],
+    [sg.InputText(key='-FILE-', size=(70, 1), readonly=True, pad=(10, 10))],
     [sg.Button('Confirm', font=('Courier New', 10), size=(10, 1),
                button_color=('black', 'seagreen'), border_width=4)]
 ]
