@@ -1,36 +1,23 @@
 import PySimpleGUI as sg
 import file_reader as fr
 
-
-def show_data(data):
-    if data is None or data.empty:
-        sg.popup_error("No data to display")
-        return
-
-    headings = list(data.columns)
-    values = data.values.tolist()
-
+def create_window(headings, values):
     layout = [
-        [sg.Table(values=values, headings=headings, display_row_numbers=True, auto_size_columns=True,
-                  num_rows=min(25, len(values)), alternating_row_color='lightblue')]
-    ]
+        [sg.Push(), sg.Button('Select dataset', font=('Courier New', 12, 'bold'),button_color=('black', 'seagreen'), size=(16, 2), border_width=8), sg.Push()],
+        [sg.Push(), sg.InputText(key='-FILE-', size=(70, 1), readonly=True, pad=(10, 10)), sg.Push()],
+        [sg.Button('Confirm', font=('Courier New', 10), size=(10, 1), button_color=('black', 'seagreen'), border_width=4),
+         sg.Button('Clean table', font=('Courier New', 10, 'bold'), size=(13, 1), button_color=('black', 'white'), border_width=4)],
+        [sg.Table(values=values, headings=headings, display_row_numbers=True, auto_size_columns=False, col_widths=[15] * len(headings), num_rows=15, 
+                  vertical_scroll_only=False, alternating_row_color='lightblue', key='-TABLE-', visible=True if values else False)]
+              ]
 
-    window = sg.Window("Data Table", layout, finalize=True)
-    window.read()
-    window.close()
+    return sg.Window('Select data file', layout, finalize=True, resizable=True)
 
+headings = []
+values = []
 
 sg.theme('NeutralBlue')
-
-layout = [
-    [sg.Push(), sg.Button('Select dataset', font=('Courier New', 12, 'bold'),
-                          button_color=('black', 'seagreen'), size=(16, 2), border_width=8), sg.Push()],
-    [sg.InputText(key='-FILE-', size=(70, 1), readonly=True, pad=(10, 10))],
-    [sg.Button('Confirm', font=('Courier New', 10), size=(10, 1),
-               button_color=('black', 'seagreen'), border_width=4)]
-]
-
-window = sg.Window('Select data file', layout)
+window = create_window(headings, values)
 
 while True:
     event, values = window.read()
@@ -44,12 +31,28 @@ while True:
             window['-FILE-'].update(file_path)
     elif event == 'Confirm':
         file_path = values['-FILE-']
-        data = fr.import_data(file_path)
 
-        if data is None:
-            sg.popup_error("The file is corrupted or not compatible")
-        else:
-            window.close()
-            show_data(data)
+        if not file_path:
+            sg.popup_error("Please select a file first.")
+            continue
+
+        try:
+            data = fr.import_data(file_path)
+            if data is None or data.empty:
+                sg.popup_error("The file is corrupted or not compatible")
+            else:
+                headings = list(data.columns)
+                values = data.values.tolist()
+
+                window.close()
+                window = create_window(headings, values)
+        except Exception as e:
+            sg.popup_error(f"An error occurred while importing the data: {e}")
+    elif event == 'Clean table':
+        headings = []
+        values = []
+        
+        window.close()
+        window = create_window(headings, values)
 
 window.close()
