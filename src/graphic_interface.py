@@ -15,8 +15,6 @@ def create_window():
     v.title("Display Data") 
     v.geometry("700x600")
     
-    i = tk.PhotoImage(file="imagen.png")  
-    v.iconphoto(True, i)
     
     v.grid_rowconfigure(0, weight=1)
     v.grid_columnconfigure(0, weight=1)
@@ -74,33 +72,40 @@ def create_button():
                        text_color="white",
                        command=open_files
                        )
-    b2.grid(row=2, column=0, padx=10, pady=10, sticky="e")
+    b2.grid(row=2,
+            column=0,
+            padx=10,
+            pady=10,
+            sticky="e"
+            )
     
-    b3 = tk.Button(v, 
-                   text='Clear', 
-                   bg='white',
-                   command=clear_table)
-    b3.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+    b3 = ctk.CTkButton(v,
+                        text='Clear', 
+                        fg_color='grey',
+                        hover_color="darkred",
+                        text_color="black",
+                        command=clear_table
+                        )
+    b3.grid(row=2,
+            column=1,
+            padx=10,
+            pady=10,
+            sticky="w"
+            )
     
-    
-def import_data(file_path):
-    global loaded_data
-    if file_path.endswith('.csv') or file_path.endswith('.xlsx') or file_path.endswith('.xls'):
-        loaded_data = read_csv_or_excel(file_path)
-    elif file_path.endswith('.sqlite') or file_path.endswith('.db'):
-        loaded_data = read_sqlite(file_path)
-    else:
-        print("File format not supported")
-
-    if loaded_data is not None:
-        display_data_in_treeview(loaded_data)  
         
 
 def display_data_in_treeview(data):
     global tree
     if tree is None:
         tree = ttk.Treeview(v)
-        tree.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+        tree.grid(row=3,
+                  column=0,
+                  columnspan=2,
+                  padx=10,
+                  pady=10,
+                  sticky="nsew"
+                  )
         v.grid_rowconfigure(3, weight=1)  
         v.grid_columnconfigure(1, weight=1)
 
@@ -115,6 +120,18 @@ def display_data_in_treeview(data):
 
     for index, row in data.iterrows():
         tree.insert("", "end", values=list(row))  
+
+def import_data(file_path):
+    global loaded_data
+    if file_path.endswith('.csv') or file_path.endswith('.xlsx') or file_path.endswith('.xls'):
+        loaded_data = read_csv_or_excel(file_path)
+    elif file_path.endswith('.sqlite') or file_path.endswith('.db'):
+        loaded_data = read_sqlite(file_path)
+    else:
+        print("File format not supported")
+
+    if loaded_data is not None:
+        display_data_in_treeview(loaded_data)  
 
 def main():
     create_window()
