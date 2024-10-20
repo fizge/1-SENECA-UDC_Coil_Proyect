@@ -7,6 +7,7 @@ from tkinter import filedialog, ttk
 import customtkinter as ctk
 import pandas as pd
 
+
 v = None  
 label = None  
 tree = None  
@@ -16,10 +17,10 @@ def create_window():
     v = tk.Tk()  
     v.title("Display Data") 
     v.geometry("700x600")
-    
+    '''
     i = tk.PhotoImage(file="imagen.png")  
     v.iconphoto(True, i)
-    
+    '''
     v.grid_rowconfigure(0, weight=1)
     v.grid_columnconfigure(0, weight=1)
     

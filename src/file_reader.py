@@ -37,13 +37,6 @@ def read_sqlite(db_path):
     except pd.errors.EmptyDataError:
         return None
 
-def import_data(file_path):
-    if file_path.endswith('.csv') or file_path.endswith('.xlsx') or file_path.endswith('.xls'):
-        return read_csv_or_excel(file_path)
-    elif file_path.endswith('.sqlite') or file_path.endswith('.db'):
-        return read_sqlite(file_path)
-    else:
-        return None
 
 
         

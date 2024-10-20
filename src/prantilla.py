@@ -38,7 +38,7 @@ def crear_frames(v): # se pasa la clase ventana
                  rely=0.5,
                  anchor="center"
                  )  # centrar el Frame
-    #return frame1 # retornas frame para usar en labels
+    return frame1 # retornas frame para usar en labels
     
     
 def crear_labels(v): # etiquetas == labels 
@@ -88,7 +88,7 @@ def crear_entrada(v):
     
 
 def main():
-    v =crear_ventana()
+    v=crear_ventana()
     crear_frames(v)
     l=crear_labels(v)
     e=crear_entrada(v)
