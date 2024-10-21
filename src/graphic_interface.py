@@ -5,7 +5,7 @@ import customtkinter as ctk
 import pandas as pd
 from file_reader import read_csv_or_excel, read_sqlite
 
-class DataDisplayApp:
+class InterfaceApp:
     def __init__(self):
         self.v = self.create_window()
         self.label = None
