@@ -9,15 +9,22 @@ tree = None
 loaded_data = None  
 deleted_rows = None  
 show_deleted_button = None  
+input_select = None
+output_select = None
+selection_frame = None
+selected_input_column = None
+selected_output_column = None
+original_window_size = None
 
 def create_window():
-    global v
+    global v, original_window_size
     ctk.set_appearance_mode("Dark")
     ctk.set_default_color_theme("blue")
     
     v = ctk.CTk()  
     v.title("Data Viewer")
-    v.geometry("900x500")
+    original_window_size = "1000x500"
+    v.geometry(original_window_size)
     
     v.grid_rowconfigure(0, weight=1)
     v.grid_columnconfigure(0, weight=1)
@@ -32,36 +39,46 @@ def open_files():
         import_data(file) 
 
 def create_label():
-    label_title = ctk.CTkLabel(v, text="LINEAR REGRESION ANALYTICS", font=("Arial", 45, "bold"))
+    label_title = ctk.CTkLabel(v, text="LINEAR REGRESSION ANALYTICS", font=("Arial", 45, "bold"))
     label_title.grid(row=0, column=0, columnspan=2, pady=20, sticky="ew")
     
 def clear_table():
+    global input_select, output_select, selection_frame, original_window_size
+    
     if tree is None:
         return
-    tree.delete(*tree.get_children())
+
+    tree.delete(*tree.get_children())  
+
+    if selection_frame is not None:
+        selection_frame.grid_forget()
+        input_select = None
+        output_select = None
+        v.geometry(original_window_size)  
 
 def create_button():
     button_frame = ctk.CTkFrame(v)  
     button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
 
-    open_button = ctk.CTkButton(button_frame, text="Open File", command=open_files)
-    clear_button = ctk.CTkButton(button_frame, text="Clear", command=clear_table)
+    open_button = ctk.CTkButton(button_frame, text="Open File", font=("Arial", 15, "bold"), width=140, height=40, command=open_files)
+    clear_button = ctk.CTkButton(button_frame, text="Clear", font=("Arial", 15, "bold"), width=140, height=40, command=clear_table)
+   
+    open_button.grid(row=0, column=0, padx=(40,5), pady=5, sticky="ew")
+    clear_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
 
-    open_button.grid(row=0, column=0, padx=20, pady=10, sticky="ew")
-    clear_button.grid(row=0, column=1, padx=20, pady=10, sticky="ew")
-
-    preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 12, 'bold'))
-    preprocess_label.grid(row=1, column=0, padx=(10, 5), pady=10, sticky="e")
+    preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 14, 'bold'))
+    preprocess_label.grid(row=0, column=2, padx=(80, 10), pady=10, sticky="e")
 
     options = ["Remove rows with NaN", "Fill with Mean", "Fill with Median", 
                "Fill with Constant Value", "Show rows with NaN"]
 
     preprocess_var = ctk.StringVar(value=options[0])
     preprocess_menu = ctk.CTkOptionMenu(button_frame, variable=preprocess_var, values=options)
-    preprocess_menu.grid(row=1, column=1, padx=(5, 10), pady=10, sticky="ew")
+    preprocess_menu.grid(row=0, column=3, padx=(2, 5), pady=10, sticky="ew")
 
-    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing", command=lambda: apply_preprocessing(preprocess_var.get()))
-    apply_button.grid(row=1, column=2, padx=20, pady=10, sticky="ew")
+    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing",font=("Arial", 14, "bold"),  width=160, height=40,command=lambda: apply_preprocessing(preprocess_var.get()))
+    apply_button.grid(row=0, column=4, padx=(5, 5), pady=10, sticky="ew")
+
 
 def import_data(file_path):
     global loaded_data, deleted_rows, show_deleted_button
@@ -87,7 +104,7 @@ def detect_nan(data):
         messagebox.showinfo("No Missing Values", "There are no missing values in the data.")
 
 def display_data_in_treeview(data):
-    global tree, tree_frame 
+    global tree, tree_frame, input_select, output_select, selection_frame
     if tree is None:
         tree_frame = ctk.CTkFrame(v)
         tree_frame.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
@@ -113,16 +130,79 @@ def display_data_in_treeview(data):
 
     tree_frame.grid_rowconfigure(0, weight=1)  
     tree_frame.grid_columnconfigure(0, weight=1)
+    
+    add_input_output_buttons(data.columns)
+
+def add_input_output_buttons(columns):
+    global input_select, output_select, selection_frame
+
+    if selection_frame is not None:
+        selection_frame.grid_forget()
+    
+    selection_frame = ctk.CTkFrame(v)
+    selection_frame.grid(row=3, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+
+    v.geometry("1000x700")
+
+    input_label = ctk.CTkLabel(selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
+    input_label.grid(row=0, column=4, padx=10, pady=10, sticky="e")
+    
+    input_select = ctk.CTkOptionMenu(selection_frame, values=list(columns))
+    input_select.grid(row=0, column=5, padx=10, pady=10, sticky="ew")
+
+    output_label = ctk.CTkLabel(selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
+    output_label.grid(row=1, column=4, padx=10, pady=10, sticky="e")
+    
+    output_select = ctk.CTkOptionMenu(selection_frame, values=list(columns))
+    output_select.grid(row=1, column=5, padx=10, pady=10, sticky="ew")
+
+    generate_button = ctk.CTkButton(selection_frame, text="Generate model", font=("Arial", 24, "bold"), width=290, height=80, command=generate_model)
+    generate_button.grid(row=0, column=0, columnspan=3,rowspan=2, padx=(40,140), pady=10, sticky="ew")
+    
+    confirm_button = ctk.CTkButton(selection_frame, text="Confirm Selections", font=("Arial", 15, "bold"), width=70, height=80, command=confirm_selections)
+    confirm_button.grid(row=0, column=6, rowspan=2, padx=(20,10), pady=10, sticky="ew")
+
+def confirm_selections():
+    global selected_input_column, selected_output_column
+    
+    
+    selected_input_column = input_select.get()
+    selected_output_column = output_select.get()
+    
+    if not selected_input_column or not selected_output_column:
+        messagebox.showerror("Error", "Please select both Input and Output columns.")
+        return
+
+    messagebox.showinfo("Selections Confirmed", f"Input Column: {selected_input_column}\nOutput Column: {selected_output_column}")
+
+def generate_model():
+    global selected_input_column, selected_output_column
+
+    if not selected_input_column or not selected_output_column:
+        messagebox.showerror("Error", "You must confirm Input and Output selections before generating the model.")
+        return
+
+    messagebox.showinfo("Model Generation", f"Model generated with Input: {selected_input_column} and Output: {selected_output_column}")
 
 def apply_preprocessing(option):
-    global loaded_data, deleted_rows, show_deleted_button
+    global loaded_data, deleted_rows, show_deleted_button, selected_input_column, selected_output_column
     if loaded_data is None:
         messagebox.showerror("Error", "Please load a file first.")
         return
+
+    if not selected_input_column or not selected_output_column:
+        messagebox.showerror("Error", "Please confirm Input and Output selections first.")
+        return
+
+    if selected_input_column not in loaded_data.columns or selected_output_column not in loaded_data.columns:
+        messagebox.showerror("Error", "One or more selected columns no longer exist in the dataset.")
+        return
+    
+    columns_to_process = [selected_input_column, selected_output_column]
     
     if option == "Remove rows with NaN":
         df_original = loaded_data.copy()  
-        loaded_data.dropna(inplace=True)
+        loaded_data.dropna(subset=columns_to_process, inplace=True)
         deleted_rows = pd.concat([df_original, loaded_data]).drop_duplicates(keep=False)
         if deleted_rows.empty:
             messagebox.showinfo("No Rows Deleted", "No rows were deleted.")
@@ -133,19 +213,20 @@ def apply_preprocessing(option):
             show_deleted_button.grid(row=6, column=0, columnspan=2, pady=10)
 
     elif option in ["Fill with Mean", "Fill with Median", "Fill with Constant Value"]:
-        fill_na_values(option)
+        fill_na_values(option, columns_to_process)
 
     elif option == "Show rows with NaN":
-        show_nan_rows(loaded_data)
+        show_nan_rows(loaded_data[columns_to_process])
 
     display_data_in_treeview(loaded_data)
 
-def fill_na_values(method):
+def fill_na_values(method, columns):
     global loaded_data
-    columns_with_nan = loaded_data.columns[loaded_data.isna().any()].tolist()
+
+    columns_with_nan = [col for col in columns if loaded_data[col].isna().any()]
 
     if not columns_with_nan:
-        messagebox.showinfo("Info", "No columns with NaN values found.")
+        messagebox.showinfo("No NaN", "No columns with NaN values found in the selected Input and Output.")
         return
 
     if method == "Fill with Constant Value":
@@ -153,7 +234,7 @@ def fill_na_values(method):
         top.title("Fill NaN Values")
         top.lift()
 
-        ctk.CTkLabel(top, text="Enter constant values for the columns with NaN:").pack(pady=10)
+        ctk.CTkLabel(top, text="Enter constant values for the selected columns with NaN:").pack(pady=10)
 
         entries = {}
         
