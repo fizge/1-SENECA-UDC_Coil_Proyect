@@ -44,15 +44,13 @@ def open_files():
     )
     if file:  
         import_data(file)
+        file_path_entry.configure(state="normal")
         file_path_entry.delete(0, tk.END)
         file_path_entry.insert(0, file)
+        file_path_entry.configure(state="readonly")
 
-def create_label():
-    label_title = ctk.CTkLabel(v, text="LINEAR REGRESSION ANALYTICS", font=("Arial", 45, "bold"))
-    label_title.grid(row=0, column=0, columnspan=2, pady=20, sticky="ew")
-    
 def clear_table():
-    global input_select, output_select, selection_frame, original_window_size
+    global input_select, output_select, selection_frame, original_window_size, file_path_entry
     
     if tree is None:
         return
@@ -63,7 +61,12 @@ def clear_table():
         selection_frame.grid_forget()
         input_select = None
         output_select = None
-        v.geometry(original_window_size)  
+        v.geometry(original_window_size)
+
+    file_path_entry.configure(state="normal")
+    file_path_entry.delete(0, tk.END)
+    file_path_entry.insert(0, "No file selected")
+    file_path_entry.configure(state="readonly")
 
 def create_button():
     global file_path_entry
@@ -79,8 +82,9 @@ def create_button():
     file_path_entry = ctk.CTkEntry(button_frame, width=400, font=("Arial", 12))
     file_path_entry.grid(row=1, column=0, columnspan=2, padx=40, pady=10, sticky="ew")
     file_path_entry.insert(0, "No file selected")
+    file_path_entry.configure(state="readonly")
 
-    preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 14, 'bold'))
+    preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
     preprocess_label.grid(row=0, column=2, padx=(80, 10), pady=10, sticky="e")
 
     options = ["Remove rows with NaN", "Fill with Mean", "Fill with Median", 
@@ -90,8 +94,12 @@ def create_button():
     preprocess_menu = ctk.CTkOptionMenu(button_frame, variable=preprocess_var, values=options)
     preprocess_menu.grid(row=0, column=3, padx=(2, 5), pady=10, sticky="ew")
 
-    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing",font=("Arial", 16, "bold"),  width=190, height=50,command=lambda: apply_preprocessing(preprocess_var.get()))
+    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing",font=("Arial", 14, "bold"),  width=160, height=40,command=lambda: apply_preprocessing(preprocess_var.get()))
     apply_button.grid(row=1, column=3, padx=(5, 5), pady=10, sticky="ew")
+
+def create_label():
+    label_title = ctk.CTkLabel(v, text="LINEAR REGRESSION ANALYTICS", font=("Arial", 45, "bold"))
+    label_title.grid(row=0, column=0, columnspan=2, pady=20, sticky="ew")
 
 def import_data(file_path):
     global loaded_data, deleted_rows, show_deleted_button
@@ -259,7 +267,7 @@ def fill_na_values(method, columns):
         def apply_values():
             for column in columns_with_nan:
                 entry = entries[column]
-                if entry.get():
+                if entry.get():  
                     try:
                         constant_value = float(entry.get())
                         loaded_data[column] = loaded_data[column].fillna(constant_value)
