@@ -1,5 +1,5 @@
 import pandas as pd
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 from file_reader import read_csv_or_excel, read_sqlite
 import customtkinter as ctk
 
