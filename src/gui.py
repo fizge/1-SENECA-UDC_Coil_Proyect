@@ -15,6 +15,7 @@ selection_frame = None
 selected_input_column = None
 selected_output_column = None
 original_window_size = None
+file_path_entry = None
 
 def create_window():
     global v, original_window_size
@@ -32,6 +33,7 @@ def create_window():
     return v
 
 def open_files():
+    global file_path_entry
     file = filedialog.askopenfilename(
             title="Open",
             filetypes=(("CSV Files","*.csv"),
@@ -41,7 +43,9 @@ def open_files():
                        ("DB Files","*.db"))
     )
     if file:  
-        import_data(file) 
+        import_data(file)
+        file_path_entry.delete(0, tk.END)
+        file_path_entry.insert(0, file)
 
 def create_label():
     label_title = ctk.CTkLabel(v, text="LINEAR REGRESSION ANALYTICS", font=("Arial", 45, "bold"))
@@ -62,6 +66,7 @@ def clear_table():
         v.geometry(original_window_size)  
 
 def create_button():
+    global file_path_entry
     button_frame = ctk.CTkFrame(v)  
     button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
 
@@ -70,6 +75,10 @@ def create_button():
    
     open_button.grid(row=0, column=0, padx=(40,5), pady=5, sticky="ew")
     clear_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+
+    file_path_entry = ctk.CTkEntry(button_frame, width=400, font=("Arial", 12))
+    file_path_entry.grid(row=1, column=0, columnspan=2, padx=40, pady=10, sticky="ew")
+    file_path_entry.insert(0, "No file selected")
 
     preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 14, 'bold'))
     preprocess_label.grid(row=0, column=2, padx=(80, 10), pady=10, sticky="e")
@@ -81,9 +90,8 @@ def create_button():
     preprocess_menu = ctk.CTkOptionMenu(button_frame, variable=preprocess_var, values=options)
     preprocess_menu.grid(row=0, column=3, padx=(2, 5), pady=10, sticky="ew")
 
-    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing",font=("Arial", 14, "bold"),  width=160, height=40,command=lambda: apply_preprocessing(preprocess_var.get()))
-    apply_button.grid(row=0, column=4, padx=(5, 5), pady=10, sticky="ew")
-
+    apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing",font=("Arial", 16, "bold"),  width=190, height=50,command=lambda: apply_preprocessing(preprocess_var.get()))
+    apply_button.grid(row=1, column=3, padx=(5, 5), pady=10, sticky="ew")
 
 def import_data(file_path):
     global loaded_data, deleted_rows, show_deleted_button
@@ -170,7 +178,6 @@ def add_input_output_buttons(columns):
 def confirm_selections():
     global selected_input_column, selected_output_column
     
-    
     selected_input_column = input_select.get()
     selected_output_column = output_select.get()
     
@@ -252,7 +259,7 @@ def fill_na_values(method, columns):
         def apply_values():
             for column in columns_with_nan:
                 entry = entries[column]
-                if entry.get():  
+                if entry.get():
                     try:
                         constant_value = float(entry.get())
                         loaded_data[column] = loaded_data[column].fillna(constant_value)
