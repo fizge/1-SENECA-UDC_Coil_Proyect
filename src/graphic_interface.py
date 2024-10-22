@@ -33,8 +33,13 @@ def create_window():
 
 def open_files():
     file = filedialog.askopenfilename(
-        title="Open",
-        filetypes=[("CSV Files", ".csv"), ("Excel Files", ".xlsx ; .xls"), ("SQLite Files", ".sqlite ;*.db")])
+            title="Open",
+            filetypes=(("CSV Files","*.csv"),
+                       ("Excel Files","*.xlsx"),
+                       ("Excel Files","*.xls"),
+                       ("SQLite Files","*.sqlite"),
+                       ("DB Files","*.db"))
+    )
     if file:  
         import_data(file) 
 
