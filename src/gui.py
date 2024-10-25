@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
 import customtkinter as ctk
 import pandas as pd
-from file_reader import read_csv_or_excel, read_sqlite
 from data_processing import DataProcessing
 
 class DataViewerApp:
@@ -26,8 +25,8 @@ class DataViewerApp:
         ctk.set_default_color_theme("blue")
         
         self.v = ctk.CTk()  
-        self.v.title("Data Viewer")
-        self.original_window_size = "1000x500"
+        self.v.title("LINEAR REGRESION ANALYTICS")
+        self.original_window_size = "1000x200"
         self.v.geometry(self.original_window_size)
         
         self.v.grid_rowconfigure(0, weight=1)
@@ -41,8 +40,7 @@ class DataViewerApp:
                 filetypes=(("CSV Files","*.csv"),
                            ("Excel Files","*.xlsx"),
                            ("Excel Files","*.xls"),
-                           ("SQLite Files","*.sqlite"),
-                           ("DB Files","*.db"))
+                           ("SQLite Files","*.sqlite ; *.db"))
         )
         if file:  
             self.data_processing.import_data(file)
@@ -70,7 +68,7 @@ class DataViewerApp:
 
     def create_button(self):
         button_frame = ctk.CTkFrame(self.v)  
-        button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+        button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
         open_button = ctk.CTkButton(button_frame, text="Open File", font=("Arial", 15, "bold"), width=140, height=40, command=self.open_files)
         clear_button = ctk.CTkButton(button_frame, text="Clear", font=("Arial", 15, "bold"), width=140, height=40, command=self.clear_table)
@@ -97,16 +95,4 @@ class DataViewerApp:
                                       command=lambda: self.data_processing.apply_preprocessing(preprocess_var.get()))
         apply_button.grid(row=1, column=3, padx=(5, 5), pady=10, sticky="ew")
 
-    def create_label(self):
-        label_title = ctk.CTkLabel(self.v, text="LINEAR REGRESSION ANALYTICS", font=("Arial", 45, "bold"))
-        label_title.grid(row=0, column=0, columnspan=2, pady=20, sticky="ew")
 
-    def main(self):
-        self.create_window()
-        self.create_label()
-        self.create_button()
-        self.v.mainloop()
-
-if __name__ == "__main__":
-    app = DataViewerApp()
-    app.main()

@@ -1,22 +1,24 @@
 import pandas as pd
 from tkinter import messagebox, ttk
-from file_reader import read_csv_or_excel, read_sqlite
+from file_reader import FileReader  # Importar la clase FileReader
 import customtkinter as ctk
 
 class DataProcessing:
     def __init__(self, app):
         self.app = app
-        self.tree_frame = None  # Define tree_frame as an attribute
+        self.tree_frame = None  
+        self.file_reader = FileReader()  # Instanciar FileReader
 
     def import_data(self, file_path):
         self.app.deleted_rows = None  
         if self.app.show_deleted_button:
             self.app.show_deleted_button.grid_forget()
         
+        # Usar FileReader para cargar datos según la extensión del archivo
         if file_path.endswith(('.csv', '.xlsx', '.xls')):
-            self.app.loaded_data = read_csv_or_excel(file_path)
+            self.app.loaded_data = self.file_reader.read_csv_or_excel(file_path)
         elif file_path.endswith(('.sqlite', '.db')):
-            self.app.loaded_data = read_sqlite(file_path)
+            self.app.loaded_data = self.file_reader.read_sqlite(file_path)
         
         if self.app.loaded_data is not None:
             self.detect_nan(self.app.loaded_data)
