@@ -9,7 +9,8 @@ class DataViewerApp:
         self.v = None  
         self.tree = None  
         self.loaded_data = None  
-        self.deleted_rows = None  
+        self.deleted_rows = None
+        self.open_button = None  
         self.show_deleted_button = None  
         self.input_select = None
         self.output_select = None
@@ -26,7 +27,7 @@ class DataViewerApp:
         
         self.v = ctk.CTk()  
         self.v.title("LINEAR REGRESION ANALYTICS")
-        self.original_window_size = "1000x200"
+        self.original_window_size = "1000x150"
         self.v.geometry(self.original_window_size)
         
         self.v.grid_rowconfigure(0, weight=1)
@@ -37,10 +38,10 @@ class DataViewerApp:
     def open_files(self):
         file = filedialog.askopenfilename(
                 title="Open",
-                filetypes=(("CSV Files","*.csv"),
+                filetypes=[("CSV Files","*.csv"),
                            ("Excel Files","*.xlsx"),
                            ("Excel Files","*.xls"),
-                           ("SQLite Files","*.sqlite ; *.db"))
+                           ("SQLite Files","*.sqlite ; *.db")]
         )
         if file:  
             self.data_processing.import_data(file)
@@ -48,6 +49,7 @@ class DataViewerApp:
             self.file_path_entry.delete(0, tk.END)
             self.file_path_entry.insert(0, file)
             self.file_path_entry.configure(state="readonly")
+        self.open_button.configure(text="Clear", command=self.clear_table)
 
     def clear_table(self):
         if self.tree is None:
@@ -65,34 +67,23 @@ class DataViewerApp:
         self.file_path_entry.delete(0, tk.END)
         self.file_path_entry.insert(0, "No file selected")
         self.file_path_entry.configure(state="readonly")
+        self.open_button.configure(text="Open File", command=self.open_files)
 
     def create_button(self):
         button_frame = ctk.CTkFrame(self.v)  
         button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
+        button_frame.grid_columnconfigure(0, weight=1)
 
-        open_button = ctk.CTkButton(button_frame, text="Open File", font=("Arial", 15, "bold"), width=140, height=40, command=self.open_files)
-        clear_button = ctk.CTkButton(button_frame, text="Clear", font=("Arial", 15, "bold"), width=140, height=40, command=self.clear_table)
-       
-        open_button.grid(row=0, column=0, padx=(40,5), pady=5, sticky="ew")
-        clear_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
-
-        self.file_path_entry = ctk.CTkEntry(button_frame, width=400, font=("Arial", 12))
-        self.file_path_entry.grid(row=1, column=0, columnspan=2, padx=40, pady=10, sticky="ew")
+        self.open_button = ctk.CTkButton(button_frame, text="Open File", font=("Arial", 20, "bold"), width=140, height=40, command=self.open_files)
+        self.open_button.grid(row=0, column=0,columnspan =10, padx=250, pady=20, sticky="ew")
+        
+        path_label = ctk.CTkLabel(button_frame, text="Path:", font=("Arial", 18, 'bold'))
+        path_label.grid(row=1, column=0, padx=250, pady=10, sticky="w")
+        
+        self.file_path_entry = ctk.CTkEntry(button_frame, width=1000, font=("Arial", 12))
+        self.file_path_entry.grid(row=1, column=0, columnspan=4, padx=310, pady=10, )
         self.file_path_entry.insert(0, "No file selected")
         self.file_path_entry.configure(state="readonly")
 
-        preprocess_label = ctk.CTkLabel(button_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
-        preprocess_label.grid(row=0, column=2, padx=(80, 10), pady=10, sticky="e")
-
-        options = ["Remove rows with NaN", "Fill with Mean", "Fill with Median", 
-                   "Fill with Constant Value", "Show rows with NaN"]
-
-        preprocess_var = ctk.StringVar(value=options[0])
-        preprocess_menu = ctk.CTkOptionMenu(button_frame, variable=preprocess_var, values=options)
-        preprocess_menu.grid(row=0, column=3, padx=(2, 5), pady=10, sticky="ew")
-
-        apply_button = ctk.CTkButton(button_frame, text="Apply Preprocessing", font=("Arial", 14, "bold"),  width=160, height=40,
-                                      command=lambda: self.data_processing.apply_preprocessing(preprocess_var.get()))
-        apply_button.grid(row=1, column=3, padx=(5, 5), pady=10, sticky="ew")
-
+        
 

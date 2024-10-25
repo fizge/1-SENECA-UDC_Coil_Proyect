@@ -21,17 +21,9 @@ class DataProcessing:
             self.app.loaded_data = self.file_reader.read_sqlite(file_path)
         
         if self.app.loaded_data is not None:
-            self.detect_nan(self.app.loaded_data)
             self.display_data_in_treeview(self.app.loaded_data)
 
-    def detect_nan(self, data):
-        nan_info = data.isna().sum()
-        nan_cols = nan_info[nan_info > 0]
-        if not nan_cols.empty:
-            messagebox.showinfo("Missing Values", f"NaN detected in: \n{nan_cols}")
-        else:
-            messagebox.showinfo("No Missing Values", "There are no missing values in the data.")
-
+   
     def display_data_in_treeview(self, data):
         # Use self.tree_frame instead of a local variable
         if self.app.tree is None:
@@ -60,34 +52,50 @@ class DataProcessing:
         self.tree_frame.grid_rowconfigure(0, weight=1)  
         self.tree_frame.grid_columnconfigure(0, weight=1)
         
-        self.add_input_output_buttons(data.columns)
+        # Llamar a options_selection después de actualizar el Treeview
+        self.options_selection(data.columns)
 
-    def add_input_output_buttons(self, columns):
+    def options_selection(self, columns):
         if self.app.selection_frame is not None:
             self.app.selection_frame.grid_forget()
         
         self.app.selection_frame = ctk.CTkFrame(self.app.v)
         self.app.selection_frame.grid(row=3, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
 
-        self.app.v.geometry("1000x700")
+        self.app.v.geometry("1000x580")
+
+        preprocess_label = ctk.CTkLabel(self.app.selection_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
+        preprocess_label.grid(row=0, column=2, padx=(80, 10), pady=10, sticky="e")
+
+        options = ["Remove rows with NaN", "Fill with Mean", "Fill with Median", 
+                   "Fill with Constant Value", "Show rows with NaN"]
+
+        preprocess_var = ctk.StringVar(value=options[0])
+        preprocess_menu = ctk.CTkOptionMenu(self.app.selection_frame, variable=preprocess_var, values=options)
+        preprocess_menu.grid(row=0, column=3, padx=(2, 5), pady=10, sticky="ew")
+
+        apply_button = ctk.CTkButton(self.app.selection_frame, text="Apply Preprocessing", font=("Arial", 14, "bold"),  width=160, height=40,
+                                      command=lambda: self.apply_preprocessing(preprocess_var.get()))
+        apply_button.grid(row=0, column=4, padx=(5, 5), pady=10, sticky="ew")
+
 
         input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
-        input_label.grid(row=0, column=4, padx=10, pady=10, sticky="e")
+        input_label.grid(row=1, column=4, padx=10, pady=10, sticky="e")
         
         self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=list(columns))
-        self.app.input_select.grid(row=0, column=5, padx=10, pady=10, sticky="ew")
+        self.app.input_select.grid(row=1, column=5, padx=10, pady=10, sticky="ew")
 
         output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
-        output_label.grid(row=1, column=4, padx=10, pady=10, sticky="e")
+        output_label.grid(row=2, column=4, padx=10, pady=10, sticky="e")
         
         self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=list(columns))
-        self.app.output_select.grid(row=1, column=5, padx=10, pady=10, sticky="ew")
+        self.app.output_select.grid(row=2, column=5, padx=10, pady=10, sticky="ew")
 
         generate_button = ctk.CTkButton(self.app.selection_frame, text="Generate model", font=("Arial", 24, "bold"), width=290, height=80, command=self.generate_model)
-        generate_button.grid(row=0, column=0, columnspan=3, rowspan=2, padx=(40, 140), pady=10, sticky="ew")
+        generate_button.grid(row=1, column=0, columnspan=3, rowspan=2, padx=(40, 140), pady=10, sticky="ew")
         
         confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 15, "bold"), width=70, height=80, command=self.confirm_selections)
-        confirm_button.grid(row=0, column=6, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
+        confirm_button.grid(row=1, column=6, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
 
     def confirm_selections(self):
         self.app.selected_input_column = self.app.input_select.get()
@@ -213,7 +221,7 @@ class DataProcessing:
         treeview.pack(fill="both", expand=True)
         
         treeview["columns"] = list(df.columns)
-        treeview["show"] = "headings"
+        treeview["show"] = 'headings'
         
         for col in treeview["columns"]:
             treeview.heading(col, text=col)
