@@ -1,8 +1,9 @@
+
 import pandas as pd
 from tkinter import messagebox, ttk
 from file_reader import FileReader
+from modeling import Modeling
 import customtkinter as ctk
-
 
 class DataProcessing:
     def __init__(self, app):
@@ -17,6 +18,7 @@ class DataProcessing:
         self.option_frame = None
         self.generate_frame = None
         self.file_reader = FileReader()
+        self.modeling = Modeling(self.app)
 
     def import_data(self, file_path):
         self.app.deleted_rows = None
@@ -125,7 +127,7 @@ class DataProcessing:
                             padx=(20, 10), pady=10, sticky="ew")
 
         self.generate_button = ctk.CTkButton(self.generate_frame, text="Generate model", font=(
-            "Arial", 24, "bold"), width=290, height=80, command=self.generate_model)
+            "Arial", 24, "bold"), width=290, height=80, command=self.modeling.generate_model)
 
     def confirm_selections(self):
         self.app.selected_input_column = self.app.input_select.get()
@@ -149,10 +151,6 @@ class DataProcessing:
             row=3, column=2, padx=(20, 0), pady=10, sticky="ew")
         self.fill_constant_button.grid(
             row=3, column=3, padx=(20, 0), pady=10, sticky="ew")
-
-    def generate_model(self):
-        messagebox.showinfo(
-            "Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
 
     def apply_preprocessing(self, option):
         if self.app.selected_input_column not in self.app.loaded_data.columns or self.app.selected_output_column not in self.app.loaded_data.columns:
