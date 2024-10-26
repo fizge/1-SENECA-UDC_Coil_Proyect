@@ -1,4 +1,4 @@
-from gui import DataViewerApp
+from GUI import DataViewerApp
 
 if __name__ == "__main__":
     app = DataViewerApp()
