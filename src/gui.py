@@ -27,7 +27,7 @@ class DataViewerApp:
 
         self.v = ctk.CTk()
         self.v.title("LINEAR REGRESION ANALYTICS")
-        self.original_window_size = "1000x150"
+        self.original_window_size = "1000x150+0+0"
         self.v.geometry(self.original_window_size)
 
         self.v.grid_rowconfigure(0, weight=1)
@@ -39,10 +39,7 @@ class DataViewerApp:
 
         file = filedialog.askopenfilename(
             title="Open",
-            filetypes=[("CSV Files", "*.csv"),
-                       ("Excel Files", "*.xlsx"),
-                       ("Excel Files", "*.xls"),
-                       ("SQLite Files", "*.sqlite ; *.db")]
+            filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
         )
         if file:
             self.data_processing.import_data(file)

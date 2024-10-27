@@ -55,9 +55,8 @@ class Modeling:
         if self.v2 is None or not self.v2.winfo_exists():
             self.v2 = ctk.CTkToplevel(self.app.v)
             self.v2.title("Modeling Results")
-            self.v2.geometry("900x600")
+            self.v2.geometry("600x400")
             self.v2.configure(bg="#2B2B2B")
-            self.v2.minsize(900, 600)
             self.v2.grid_rowconfigure(0, weight=1)
             self.v2.grid_columnconfigure(0, weight=1)
             self.v2.grid_columnconfigure(1, weight=1)
@@ -89,16 +88,16 @@ class Modeling:
         buttons_frame.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
 
         graph_button = ctk.CTkButton(buttons_frame, text="Graphic", command=lambda: self.plot_regression_plot(X, y, predictions),
-                                     font=("Arial", 14, 'bold'), width=120, height=40, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        graph_button.grid(row=0, column=1, pady=20, padx=10, sticky="e")
+                                     font=("Arial", 14, 'bold'), width=160, height=60, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
+        graph_button.grid(row=0, column=1, pady=20, padx=10, sticky="ew")
 
         back_button = ctk.CTkButton(buttons_frame, text="Back", command=self.go_back_to_v,
-                                    font=("Arial", 14, 'bold'), width=120, height=40, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        back_button.grid(row=0, column=0, pady=20, padx=10, sticky="w")
+                                    font=("Arial", 14, 'bold'), width=160, height=60, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
+        back_button.grid(row=0, column=0, pady=20, padx=20, sticky="ew")
 
         # Espacio para la gráfica al lado de los botones
         self.plot_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        self.plot_frame.grid(row=0, column=1, rowspan=2, padx=20, pady=20, sticky="nsew")
+        
 
         for i in range(3):
             labels_frame.grid_rowconfigure(i, weight=0)
@@ -109,6 +108,8 @@ class Modeling:
             self.app.v.deiconify()  # Mostrar v de nuevo
 
     def plot_regression_plot(self, X, y, predictions):
+        self.v2.geometry("1200x600")
+        self.plot_frame.grid(row=0, column=1, rowspan=2, padx=20, pady=20, sticky="nsew")
         fig = self.create_regression_plot(X, y, predictions)
         self.embed_plot_in_frame(fig)
 
