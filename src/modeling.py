@@ -15,10 +15,6 @@ class Modeling:
     def generate_model(self):
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
 
-        if not self.app.selected_input_column or not self.app.selected_output_column:
-            messagebox.showerror("Error", "You must confirm Input and Output selections before generating the model.")
-            return
-
         if self.app.loaded_data is None:
             messagebox.showerror("Error", "No data loaded.")
             return
