@@ -20,6 +20,7 @@ class DataProcessing:
         self.modeling = Modeling(self.app)
         self.input_columns = []
         self.output_columns = []
+        self.original_data = None
 
     def import_data(self, file_path):
         self.app.deleted_rows = None
@@ -29,6 +30,9 @@ class DataProcessing:
             self.app.loaded_data = self.file_reader.read_sqlite(file_path)
 
         if self.app.loaded_data is not None:
+            if self.original_data is None:
+                self.original_data = self.app.loaded_data.copy()
+            
             self.display_data_in_treeview(self.app.loaded_data)
 
     def display_data_in_treeview(self, data):
@@ -53,7 +57,7 @@ class DataProcessing:
 
         for col in self.app.tree['columns']:
             self.app.tree.heading(col, text=col)
-            self.app.tree.column(col, width=150)
+            self.app.tree.column(col, width=190,stretch=False)
 
         self.app.tree.tag_configure('oddrow', background='#333333', foreground='white')
         self.app.tree.tag_configure('evenrow', background='#2B2B2B', foreground='white')
@@ -136,14 +140,11 @@ class DataProcessing:
         self.generate_button.grid(row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
 
     def apply_preprocessing(self, option):
-        if self.app.selected_input_column not in self.app.loaded_data.columns or self.app.selected_output_column not in self.app.loaded_data.columns:
-            messagebox.showerror("Error", "One or more selected columns no longer exist in the dataset.")
-            return
-
+      
         columns_to_process = [self.app.selected_input_column, self.app.selected_output_column]
 
         if option == "Remove rows with NaN":
-            df_original = self.app.loaded_data.copy()
+            df_original = self.original_data.copy()
             self.app.loaded_data.dropna(subset=columns_to_process, inplace=True)
             self.app.deleted_rows = pd.concat([df_original, self.app.loaded_data]).drop_duplicates(keep=False)
             if self.app.deleted_rows.empty:
@@ -157,7 +158,7 @@ class DataProcessing:
         self.app.v.geometry("1000x780+0+0")
 
     def fill_na_values(self, method, columns):
-        columns_with_nan = [col for col in columns if self.app.loaded_data[col].isna().any()]
+        columns_with_nan = [col for col in columns if self.original_data.copy()[col].isna().any()]
 
         if not columns_with_nan:
             messagebox.showinfo("No NaN", "No columns with NaN values found in the selected Input and Output.")
