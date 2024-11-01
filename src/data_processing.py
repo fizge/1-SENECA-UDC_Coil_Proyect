@@ -149,8 +149,7 @@ class DataProcessing:
             self.app.deleted_rows = pd.concat([df_original, self.app.loaded_data]).drop_duplicates(keep=False)
             if self.app.deleted_rows.empty:
                 messagebox.showinfo("No Rows Deleted", "No rows were deleted.")
-            else:
-                messagebox.showinfo("Success", "Rows with NaN have been deleted.")
+            
         elif option in ["Fill with Mean", "Fill with Median", "Fill with Constant Value"]:
             self.fill_na_values(option, columns_to_process)
 
@@ -158,11 +157,14 @@ class DataProcessing:
         self.app.v.geometry("1000x780+0+0")
 
     def fill_na_values(self, method, columns):
+
         columns_with_nan = [col for col in columns if self.original_data.copy()[col].isna().any()]
 
         if not columns_with_nan:
             messagebox.showinfo("No NaN", "No columns with NaN values found in the selected Input and Output.")
             return
+
+        button_to_change = None  # Variable para almacenar qué botón se va a cambiar de color
 
         if method == "Fill with Constant Value":
             top = ctk.CTkToplevel(self.app.v)
@@ -181,20 +183,22 @@ class DataProcessing:
                 entries[column] = entry
 
             def apply_values():
-                for column in columns_with_nan:
-                    entry = entries[column]
-                    if entry.get():
-                        try:
+                try:
+                    for column in columns_with_nan:
+                        entry = entries[column]
+                        if entry.get():
                             constant_value = float(entry.get())
                             self.app.loaded_data[column] = self.app.loaded_data[column].fillna(constant_value)
-                            messagebox.showinfo("Success", f"NaN values in '{column}' filled with: {constant_value}")
-                        except ValueError:
-                            messagebox.showerror("Error", f"Invalid numeric value for '{column}'.")
-                            return
-
-                top.grab_release()
-                top.destroy()
-                self.display_data_in_treeview(self.app.loaded_data)
+                            
+                            button_to_change = self.fill_constant_button  # Botón a cambiar
+                    top.grab_release()
+                    top.destroy()
+                    self.display_data_in_treeview(self.app.loaded_data)
+                    if button_to_change:
+                        button_to_change.configure(fg_color="green")  # Cambiar color a verde
+                except ValueError:
+                    messagebox.showerror("Error", "Invalid numeric value entered.")
+                    return
 
             ctk.CTkButton(top, text="Apply", command=apply_values).pack(pady=10)
             top.protocol("WM_DELETE_WINDOW", lambda: (top.grab_release(), top.destroy()))
@@ -203,11 +207,16 @@ class DataProcessing:
                 if method == "Fill with Mean":
                     value = self.app.loaded_data[column].mean()
                     self.app.loaded_data[column] = self.app.loaded_data[column].fillna(value)
-                    messagebox.showinfo("Success", f"NaN values in '{column}' filled with mean: {value:.2f}")
+                    
+                    button_to_change = self.fill_mean_button  # Botón a cambiar
                 elif method == "Fill with Median":
                     value = self.app.loaded_data[column].median()
                     self.app.loaded_data[column] = self.app.loaded_data[column].fillna(value)
-                    messagebox.showinfo("Success", f"NaN values in '{column}' filled with median: {value:.2f}")
+                    
+                    button_to_change = self.fill_median_button  # Botón a cambiar
 
-        self.display_data_in_treeview(self.app.loaded_data)
+            self.display_data_in_treeview(self.app.loaded_data)
+            if button_to_change:
+                button_to_change.configure(fg_color="green")  # Cambiar color a verde
+
         self.app.v.geometry("1000x780+0+0")
