@@ -6,28 +6,47 @@ from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-
 class Modeling:
+    """
+    A class responsible for building and displaying a linear regression model within a Tkinter GUI application.
+    
+    Attributes:
+    ----------
+    app : object
+        The main application instance that holds the GUI components and data.
+    graphic_frame : ctk.CTkFrame
+        The frame where the model's results and regression plot are displayed.
+    """
+
     def __init__(self, app):
+        """
+        Initializes the Modeling class with the given application instance.
+        
+        Parameters:
+        ----------
+        app : object
+            The main application instance containing the loaded data and GUI components.
+        """
         self.app = app
-        self.v2 = None  # Definir v2 como None hasta que se cree
+        self.graphic_frame = None
 
     def generate_model(self):
+        """
+        Generates a linear regression model using the selected input and output columns from the loaded data.
+        
+        Displays:
+        --------
+        - A message box indicating the start of model generation.
+        - An error message if non-numeric columns are selected.
+        - The formula, R² score, and MSE of the trained model within a custom Tkinter frame.
+        """
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
-
-        if self.app.loaded_data is None:
-            messagebox.showerror("Error", "No data loaded.")
-            return
-
-        if self.app.selected_input_column not in self.app.loaded_data.columns or self.app.selected_output_column not in self.app.loaded_data.columns:
-            messagebox.showerror("Error", "Selected columns do not exist in the loaded data.")
-            return
 
         X = self.app.loaded_data[[self.app.selected_input_column]]
         y = self.app.loaded_data[self.app.selected_output_column]
 
-        if self.app.selected_input_column == 'ocean_proximity' or self.app.selected_output_column == 'ocean_proximity':
-            messagebox.showerror("Error", "Cannot use 'ocean_proximity' as input or output variable. Please select a numeric variable.")
+        if not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_output_column]):
+            messagebox.showerror("Error", "Selected input or output column contains non-numeric data. Please select numeric columns.")
             return
 
         try:
@@ -40,87 +59,83 @@ class Modeling:
 
             formula = f"{self.app.selected_output_column} = ({model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({model.intercept_:.4f})"
 
-            self.create_v2_window()
+            if self.graphic_frame is not None:
+                self.graphic_frame.destroy()
 
-            self.show_model_results(formula, r_squared, mse, X, y, predictions)
+            self.graphic_frame = ctk.CTkFrame(self.app.v)
+            self.graphic_frame.grid(row=0, column=1, rowspan=8, padx=20, pady=20, sticky="nsew")
+
+            formula_label = ctk.CTkLabel(self.graphic_frame, text=f"Model Formula:\n\n{formula}", font=("Arial", 18, 'bold'), text_color="white")
+            formula_label.pack(pady=30, padx=10, anchor="w")
+
+            r_squared_label = ctk.CTkLabel(self.graphic_frame, text=f"R²: {r_squared:.4f}", font=("Arial", 14, 'bold'), text_color="white")
+            r_squared_label.pack(pady=5, padx=10, anchor="w")
+
+            mse_label = ctk.CTkLabel(self.graphic_frame, text=f"MSE: {mse:.4f}", font=("Arial", 14, 'bold'), text_color="white")
+            mse_label.pack(pady=5, padx=10, anchor="w")
+
+            self.plot_regression_plot(X, y, predictions, self.graphic_frame)
 
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while generating the model: {e}")
 
-    def create_v2_window(self):
-        if self.v2 is None or not self.v2.winfo_exists():
-            self.v2 = ctk.CTkToplevel(self.app.v)
-            self.v2.title("Modeling Results")
-            self.v2.geometry("600x400")
-            self.v2.configure(bg="#2B2B2B")
-            self.v2.grid_rowconfigure(0, weight=1)
-            self.v2.grid_columnconfigure(0, weight=1)
-            self.v2.grid_columnconfigure(1, weight=1)
-            self.app.v.withdraw()  # Cerrar v
+    def plot_regression_plot(self, X, y, predictions, parent_frame):
+        """
+        Creates a regression plot and embeds it into the specified parent frame.
 
-        else:
-            self.v2.lift()
-
-    def show_model_results(self, formula, r_squared, mse, X, y, predictions):
-        # Crear un marco para los labels de resultados
-        labels_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        labels_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
-
-        # Labels en negrita
-        formula_label = ctk.CTkLabel(labels_frame, text=f"Model Formula:\n\n{formula}",
-                                     font=("Arial", 16, 'bold'), text_color="white", justify="left")
-        formula_label.grid(row=0, column=0, pady=15, padx=20, sticky="w")
-
-        r_squared_label = ctk.CTkLabel(labels_frame, text=f"R²: {r_squared:.4f}",
-                                       font=("Arial", 14, 'bold'), text_color="white")
-        r_squared_label.grid(row=1, column=0, pady=10, padx=20, sticky="w")
-
-        mse_label = ctk.CTkLabel(labels_frame, text=f"MSE: {mse:.4f}",
-                                 font=("Arial", 14, 'bold'), text_color="white")
-        mse_label.grid(row=2, column=0, pady=10, padx=20, sticky="w")
-
-        # Botones ajustados
-        buttons_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        buttons_frame.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
-
-        graph_button = ctk.CTkButton(buttons_frame, text="Graphic", command=lambda: self.plot_regression_plot(X, y, predictions),
-                                     font=("Arial", 14, 'bold'), width=160, height=60, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        graph_button.grid(row=0, column=1, pady=20, padx=10, sticky="ew")
-
-        back_button = ctk.CTkButton(buttons_frame, text="Back", command=self.go_back_to_v,
-                                    font=("Arial", 14, 'bold'), width=160, height=60, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        back_button.grid(row=0, column=0, pady=20, padx=20, sticky="ew")
-
-        # Espacio para la gráfica al lado de los botones
-        self.plot_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        
-
-        for i in range(3):
-            labels_frame.grid_rowconfigure(i, weight=0)
-
-    def go_back_to_v(self):
-        if self.v2:
-            self.v2.destroy()  # Cerrar v2
-            self.app.v.deiconify()  # Mostrar v de nuevo
-
-    def plot_regression_plot(self, X, y, predictions):
-        self.v2.geometry("1200x600")
-        self.plot_frame.grid(row=0, column=1, rowspan=2, padx=20, pady=20, sticky="nsew")
+        Parameters:
+        ----------
+        X : pd.DataFrame
+            The input features used in the regression model.
+        y : pd.Series
+            The target output used in the regression model.
+        predictions : np.ndarray
+            The predicted values from the regression model.
+        parent_frame : ctk.CTkFrame
+            The frame where the plot will be embedded.
+        """
         fig = self.create_regression_plot(X, y, predictions)
-        self.embed_plot_in_frame(fig)
+        self.embed_plot_in_frame(fig, parent_frame)
 
     def create_regression_plot(self, X, y, predictions):
+        """
+        Generates a matplotlib figure showing the actual data points and the regression line.
+
+        Parameters:
+        ----------
+        X : pd.DataFrame
+            The input features used in the regression model.
+        y : pd.Series
+            The target output used in the regression model.
+        predictions : np.ndarray
+            The predicted values from the regression model.
+        
+        Returns:
+        -------
+        matplotlib.figure.Figure
+            A matplotlib figure with the regression plot.
+        """
         fig, ax = plt.subplots(figsize=(8, 7))
-        ax.scatter(X, y, color='blue', label='Datos reales')
-        ax.plot(X, predictions, color='red', label='Línea de regresión')
-        ax.set_title('Regresión Lineal', fontsize=14, color='white')
+        ax.scatter(X, y, color='blue', label='Actual Data')
+        ax.plot(X, predictions, color='red', label='Regression Line')
+        ax.set_title('Linear Regression', fontsize=14, color='white')
         ax.set_xlabel(self.app.selected_input_column, fontsize=12, color='white')
         ax.set_ylabel(self.app.selected_output_column, fontsize=12, color='white')
         ax.legend()
         return fig
 
-    def embed_plot_in_frame(self, fig):
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+    def embed_plot_in_frame(self, fig, frame):
+        """
+        Embeds a matplotlib plot into a given custom Tkinter frame.
+
+        Parameters:
+        ----------
+        fig : matplotlib.figure.Figure
+            The matplotlib figure to be embedded.
+        frame : ctk.CTkFrame
+            The frame where the plot will be displayed.
+        """
+        canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-        plt.close(fig)  # Cerrar la ventana de matplotlib para evitar que se mantenga abierta
+        canvas.get_tk_widget().pack(padx=10, pady=10, fill="both", expand=True)
+        plt.close(fig)

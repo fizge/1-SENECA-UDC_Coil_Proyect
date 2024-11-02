@@ -9,6 +9,7 @@ class DataViewerApp:
     def __init__(self):
         self.v = None
         self.tree = None
+        self.button_frame = None
         self.loaded_data = None
         self.deleted_rows = None
         self.open_button = None
@@ -27,7 +28,7 @@ class DataViewerApp:
 
         self.v = ctk.CTk()
         self.v.title("LINEAR REGRESION ANALYTICS")
-        self.original_window_size = "1000x100+0+0"
+        self.original_window_size = "1000x80+0+0"
         self.v.geometry(self.original_window_size)
 
         self.v.grid_rowconfigure(0, weight=1)
@@ -72,21 +73,21 @@ class DataViewerApp:
         self.file_path_entry.configure(state="readonly")
 
     def create_button(self):
-        button_frame = ctk.CTkFrame(self.v)
-        button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
-        button_frame.grid_columnconfigure(0, weight=0)  
-        button_frame.grid_columnconfigure(1, weight=1)  
-        button_frame.grid_columnconfigure(2, weight=0)  
+        self.button_frame = ctk.CTkFrame(self.v)
+        self.button_frame .grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
+        self.button_frame .grid_columnconfigure(0, weight=0)  
+        self.button_frame .grid_columnconfigure(1, weight=1)  
+        self.button_frame .grid_columnconfigure(2, weight=0)  
 
-        path_label = ctk.CTkLabel(button_frame, text="Path:", font=("Arial", 18, 'bold'))
+        path_label = ctk.CTkLabel(self.button_frame, text="Path:", font=("Arial", 18, 'bold'))
         path_label.grid(row=0, column=0, padx=(40, 10), pady=10, sticky="w")
 
-        self.file_path_entry = ctk.CTkEntry(button_frame, width=100, font=("Arial", 12))
+        self.file_path_entry = ctk.CTkEntry(self.button_frame, width=100, font=("Arial", 12))
         self.file_path_entry.grid(row=0, column=1, padx=(0, 10), pady=10, sticky="ew")
         self.file_path_entry.insert(0, "No file selected")
         self.file_path_entry.configure(state="readonly")
 
-        self.open_button = ctk.CTkButton(button_frame, text="Open File", font=("Arial", 20, "bold"),
+        self.open_button = ctk.CTkButton(self.button_frame, text="Open File", font=("Arial", 20, "bold"),
                                         width=140, height=40, command=self.open_files)
         self.open_button.grid(row=0, column=2, padx=(10, 40), pady=10, sticky="e")
 
