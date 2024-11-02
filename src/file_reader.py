@@ -1,3 +1,5 @@
+
+
 import pandas as pd
 import sqlite3
 import os
@@ -36,6 +38,7 @@ def read_sqlite(db_path):
         return None
     except pd.errors.EmptyDataError:
         return None
+
 
 
 
