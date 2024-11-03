@@ -1,40 +1,84 @@
 import pandas as pd
-from tkinter import messagebox
-import customtkinter as ctk
 import tkinter as tk
+from tkinter import *
+from tkinter import messagebox,ttk
+import customtkinter as ctk
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter.scrolledtext import ScrolledText
-
-
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
-
-
 class Modeling:
+    """
+    A class responsible for building and displaying a linear regression model within a Tkinter GUI application.
+    
+    Attributes:
+    ----------
+    app : object
+        The main application instance that holds the GUI components and data.
+    graphic_frame : ctk.CTkFrame
+        The frame where the model's results and regression plot are displayed.
+    """
+
     def __init__(self, app):
+        """
+        Initializes the Modeling class with the given application instance.
+        
+        Parameters:
+        ----------
+        app : object
+            The main application instance containing the loaded data and GUI components.
+        """
         self.app = app
-        self.v2 = None  # Definir v2 como None hasta que se cree
+        self.graphic_frame = None
         self.descripcion_texto = None  ###aqui creo la instancia
+        
+    
+                    
 
+
+    def guardar_archivo(self):
+        
+        descripcion = self.descripcion_texto.get("1.0", "end").strip() 
+        if not descripcion:
+            messagebox.showwarning("Advertencia", "No has escrito nada.")
+            return 
+
+        archivo = asksaveasfilename(defaultextension=".txt", 
+                                    filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        if archivo:
+            ###Guardar la descripción en un archivo de texto
+            with open(archivo, "w") as file:
+                file.write(self.descripcion_texto.get("1.0", "end"))
+                
+    def clear_placeholder(self, event):
+        if self.descripcion_texto.get("1.0", "end-1c") == "Escribe la descripción del modelo aquí...":
+            self.descripcion_texto.delete("1.0", "end")
+
+    def restore_placeholder(self, event):
+        if not self.descripcion_texto.get("1.0", "end-1c").strip():
+            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
+
+                
     def generate_model(self):
+        """
+        Generates a linear regression model using the selected input and output columns from the loaded data.
+        
+        Displays:
+        --------
+        - A message box indicating the start of model generation.
+        - An error message if non-numeric columns are selected.
+        - The formula, R² score, and MSE of the trained model within a custom Tkinter frame.
+        """
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
-
-        if self.app.loaded_data is None:
-            messagebox.showerror("Error", "No data loaded.")
-            return
-
-        if self.app.selected_input_column not in self.app.loaded_data.columns or self.app.selected_output_column not in self.app.loaded_data.columns:
-            messagebox.showerror("Error", "Selected columns do not exist in the loaded data.")
-            return
 
         X = self.app.loaded_data[[self.app.selected_input_column]]
         y = self.app.loaded_data[self.app.selected_output_column]
 
-        if self.app.selected_input_column == 'ocean_proximity' or self.app.selected_output_column == 'ocean_proximity':
-            messagebox.showerror("Error", "Cannot use 'ocean_proximity' as input or output variable. Please select a numeric variable.")
+        if not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_output_column]):
+            messagebox.showerror("Error", "Selected input or output column contains non-numeric data. Please select numeric columns.")
             return
 
         try:
@@ -47,179 +91,121 @@ class Modeling:
 
             formula = f"{self.app.selected_output_column} = ({model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({model.intercept_:.4f})"
 
-            self.create_v2_window()
+            
+            if hasattr(self, 'graphic_frame') and self.graphic_frame is not None:
+                self.graphic_frame.destroy()
+        
+            self.graphic_frame = ctk.CTkFrame(self.app.v)
+            self.graphic_frame.grid(row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
+            
+            mycanvas = tk.Canvas(self.graphic_frame)
+            mycanvas.grid(row=0, column=0, sticky="nsew")  
 
-            self.show_model_results(formula, r_squared, mse, X, y, predictions)
+            ###Crear el Scrollbar 
+            yscrollbar = tk.Scrollbar(self.graphic_frame, orient="vertical", command=mycanvas.yview)
+            yscrollbar.grid(row=0, column=1, sticky="ns") 
+            mycanvas.configure(yscrollcommand=yscrollbar.set)
+            
+            xscrollbar = tk.Scrollbar(self.graphic_frame, orient="horizontal", command=mycanvas.xview)
+            xscrollbar.grid(row=1, column=0, sticky="ew")  
+            mycanvas.configure(xscrollcommand=xscrollbar.set)
+
+          
+            myframe = tk.Frame(mycanvas)
+            mycanvas.create_window((0, 0), window=myframe, anchor="nw")
+            myframe.bind("<Configure>", lambda e: mycanvas.configure(scrollregion=mycanvas.bbox('all')))
+
+            ###Asegura de que el marco gráfico expanda el canvas
+            self.graphic_frame.columnconfigure(0, weight=1)  
+            self.graphic_frame.rowconfigure(0, weight=1)  
+
+            
+            formula_label = ctk.CTkLabel(myframe, text=f"Model Formula:\n\n{formula}", font=("Arial", 10, 'bold'), text_color="black")
+            formula_label.pack(pady=30, padx=10, anchor="w")
+
+            r_squared_label = ctk.CTkLabel(myframe, text=f"R²: {r_squared:.4f}", font=("Arial", 10, 'bold'), text_color="black")
+            r_squared_label.pack(pady=5, padx=10, anchor="w")
+
+            mse_label = ctk.CTkLabel(myframe, text=f"MSE: {mse:.4f}", font=("Arial", 10, 'bold'), text_color="black")
+            mse_label.pack(pady=5, padx=10, anchor="w")
+
+       ### añade el recuadro de texto
+            self.descripcion_texto = ScrolledText(myframe, wrap="word", width=10, height=10)
+            self.descripcion_texto.pack(expand=True, fill="both", padx=10, pady=10)
+            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
+
+            ###configura los eventos para el texto de marcador de posición
+            self.descripcion_texto.bind("<FocusIn>", self.clear_placeholder)
+            self.descripcion_texto.bind("<FocusOut>", self.restore_placeholder)
+
+            save_button = ctk.CTkButton(myframe, text="SAVE text", command=self.guardar_archivo,
+                                        font=("Arial", 10, 'bold'), width=20, height=20, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
+            save_button.pack(pady=10, padx=10)
+
+            
+            self.plot_regression_plot(X, y, predictions, myframe)
 
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while generating the model: {e}")
 
+    def plot_regression_plot(self, X, y, predictions, parent_frame):
+        """
+        Creates a regression plot and embeds it into the specified parent frame.
 
-
-
-
-## he cambiado solo esta parte 
-
-    def create_v2_window(self):
-        if self.v2 is None or not self.v2.winfo_exists():
-            self.v2 = ctk.CTkToplevel(self.app.v)
-            self.v2.title("Modeling Results")
-            self.v2.geometry("800x500")
-            self.v2.configure(bg="#2B2B2B")
-            self.v2.grid_rowconfigure(0, weight=1)
-            self.v2.grid_columnconfigure(0, weight=1)
-            self.v2.grid_columnconfigure(1, weight=1)
-            self.app.v.withdraw()  # Cerrar v
-
-             ###agregar área de texto para la descripción del modelo
-            self.descripcion_texto = ScrolledText(self.v2,wrap="word")
-            self.descripcion_texto.pack(expand="True",fill="both")
-            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
-
-           ## le indica al usuario donde escribir , y al pinchar le deja espacio 
-            self.descripcion_texto.bind("<FocusIn>", self.clear_placeholder)
-            self.descripcion_texto.bind("<FocusOut>", self.restore_placeholder)
-            self.descripcion_texto.grid(row=2, column=0, columnspan=2, padx=20, pady=10, sticky="nsew")
-
-        else:
-            self.v2.lift()
-            
-    def clear_placeholder(self, event):
-        if self.descripcion_texto.get("1.0", "end-1c") == "Escribe la descripción del modelo aquí...":
-            self.descripcion_texto.delete("1.0", "end")
-
-    def restore_placeholder(self, event):
-        if not self.descripcion_texto.get("1.0", "end-1c").strip():
-            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
-
-
-
-    def abrir_archivo(self):
-        archivo = askopenfilename()
-        if archivo:
-            self.descripcion_texto.delete("1.0", "end")
-            with open(archivo, "r") as file:
-                self.descripcion_texto.insert("1.0", file.read())
-
-
-    def guardar_archivo(self):
-       
-        descripcion = self.descripcion_texto.get("1.0", "end").strip() 
-        if not descripcion:
-            messagebox.showwarning("Advertencia", "No has escrito nada.")
-            return 
-
-        archivo = asksaveasfilename(defaultextension=".txt", 
-                                    filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
-        if archivo:
-            # Guardar la descripción en un archivo de texto
-            with open(archivo, "w") as file:
-                file.write(self.descripcion_texto.get("1.0", "end"))
-
-            
-
-
-## no tocadao
-
-    def show_model_results(self, formula, r_squared, mse, X, y, predictions):
-        # Crear un marco para los labels de resultados
-        labels_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        labels_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
-
-        # Labels en negrita
-        formula_label = ctk.CTkLabel(labels_frame, text=f"Model Formula:\n\n{formula}",
-                                     font=("Arial", 16, 'bold'), text_color="white", justify="left")
-        formula_label.grid(row=0, column=0, pady=15, padx=20, sticky="w")
-
-        r_squared_label = ctk.CTkLabel(labels_frame, text=f"R²: {r_squared:.4f}",
-                                       font=("Arial", 14, 'bold'), text_color="white")
-        r_squared_label.grid(row=1, column=0, pady=10, padx=20, sticky="w")
-
-        mse_label = ctk.CTkLabel(labels_frame, text=f"MSE: {mse:.4f}",
-                                 font=("Arial", 14, 'bold'), text_color="white")
-        mse_label.grid(row=2, column=0, pady=10, padx=20, sticky="w")
-
-        # Botones ajustados
-        buttons_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-        buttons_frame.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
-
-
-
-
-##### BOTONES PARA GUARDAR Y ABRIR ARCHIVOS DE TEXTO 
-
-        graph_button = ctk.CTkButton(buttons_frame, text="Graphic", command=lambda: self.plot_regression_plot(X, y, predictions),
-                                     font=("Arial", 14, 'bold'), width=30, height=30, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        graph_button.grid(row=0, column=1, pady=20, padx=10, sticky="ew")
-
-        back_button = ctk.CTkButton(buttons_frame, text="Back", command=self.go_back_to_v,
-                                    font=("Arial", 14, 'bold'), width=30, height=30, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        back_button.grid(row=0, column=4, pady=20, padx=20, sticky="ew")
-### añadido 
-
-        save_button = ctk.CTkButton(buttons_frame, text="SAVE text", command=self.guardar_archivo,
-                                    font=("Arial", 14, 'bold'), width=30, height=30, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        save_button.grid(row=0, column=3, pady=20, padx=20, sticky="ew")
-
-        OPEN_button = ctk.CTkButton(buttons_frame, text="OPEN text", command=self.abrir_archivo,
-                                    font=("Arial", 14, 'bold'), width=30, height=30, fg_color="#1976D2", hover_color="#1565C0", corner_radius=10)
-        OPEN_button.grid(row=0, column=2, pady=20, padx=20, sticky="ew")
-
-## no tocado 
-        # Espacio para la gráfica al lado de los botones
-        self.plot_frame = ctk.CTkFrame(self.v2, fg_color="#333333", corner_radius=15)
-
-        for i in range(3):
-            labels_frame.grid_rowconfigure(i, weight=0)
-
-    def go_back_to_v(self):
-        if self.v2:
-            self.v2.destroy()  # Cerrar v2
-            self.app.v.deiconify()  # Mostrar v de nuevo
-
-    def plot_regression_plot(self, X, y, predictions):
-        self.v2.geometry("1200x600")
-        self.plot_frame.grid(row=0, column=1, rowspan=2, padx=10, pady=10, sticky="nsew")
+        Parameters:
+        ----------
+        X : pd.DataFrame
+            The input features used in the regression model.
+        y : pd.Series
+            The target output used in the regression model.
+        predictions : np.ndarray
+            The predicted values from the regression model.
+        parent_frame : ctk.CTkFrame
+            The frame where the plot will be embedded.
+        """
         fig = self.create_regression_plot(X, y, predictions)
-        self.embed_plot_in_frame(fig)
-        
+        self.embed_plot_in_frame(fig, parent_frame)
 
     def create_regression_plot(self, X, y, predictions):
-        fig, ax = plt.subplots(figsize=(8,7))
-        ax.scatter(X, y, color='blue', label='Datos reales')
-        ax.plot(X, predictions, color='red', label='Línea de regresión')
-        ax.set_title('Regresión Lineal', fontsize=9)
-        ax.set_xlabel(self.app.selected_input_column, fontsize=9)
-        ax.set_ylabel(self.app.selected_output_column, fontsize=9)
-        ax.legend()
+        """
+        Generates a matplotlib figure showing the actual data points and the regression line.
+
+        Parameters:
+        ----------
+        X : pd.DataFrame
+            The input features used in the regression model.
+        y : pd.Series
+            The target output used in the regression model.
+        predictions : np.ndarray
+            The predicted values from the regression model.
         
+        Returns:
+        -------
+        matplotlib.figure.Figure
+            A matplotlib figure with the regression plot.
+        """
+        fig, ax = plt.subplots(figsize=(2, 2))
+        ax.scatter(X, y, color='blue', label='Actual Data')
+        ax.plot(X, predictions, color='red', label='Regression Line')
+        ax.set_title('Linear Regression', fontsize=10, color='black')
+        ax.set_xlabel(self.app.selected_input_column, fontsize=10, color='black')
+        ax.set_ylabel(self.app.selected_output_column, fontsize=10, color='black')
+        ax.legend()
         return fig
 
+    def embed_plot_in_frame(self, fig, frame):
+        """
+        Embeds a matplotlib plot into a given custom Tkinter frame.
 
-    def Pembed_plot_in_frame(self, fig):
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+        Parameters:
+        ----------
+        fig : matplotlib.figure.Figure
+            The matplotlib figure to be embedded.
+        frame : ctk.CTkFrame
+            The frame where the plot will be displayed.
+        """
+        fig.set_size_inches(7, 6)
+        canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-        plt.close(fig)  
-    
-
-## cambiado 
-
-    def embed_plot_in_frame(self, fig): ### mostrar la grafica en el canva , aunque no doy hecho que se muestre la variable del eje y 
-       
-        frame_width = self.plot_frame.winfo_width()
-        frame_height = self.plot_frame.winfo_height()
-        
-        
-        dpi = fig.get_dpi()  # Obtener los DPI de la figura
-        fig.set_size_inches(frame_width / dpi, frame_height / dpi)  
-
-        
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
-        canvas.draw()
-
-        
-        canvas.get_tk_widget().grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-        self.plot_frame.grid_rowconfigure(0, weight=1)
-        self.plot_frame.grid_columnconfigure(0, weight=1)
+        canvas.get_tk_widget().pack(padx=20, pady=20,fill="both", expand=True)
         plt.close(fig)
