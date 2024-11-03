@@ -18,4 +18,19 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 
 ## Contributing to Trackr
 
+To contribute, please contact the creator of Trackr through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
+
+### Guidelines
+**Contribution Process**:
+  1. Fork the repository.
+  2. Create a new branch for your feature or bug fix.
+  3. Make any changes, then commit.
+  4. Submit a pull request.
+
+### Reporting Issues
+If you find a bug or want to suggest a feature, please open an issue [here](https://github.com/fizge/1-SENECA-UDC_Coil_Proyect/issues/new).
+
+### Documentation
+Please update documentation as needed.
+
 ## Acknowledgements 
