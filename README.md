@@ -8,9 +8,9 @@ Open File button: Opens a dialog box to retrieve the user data file for analysis
 
 ## System Requirements
 | Operating system | Requirements |
-| ---------------- | -------------|
+| ---------------- | -------------            |
 | Windows          | *Intel Core i3 or higher |
-| Mac              |              |
+| Mac              | *Window XP or higher     |
 ## Installation Instructions
 
 ## Using Trackr
