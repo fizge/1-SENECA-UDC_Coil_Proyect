@@ -7,12 +7,10 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 Open File button: Opens a dialog box to retrieve the user data file for analysis.
 
 ## System Requirements
-| Operating system | Requirements          |
-| ---------------- | ----------------------|         
-| Windows          | *Window XP or higher  |
-|                  | *Intel Core i3+       |
-|------------------|---------------------- |
-| Mac              | *MacOS 10.15 or higher|
+| Operating system | Requirements |
+| ---------------- | -------------            |
+| Windows          | *Windows XP or higher    |
+| Mac              | *Mac OS 11 or higher     |
 
 ## Installation Instructions
 
