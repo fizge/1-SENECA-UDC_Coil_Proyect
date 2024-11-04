@@ -2,9 +2,9 @@
 
 ## Overview
 Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. 
-##What is AI? 
-##What is Linear Regression? 
-##How does Trakr use Linear Regression and AI? 
+## What is AI? 
+## What is Linear Regression? 
+## How does Trakr use Linear Regression and AI? 
 ### Features
 
 | Feature                | Description                                                                                         |
