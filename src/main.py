@@ -1,5 +1,5 @@
 
-from GUI import DataViewerApp
+from gui import DataViewerApp
 
 if __name__ == "__main__":
     app = DataViewerApp()

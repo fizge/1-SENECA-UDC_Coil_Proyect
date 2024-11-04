@@ -4,7 +4,6 @@ import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
 
-
 class DataViewerApp:
     def __init__(self):
         self.v = None
@@ -21,6 +20,7 @@ class DataViewerApp:
         self.original_window_size = None
         self.file_path_entry = None
         self.data_processing = DataProcessing(self)
+        self.save_model_button = None  # El botón no se crea al inicio
 
     def create_window(self):
         ctk.set_appearance_mode("Dark")
@@ -37,7 +37,6 @@ class DataViewerApp:
         return self.v
 
     def open_files(self):
-
         file = filedialog.askopenfilename(
             title="Open",
             filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
@@ -74,10 +73,10 @@ class DataViewerApp:
 
     def create_button(self):
         self.button_frame = ctk.CTkFrame(self.v)
-        self.button_frame .grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
-        self.button_frame .grid_columnconfigure(0, weight=0)  
-        self.button_frame .grid_columnconfigure(1, weight=1)  
-        self.button_frame .grid_columnconfigure(2, weight=0)  
+        self.button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
+        self.button_frame.grid_columnconfigure(0, weight=0)  
+        self.button_frame.grid_columnconfigure(1, weight=1)  
+        self.button_frame.grid_columnconfigure(2, weight=0)  
 
         path_label = ctk.CTkLabel(self.button_frame, text="Path:", font=("Arial", 18, 'bold'))
         path_label.grid(row=0, column=0, padx=(40, 10), pady=10, sticky="w")
@@ -88,6 +87,5 @@ class DataViewerApp:
         self.file_path_entry.configure(state="readonly")
 
         self.open_button = ctk.CTkButton(self.button_frame, text="Open File", font=("Arial", 20, "bold"),
-                                        width=140, height=40, command=self.open_files)
+                                         width=140, height=40, command=self.open_files)
         self.open_button.grid(row=0, column=2, padx=(10, 40), pady=10, sticky="e")
-
