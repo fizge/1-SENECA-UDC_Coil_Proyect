@@ -261,7 +261,7 @@ class DataProcessing:
         self.modeling.generate_model()
         if self.modeling.graphic_frame is not None:
             self.app.v.geometry("1500x680+0+0")
-            self.app.v.grid_columnconfigure(0, weight=3, uniform="column")
+            self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 
             self.app.button_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
