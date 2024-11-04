@@ -4,12 +4,6 @@
 Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. 
 
 ### Features
-**Open File button:** Opens a dialog box to retrieve the user data file for analysis.<br>
-**Open File:** Opens file explorer dialog.<br>
-**Select Input:** Selects independent variables that predict your outcome<br>
-**Select Output:** Selects dependent variables in relation to the input.<br>
-**Confirm Selections:** Generates the data once input and output selected. A dialog appears when this button is selected.<br>
-**Generate model:** Creates linear regression chart and the model formula.
 
 | Feature                | Description                                                                                         |
 | ----------------       | -------------                                                                                       |
