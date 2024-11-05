@@ -5,11 +5,12 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 
 ### What is AI? 
 
+
 ### What is Linear Regression? 
 Linear regression is a method in data science and machine learning that helps predict future outcomes by finding a straight-line relationship between two variables. The independent variable is the known data, and the dependent variable is what we want to predict. This method can be used to make informed guesses about things like sales, age, housing prices, and product costs.
 
 ### How does Trackr use Linear Regression and AI? 
-Trackr is designed to help users easily create and work with linear regression models, enabling businesses to predict profits based on previous data without requiring technical expertise. 
+Trackr allows users to effortlessly create and work with linear regression models, helping businesses predict profits using past data. By uploading an existing spreadsheet to Trackr, users can quickly generate a linear regression model, while AI enhances the results by delivering actionable insights. This process requires minimal effort and no advanced technical knowledge, making data-driven predictions accessible to everyone.
 
 ### Features
 
