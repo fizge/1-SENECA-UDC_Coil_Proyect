@@ -57,27 +57,27 @@ class Modeling:
             self.graphic_frame = ctk.CTkFrame(self.app.v)
             self.graphic_frame.grid(row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
 
-            formula_label = ctk.CTkLabel(self.graphic_frame, text=f"Model Formula:\n\n{formula}", font=("Arial", 10, 'bold'), text_color="blue")
-            formula_label.pack(pady=30, padx=10, anchor="w")
+            formula_label = ctk.CTkLabel(self.graphic_frame, text=f"Model Formula:\n\n{formula}", font=("Arial", 14, 'bold'), text_color="white")
+            formula_label.grid(row=0, column=0, columnspan=3, padx=10, pady=(20, 10), sticky="w")
 
-            r_squared_label = ctk.CTkLabel(self.graphic_frame, text=f"R²: {self.r_squared:.4f}", font=("Arial", 10, 'bold'), text_color="green")
-            r_squared_label.pack(pady=5, padx=10, anchor="w")
+            r_squared_label = ctk.CTkLabel(self.graphic_frame, text=f"R²: {self.r_squared:.4f}", font=("Arial", 12, 'bold'), text_color="white")
+            r_squared_label.grid(row=1, column=0, padx=(10, 20), pady=(5, 0), sticky="w")
 
-            mse_label = ctk.CTkLabel(self.graphic_frame, text=f"MSE: {self.mse:.4f}", font=("Arial", 10, 'bold'), text_color="red")
-            mse_label.pack(pady=5, padx=10, anchor="w")
+            mse_label = ctk.CTkLabel(self.graphic_frame, text=f"MSE: {self.mse:.4f}", font=("Arial", 12, 'bold'), text_color="white")
+            mse_label.grid(row=1, column=1, padx=10, pady=(5, 0), sticky="w")
 
-            self.description_text = ScrolledText(self.graphic_frame, wrap="word", width=10, height=10)
-            self.description_text.pack(expand=True, fill="both", padx=10, pady=10)
+            self.description_text = ScrolledText(self.graphic_frame, wrap="word", width=25, height=5, font=("Arial", 12))
+            self.description_text.grid(row=2, column=0, columnspan=3, padx=10, pady=(10, 20), sticky="ew")
             self.description_text.insert("1.0", "Write the model description here...")
 
             self.description_text.bind("<FocusIn>", self.clear_placeholder)
             self.description_text.bind("<FocusOut>", self.restore_placeholder)
 
             self.app.save_model_button = ctk.CTkButton(
-                self.app.button_frame, text="Save Model", font=("Arial", 20, "bold"),
+                self.graphic_frame, text="Save Model", font=("Arial", 20, "bold"),
                 width=140, height=40, command=self.save_file
             )
-            self.app.save_model_button.grid(row=0, column=3, padx=(10, 40), pady=10, sticky="e")
+            self.app.save_model_button.grid(row=3, column=0, columnspan=3, padx=10, pady=(10, 0), sticky="nse")
 
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
 
@@ -89,7 +89,7 @@ class Modeling:
         self.embed_plot_in_frame(fig, parent_frame)
 
     def create_regression_plot(self, X, y, predictions):
-        fig, ax = plt.subplots(figsize=(2, 2))
+        fig, ax = plt.subplots(figsize=(6, 4))  # Adjusted size for better visibility
         ax.scatter(X, y, color='blue', label='Actual Data')
         ax.plot(X, predictions, color='red', label='Regression Line')
         ax.set_title('Linear Regression', fontsize=10, color='black')
@@ -99,8 +99,7 @@ class Modeling:
         return fig
 
     def embed_plot_in_frame(self, fig, frame):
-        fig.set_size_inches(7, 6)
         canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().pack(padx=20, pady=20, fill="both", expand=True)
+        canvas.get_tk_widget().grid(padx=20, pady=20, sticky="nse")  # Removed fill option
         plt.close(fig)
