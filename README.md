@@ -3,6 +3,8 @@
 ## Overview
 Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. 
 
+The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions.  Trackr can be of use to make other industry-specific predictions from users of different professions, such as e-commerce and education.
+
 ### What is AI? 
 
 
