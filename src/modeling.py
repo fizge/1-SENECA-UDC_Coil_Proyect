@@ -89,7 +89,7 @@ class Modeling:
         self.embed_plot_in_frame(fig, parent_frame)
 
     def create_regression_plot(self, X, y, predictions):
-        fig, ax = plt.subplots(figsize=(6, 4))  # Adjusted size for better visibility
+        fig, ax = plt.subplots(figsize=(7, 5))  # Adjusted size for better visibility
         ax.scatter(X, y, color='blue', label='Actual Data')
         ax.plot(X, predictions, color='red', label='Regression Line')
         ax.set_title('Linear Regression', fontsize=10, color='black')
