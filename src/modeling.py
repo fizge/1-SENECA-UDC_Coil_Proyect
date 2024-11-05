@@ -6,30 +6,30 @@ from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter.scrolledtext import ScrolledText
-from save_model import save_model_to_file  # Importar la función de guardado
+from save_model import SaveModel
 
 class Modeling:
     def __init__(self, app):
         self.app = app
         self.graphic_frame = None
-        self.descripcion_texto = None  # Instancia para la descripción
-        self.model = None  # Asegurarse de que el modelo esté inicializado
+        self.description_text = None
+        self.model = None
 
-    def guardar_archivo(self):
-        # Usar la función de guardado existente con integración de descripción
-        descripcion = self.descripcion_texto.get("1.0", "end").strip()
-        if not descripcion:
-            messagebox.showwarning("Advertencia", "No has escrito nada en la descripción.")
+    def save_file(self):
+        description = self.description_text.get("1.0", "end").strip()
+        if not description:
+            messagebox.showwarning("Warning", "You have not written anything in the description.")
             return
-        save_model_to_file(self, descripcion)  # Pasar la descripción para guardarla junto al modelo
+        saver = SaveModel(self.model, self.app.selected_input_column, self.app.selected_output_column, self.r_squared, self.mse, description)
+        saver.save_model()
 
     def clear_placeholder(self, event):
-        if self.descripcion_texto.get("1.0", "end-1c") == "Escribe la descripción del modelo aquí...":
-            self.descripcion_texto.delete("1.0", "end")
+        if self.description_text.get("1.0", "end-1c") == "Write the model description here...":
+            self.description_text.delete("1.0", "end")
 
     def restore_placeholder(self, event):
-        if not self.descripcion_texto.get("1.0", "end-1c").strip():
-            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
+        if not self.description_text.get("1.0", "end-1c").strip():
+            self.description_text.insert("1.0", "Write the model description here...")
 
     def generate_model(self):
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
@@ -42,8 +42,7 @@ class Modeling:
             return
 
         try:
-            # Crear y entrenar el modelo de regresión lineal
-            self.model = LinearRegression()  # Inicializar y usar self.model
+            self.model = LinearRegression()
             self.model.fit(X, y)
             predictions = self.model.predict(X)
 
@@ -67,18 +66,16 @@ class Modeling:
             mse_label = ctk.CTkLabel(self.graphic_frame, text=f"MSE: {self.mse:.4f}", font=("Arial", 10, 'bold'), text_color="red")
             mse_label.pack(pady=5, padx=10, anchor="w")
 
-            # Añadir el cuadro de texto para la descripción
-            self.descripcion_texto = ScrolledText(self.graphic_frame, wrap="word", width=10, height=10)
-            self.descripcion_texto.pack(expand=True, fill="both", padx=10, pady=10)
-            self.descripcion_texto.insert("1.0", "Escribe la descripción del modelo aquí...")
+            self.description_text = ScrolledText(self.graphic_frame, wrap="word", width=10, height=10)
+            self.description_text.pack(expand=True, fill="both", padx=10, pady=10)
+            self.description_text.insert("1.0", "Write the model description here...")
 
-            self.descripcion_texto.bind("<FocusIn>", self.clear_placeholder)
-            self.descripcion_texto.bind("<FocusOut>", self.restore_placeholder)
+            self.description_text.bind("<FocusIn>", self.clear_placeholder)
+            self.description_text.bind("<FocusOut>", self.restore_placeholder)
 
-            # Botón de guardar modelo con descripción
             self.app.save_model_button = ctk.CTkButton(
                 self.app.button_frame, text="Save Model", font=("Arial", 20, "bold"),
-                width=140, height=40, command=self.guardar_archivo
+                width=140, height=40, command=self.save_file
             )
             self.app.save_model_button.grid(row=0, column=3, padx=(10, 40), pady=10, sticky="e")
 

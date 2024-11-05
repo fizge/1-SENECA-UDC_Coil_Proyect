@@ -3,7 +3,7 @@ from tkinter import filedialog, ttk, messagebox
 import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
-from save_model import save_model_to_file  # Importar la nueva función de guardado
+
 
 class DataViewerApp:
     def __init__(self):
@@ -21,7 +21,7 @@ class DataViewerApp:
         self.original_window_size = None
         self.file_path_entry = None
         self.data_processing = DataProcessing(self)
-        self.save_model_button = None  # El botón se crea al generar el modelo
+        self.save_model_button = None
 
     def create_window(self):
         ctk.set_appearance_mode("Dark")
