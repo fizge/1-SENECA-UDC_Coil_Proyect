@@ -16,11 +16,23 @@ class Modeling:
         self.model = None
 
     def save_file(self):
+        # Get the text from the description
         description = self.description_text.get("1.0", "end").strip()
-        if not description:
+        
+        # Check if the description is empty or contains the default placeholder text
+        if not description or description == "Write the model description here...":
             messagebox.showwarning("Warning", "You have not written anything in the description.")
             return
-        saver = SaveModel(self.model, self.app.selected_input_column, self.app.selected_output_column, self.r_squared, self.mse, description)
+        
+        # If there is a description, proceed to save the model
+        saver = SaveModel(
+            self.model,
+            self.app.selected_input_column,
+            self.app.selected_output_column,
+            self.r_squared,
+            self.mse,
+            description
+        )
         saver.save_model()
 
     def clear_placeholder(self, event):
@@ -38,7 +50,7 @@ class Modeling:
         y = self.app.loaded_data[self.app.selected_output_column]
 
         if not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_output_column]):
-            messagebox.showerror("Error", "Selected input or output column contains non-numeric data. Please select numeric columns.")
+            messagebox.showerror("Error", "The selected input or output column contains non-numeric data. Please select numeric columns.")
             return
 
         try:
