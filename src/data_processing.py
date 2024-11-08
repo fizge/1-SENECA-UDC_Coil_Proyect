@@ -33,7 +33,11 @@ class DataProcessing:
                 self.original_data = self.app.loaded_data.copy()
             
             self.display_data_in_treeview(self.app.loaded_data)
+<<<<<<< HEAD
             self.app.v.geometry("1000x450+0+0")
+=======
+            self.app.v.geometry("1000x450+200+0")
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
 
     def display_data_in_treeview(self, data):
         if self.app.tree is None:
@@ -52,7 +56,11 @@ class DataProcessing:
 
         style = ttk.Style()
         style.theme_use('clam')
+<<<<<<< HEAD
         style.configure("Treeview.Heading", background="#2B2B2B", foreground="white", font=("Arial", 10, 'bold'))
+=======
+        style.configure("Treeview.Heading", background="#2B2B2B", foreground="white", font=("Arial", 12, 'bold'))
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
 
         for col in self.app.tree['columns']:
             self.app.tree.heading(col, text=col)
@@ -88,6 +96,7 @@ class DataProcessing:
         else:
             self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
 
+<<<<<<< HEAD
         self.preprocess_label = ctk.CTkLabel(self.option_frame, text="Preprocessing Options:", font=("Arial", 20, 'bold'))
 
         self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=("Arial", 14, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
@@ -96,21 +105,42 @@ class DataProcessing:
         self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=("Arial", 14, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
 
         input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
+=======
+        self.preprocess_label = ctk.CTkLabel(self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
+
+        self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
+        self.fill_mean_button = ctk.CTkButton(self.option_frame, text="Fill with Mean", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Mean"))
+        self.fill_median_button = ctk.CTkButton(self.option_frame, text="Fill with Median", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Median"))
+        self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
+
+        input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 12, 'bold'))
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
         input_label.grid(row=0, column=2, padx=10, pady=10, sticky="e")
 
         self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.input_columns, command=self.update_output_options)
         self.app.input_select.grid(row=0, column=3, padx=10, pady=10, sticky="ew")
 
+<<<<<<< HEAD
         output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
+=======
+        output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 12, 'bold'))
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
         output_label.grid(row=1, column=2, padx=10, pady=10, sticky="e")
 
         self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.output_columns, command=self.update_input_options)
         self.app.output_select.grid(row=1, column=3, padx=10, pady=10, sticky="ew")
 
+<<<<<<< HEAD
         confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 15, "bold"), width=70, height=80, command=self.confirm_selections)
         confirm_button.grid(row=0, column=4, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
 
         self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=("Arial", 24, "bold"), height=70, width=150, command=self.regression_model)
+=======
+        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 12, "bold"), width=50, height=40, command=self.confirm_selections)
+        confirm_button.grid(row=0, column=4, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
+
+        self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=("Arial", 12, "bold"), height=50, width=40, command=self.regression_model)
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
 
         if self.input_columns and self.output_columns:
             self.app.input_select.set(self.input_columns[0])
@@ -140,7 +170,11 @@ class DataProcessing:
         messagebox.showinfo("Selections Confirmed", f"Input Column: {self.app.selected_input_column}\nOutput Column: {self.app.selected_output_column}")
 
         if self.modeling.graphic_frame is None:
+<<<<<<< HEAD
             self.app.v.geometry("1000x680+0+0")
+=======
+            self.app.v.geometry("1000x680+200+0")
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
             self.option_frame.grid_columnconfigure(0, weight=1, uniform="column")
             self.option_frame.grid_columnconfigure(1, weight=1, uniform="column")
             self.option_frame.grid_columnconfigure(2, weight=1, uniform="column")
@@ -177,7 +211,11 @@ class DataProcessing:
             self.fill_na_values(option, columns_to_process)
 
         if self.modeling.graphic_frame is None:
+<<<<<<< HEAD
             self.app.v.geometry("1000x680+0+0")
+=======
+            self.app.v.geometry("1000x680+200+0")
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
 
     def fill_na_values(self, method, columns):
         self.app.loaded_data = self.original_data.copy()
@@ -261,7 +299,11 @@ class DataProcessing:
         self.modeling.generate_model()
         if self.modeling.graphic_frame is not None:
             self.app.v.geometry("1500x680+0+0")
+<<<<<<< HEAD
             self.app.v.grid_columnconfigure(0, weight=3, uniform="column")
+=======
+            self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 
             self.app.button_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
@@ -273,4 +315,8 @@ class DataProcessing:
             self.fill_mean_button.grid(row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
             self.fill_median_button.grid(row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
             self.fill_constant_button.grid(row=3, column=3, padx=(15, 15), pady=10, sticky="ew")
+<<<<<<< HEAD
             self.generate_button.grid(row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
+=======
+            self.generate_button.grid(row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
+>>>>>>> 4401017a10d067efc8aff415882839f216330e95
