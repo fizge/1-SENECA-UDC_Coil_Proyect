@@ -177,7 +177,7 @@ class DataProcessing:
             self.fill_na_values(option, columns_to_process)
 
         if self.modeling.graphic_frame is None:
-            self.app.v.geometry("1000x680+0+0")
+            self.app.v.geometry("1000x680+200+0")
 
     def fill_na_values(self, method, columns):
         self.app.loaded_data = self.original_data.copy()
