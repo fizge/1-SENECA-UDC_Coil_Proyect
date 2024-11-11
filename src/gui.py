@@ -4,7 +4,6 @@ import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
 
-
 class DataViewerApp:
     def __init__(self):
         self.v = None
@@ -48,30 +47,7 @@ class DataViewerApp:
             self.file_path_entry.delete(0, tk.END)
             self.file_path_entry.insert(0, file)
             self.file_path_entry.configure(state="readonly")
-        self.open_button.grid_forget()
-        self.file_path_entry.grid(padx=(0, 200))
-
-    def clear_table(self):
-        if self.tree is None:
-            return
-
-        self.tree.delete(*self.tree.get_children())
-
-        if self.selection_frame is not None:
-            self.selection_frame.grid_forget()
-            self.input_select = None
-            self.output_select = None
-            self.v.geometry(self.original_window_size)
-        if self.data_processing.generate_frame is not None:
-            self.data_processing.generate_frame.grid_forget()
-        if self.data_processing.option_frame is not None:
-            self.data_processing.option_frame.grid_forget()
-
-        self.file_path_entry.configure(state="normal")
-        self.file_path_entry.delete(0, tk.END)
-        self.file_path_entry.insert(0, "No file selected")
-        self.file_path_entry.configure(state="readonly")
-
+    
     def create_button(self):
         self.button_frame = ctk.CTkFrame(self.v)
         self.button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
