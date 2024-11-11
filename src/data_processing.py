@@ -33,6 +33,10 @@ class DataProcessing:
                 self.original_data = self.app.loaded_data.copy()
             
             self.display_data_in_treeview(self.app.loaded_data)
+            if self.modeling.graphic_frame is not None:
+                  self.modeling.graphic_frame.grid_forget()
+            if self.option_frame is not None:
+                  self.option_frame.grid_forget()
             self.app.v.geometry("1000x450+0+0")
 
     def display_data_in_treeview(self, data):
@@ -96,19 +100,19 @@ class DataProcessing:
         self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=("Arial", 14, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
 
         input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
-        input_label.grid(row=0, column=2, padx=10, pady=10, sticky="e")
+        input_label.grid(row=0, column=2, padx=(30,10), pady=10, sticky="e")
 
         self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.input_columns, command=self.update_output_options)
         self.app.input_select.grid(row=0, column=3, padx=10, pady=10, sticky="ew")
 
         output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
-        output_label.grid(row=1, column=2, padx=10, pady=10, sticky="e")
+        output_label.grid(row=1, column=2, padx=(30,10), pady=10, sticky="e")
 
         self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.output_columns, command=self.update_input_options)
         self.app.output_select.grid(row=1, column=3, padx=10, pady=10, sticky="ew")
 
-        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 15, "bold"), width=70, height=80, command=self.confirm_selections)
-        confirm_button.grid(row=0, column=4, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
+        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 15, "bold"), width=50, height=40, command=self.confirm_selections)
+        confirm_button.grid(row=0, column=4, rowspan=2, padx=(20, 10), pady=10, sticky="e")
 
         self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=("Arial", 24, "bold"), height=70, width=150, command=self.regression_model)
 
@@ -260,17 +264,25 @@ class DataProcessing:
     def regression_model(self):
         self.modeling.generate_model()
         if self.modeling.graphic_frame is not None:
-            self.app.v.geometry("1500x680+0+0")
-            self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
-            self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
+            self.app.v.geometry("1500x800+0+0")
+            self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
+            self.app.v.grid_columnconfigure(1, weight=1, uniform="column")
 
             self.app.button_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
             self.tree_frame.grid(row=3, column=0, columnspan=1, padx=10, pady=10, sticky="nsew")
             self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
             self.option_frame.grid(row=6, column=0, columnspan=1, pady=(10, 20), padx=10, sticky="ew")
             self.preprocess_label.grid(row=2, column=0, columnspan=4, padx=100, pady=10, sticky="nsew")
+
+            self.remove_nan_button.configure(font=("Arial", 11, "bold"))
+            self.fill_mean_button.configure(font=("Arial", 11, "bold"))
+            self.fill_median_button.configure(font=("Arial", 11, "bold"))
+            self.fill_constant_button.configure(font=("Arial", 11, "bold"))
+            self.generate_button.configure(font=("Arial", 24, "bold"), height=70, width=150)
+
             self.remove_nan_button.grid(row=3, column=0, padx=(15, 0), pady=10, sticky="ew")
             self.fill_mean_button.grid(row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
             self.fill_median_button.grid(row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
             self.fill_constant_button.grid(row=3, column=3, padx=(15, 15), pady=10, sticky="ew")
             self.generate_button.grid(row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
+
