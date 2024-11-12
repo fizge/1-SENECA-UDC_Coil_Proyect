@@ -25,6 +25,7 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 ## Using Trackr
 
 ### Opening data files
+To start using Trackr, you must open a data file. Trackr works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
 1. Open Trackr and select Open File. <br>
    The File Explorer dialog appears.
 2. Select a file > Open. <br>
@@ -35,6 +36,7 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
    The Preprocessing Options selections appear.
    
 ### Processing and saving data files
+You can process each file to remove not a number (NaN) values, fill with mean, median, or a constant value. Note that you must remove NaN values if they are in your data file before you generate a model.
 
 1. Select your preprocessing option values, then select Gernerate model > OK. <br>
    The model formula graph appears with the description box.
