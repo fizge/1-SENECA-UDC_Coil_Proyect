@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter.scrolledtext import ScrolledText
 from save_model import SaveModel
+from tkinter import messagebox, filedialog
+import pickle
+from tkinter import filedialog, messagebox, Toplevel,Label,Text
 
 class Modeling:
     def __init__(self, app):
@@ -34,6 +37,68 @@ class Modeling:
             description
         )
         saver.save_model()
+
+    ########## solo he tocado este trozo de codigo 
+    def load_model(self):
+           
+            file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
+            if file_path:
+                try:
+                   
+                    with open(file_path, "rb") as f:
+                        model_data = pickle.load(f)
+                    
+                    
+                    self.display_model_info(model_data)
+
+                except (pickle.UnpicklingError, AttributeError, KeyError) as e:
+                   
+                    messagebox.showerror("Error", f"No se pudo cargar el archivo: {str(e)}")
+
+    def display_model_info(self, model_data):
+            #nueva ventana para la info
+            info_window = Toplevel()
+            info_window.title("Información del Modelo")
+
+            #FORMULA
+            formula = model_data.get("formula", "No disponible")
+            Label(info_window, text=f"Fórmula: {formula}").pack(anchor="w", padx=10, pady=5)
+
+            # LOS COEFICIENTES
+            coef = model_data.get("coefficients", [])
+            coef_text = "\n".join([f"Coeficiente {i+1}: {c:.4f}" for i, c in enumerate(coef)])
+            Label(info_window, text="Coeficientes:").pack(anchor="w", padx=10, pady=(10, 0))
+            Label(info_window, text=coef_text).pack(anchor="w", padx=20, pady=5)
+
+     
+            intercept = model_data.get("intercept", "No disponible")
+            Label(info_window, text=f"Intercepto: {intercept:.4f}").pack(anchor="w", padx=10, pady=5)
+
+           
+            input_column = model_data.get("input_column", "No disponible")
+            output_column = model_data.get("output_column", "No disponible")
+            Label(info_window, text=f"Columna de entrada: {input_column}").pack(anchor="w", padx=10, pady=5)
+            Label(info_window, text=f"Columna de salida: {output_column}").pack(anchor="w", padx=10, pady=5)
+
+            
+            r_squared = model_data.get("r_squared", "No disponible")
+            mse = model_data.get("mse", "No disponible")
+            Label(info_window, text=f"R²: {r_squared}").pack(anchor="w", padx=10, pady=5)
+            Label(info_window, text=f"MSE: {mse}").pack(anchor="w", padx=10, pady=5)
+
+            
+            description = model_data.get("description", "No disponible")
+            if description == "Write the model description here...":
+                description = "No disponible"
+            Label(info_window, text="Descripción:").pack(anchor="w", padx=10, pady=(10, 0))
+            description_text = Text(info_window, height=5, width=50, wrap="word")
+            description_text.insert("1.0", description)
+            description_text.config(state="disabled") 
+            description_text.pack(anchor="w", padx=10, pady=5)
+
+           
+            info_window.geometry("400x400")
+#####   ######
 
     def clear_placeholder(self, event):
         if self.description_text.get("1.0", "end-1c") == "Write the model description here...":
