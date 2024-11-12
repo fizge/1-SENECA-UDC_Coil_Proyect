@@ -24,18 +24,26 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 
 ## Using Trackr
 
-###Opening data files
-1. Open Trackr and select Open File.
+### Opening data files
+1. Open Trackr and select Open File. <br>
    The File Explorer dialog appears.
-2. Select a file > Open.
-   The Linear Regression chart appears with data values.
-   Note: Trackr can only work with excel, Data Base, and CSV files.
+2. Select a file > Open. <br>
+   The Linear Regression chart appears with data values. <br>
+   Note: Trackr can only work with excel, Data Base, and CSV files. <br>
 3. Select values for input and output.
-4.  Select Confirm Selections > OK.
+4.  Select Confirm Selections > OK. <br>
    The Preprocessing Options selections appear.
-5. Select your preprocessing option values, then select Gernerate model > OK.
+   
+### Processing and saving data files
+
+1. Select your preprocessing option values, then select Gernerate model > OK. <br>
    The model formula graph appears with the description box.
-6. 
+2. Select the description box and write a description. <br>
+   Note: You must write a description in order to save the file.
+4. Select Save Model. <br>
+   The File explorer dialog appears. 
+5. Select Save > OK.
+
 ## Contributing to Trackr
 
 To contribute, please contact the creator of Trackr through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
