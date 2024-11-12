@@ -35,6 +35,8 @@ class DataProcessing:
             self.display_data_in_treeview(self.app.loaded_data)
             if self.modeling.graphic_frame is not None:
                   self.modeling.graphic_frame.grid_forget()
+                  self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
+                  self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
             if self.option_frame is not None:
                   self.option_frame.grid_forget()
             self.app.v.geometry("1000x450+0+0")
@@ -227,7 +229,7 @@ class DataProcessing:
                 self.fill_mean_button.configure(fg_color="#1465B1")
                 self.remove_nan_button.configure(fg_color="#1465B1")
                 self.fill_constant_button.configure(fg_color="green")
-                self.app.v.update_idletasks()
+            
 
             ctk.CTkButton(top, text="Apply", command=apply_values).pack(pady=10)
             top.protocol("WM_DELETE_WINDOW", lambda: (top.grab_release(), top.destroy()))

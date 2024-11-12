@@ -3,7 +3,7 @@ from tkinter import filedialog, ttk, messagebox
 import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
-
+from modeling import *
 class DataViewerApp:
     def __init__(self):
         self.v = None
@@ -20,6 +20,7 @@ class DataViewerApp:
         self.original_window_size = None
         self.file_path_entry = None
         self.data_processing = DataProcessing(self)
+        self.modeling = Modeling(self)
         self.save_model_button = None
 
     def create_window(self):
@@ -65,9 +66,11 @@ class DataViewerApp:
 
         self.open_button = ctk.CTkButton(self.button_frame, text="Open File", font=("Arial", 20, "bold"),
                                          width=140, height=40, command=self.open_files)
-        self.open_button.grid(row=0, column=2, padx=(10, 40), pady=10, sticky="e")
+        self.open_button.grid(row=0, column=2, padx=(10, 20), pady=10, sticky="e")
 
         # Cargar Modelo Button (al lado de Open File)
-        self.cargar_button = ctk.CTkButton(self.button_frame, text="Cargar Modelo", font=("Arial", 12, "bold"),
-                                        width=30, height=30, command=self.modeling.load_model)
-        self.cargar_button.grid(row=0, column=3, padx=(5, 20), pady=10, sticky="e")
+        self.load_button = ctk.CTkButton(self.button_frame, text="Load Model", font=("Arial", 20, "bold"),
+                                        width=140, height=40, command=self.modeling.load_model)
+        self.load_button.grid(row=0, column=3, padx=(0, 20), pady=10, sticky="e")
+
+    
