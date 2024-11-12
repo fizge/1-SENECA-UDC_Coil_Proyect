@@ -87,7 +87,7 @@ class Modeling:
             description_text.pack(anchor="w", padx=10, pady=5)
 
            
-            info_window.geometry("400x400")
+            info_window.geometry("500x500")
 #####   ######
 
 
