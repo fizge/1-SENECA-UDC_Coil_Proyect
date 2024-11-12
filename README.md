@@ -30,6 +30,7 @@ To start using Trackr, you must open a data file. Trackr works with Excel (.xls)
    The File Explorer dialog appears.
 2. Select a file > Open. <br>
    The Linear Regression chart appears with data values. <br>
+   ![2024-11-12_12-24-32](https://github.com/user-attachments/assets/1684d3a5-e3a9-4041-99ce-18c156f69298)
    Note: Trackr can only work with excel, Data Base, and CSV files. <br>
 3. Select values for input and output.
 4.  Select Confirm Selections > OK. <br>
@@ -41,6 +42,7 @@ You can process each file to remove not a number (NaN) values, fill with mean, m
 1. Select your preprocessing option values, then select Gernerate model > OK. <br>
    The model formula graph appears with the description box.
 2. Select the description box and write a description. <br>
+![2024-11-12_12-26-51](https://github.com/user-attachments/assets/6f2ee389-feed-4bbe-9c32-22ba9dca6bfb)
    Note: You must write a description in order to save the file.
 4. Select Save Model. <br>
    The File explorer dialog appears. 
