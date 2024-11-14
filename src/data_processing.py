@@ -52,7 +52,7 @@ class DataProcessing:
 
         style = ttk.Style()
         style.theme_use('clam')
-        style.configure("Treeview.Heading", background="#2B2B2B", foreground="white", font=("Arial", 12, 'bold'))
+        style.configure("Treeview.Heading", background="#2B2B2B", foreground="white", font=("Arial", 10, 'bold'))
 
         for col in self.app.tree['columns']:
             self.app.tree.heading(col, text=col)
@@ -269,6 +269,13 @@ class DataProcessing:
             self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
             self.option_frame.grid(row=6, column=0, columnspan=1, pady=(10, 20), padx=10, sticky="ew")
             self.preprocess_label.grid(row=2, column=0, columnspan=4, padx=100, pady=10, sticky="nsew")
+            
+            self.remove_nan_button.configure(font=("Arial", 11, "bold"))
+            self.fill_mean_button.configure(font=("Arial", 11, "bold"))
+            self.fill_median_button.configure(font=("Arial", 11, "bold"))
+            self.fill_constant_button.configure(font=("Arial", 11, "bold"))
+            self.generate_button.configure(font=("Arial", 24, "bold"), height=70, width=150)
+
             self.remove_nan_button.grid(row=3, column=0, padx=(15, 0), pady=10, sticky="ew")
             self.fill_mean_button.grid(row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
             self.fill_median_button.grid(row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
