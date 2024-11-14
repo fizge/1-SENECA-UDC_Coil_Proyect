@@ -10,6 +10,7 @@ class SaveModel:
         self.mse = mse
         self.description = description
         
+        
 
     def save_model(self):
         if self.model is None or self.input_column is None or self.output_column is None:
@@ -25,6 +26,7 @@ class SaveModel:
             return
 
         self.model_data = {
+            "model": self.model,
             "formula": f"{self.output_column} = ({self.model.coef_[0]:.4f}) * ({self.input_column}) + ({self.model.intercept_:.4f})",
             "coefficients": self.model.coef_,
             "intercept": self.model.intercept_,
