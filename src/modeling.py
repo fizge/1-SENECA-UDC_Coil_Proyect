@@ -23,7 +23,7 @@ class Modeling:
         
         
         self.prediction_input_value = None
-        self.prediction_result = None 
+        self.prediction_result = None # por si se usa en un futuro se guarda aqui la prediccion
         
         
         self.output_column = None
