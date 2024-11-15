@@ -4,7 +4,7 @@ import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
 from modeling import *
-
+from load_model import *
 class DataViewerApp:
     def __init__(self):
         self.v = None
@@ -21,10 +21,10 @@ class DataViewerApp:
         self.original_window_size = None
         self.file_path_entry = None
         self.data_processing = DataProcessing(self)
-        self.save_model_button = None
-      
-        
         self.modeling = Modeling(self)
+        self.load = LoadModel(self)
+        self.save_model_button = None
+        
 
     def create_window(self):
         ctk.set_appearance_mode("Dark")
@@ -32,7 +32,7 @@ class DataViewerApp:
 
         self.v = ctk.CTk()
         self.v.title("LINEAR REGRESION ANALYTICS")
-        self.original_window_size = "1000x120+200+0"
+        self.original_window_size = "1000x80+200+0"
         self.v.geometry(self.original_window_size)
 
         self.v.grid_rowconfigure(0, weight=1)
@@ -41,6 +41,8 @@ class DataViewerApp:
         return self.v
 
     def open_files(self):
+        
+            
         file = filedialog.askopenfilename(
             title="Open",
             filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
@@ -51,30 +53,7 @@ class DataViewerApp:
             self.file_path_entry.delete(0, tk.END)
             self.file_path_entry.insert(0, file)
             self.file_path_entry.configure(state="readonly")
-        
-        self.file_path_entry.grid(padx=(0, 200))
-
-    def clear_table(self):
-        if self.tree is None:
-            return
-
-        self.tree.delete(*self.tree.get_children())
-
-        if self.selection_frame is not None:
-            self.selection_frame.grid_forget()
-            self.input_select = None
-            self.output_select = None
-            self.v.geometry(self.original_window_size)
-        if self.data_processing.generate_frame is not None:
-            self.data_processing.generate_frame.grid_forget()
-        if self.data_processing.option_frame is not None:
-            self.data_processing.option_frame.grid_forget()
-
-        self.file_path_entry.configure(state="normal")
-        self.file_path_entry.delete(0, tk.END)
-        self.file_path_entry.insert(0, "No file selected")
-        self.file_path_entry.configure(state="readonly")
-
+    
     def create_button(self):
         self.button_frame = ctk.CTkFrame(self.v)
         self.button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
@@ -90,12 +69,13 @@ class DataViewerApp:
         self.file_path_entry.insert(0, "No file selected")
         self.file_path_entry.configure(state="readonly")
 
-        # Open File Button
-        self.open_button = ctk.CTkButton(self.button_frame, text="Open File", font=("Arial", 12, "bold"),
-                                        width=30 , height=30, command=self.open_files)
-        self.open_button.grid(row=0, column=2, padx=(5, 5), pady=10, sticky="e")
+        self.open_button = ctk.CTkButton(self.button_frame, text="Open File", font=("Arial", 20, "bold"),
+                                         width=140, height=40, command=self.open_files)
+        self.open_button.grid(row=0, column=2, padx=(10, 20), pady=10, sticky="e")
 
         # Cargar Modelo Button (al lado de Open File)
-        self.cargar_button = ctk.CTkButton(self.button_frame, text="Cargar Modelo", font=("Arial", 12, "bold"),
-                                        width=30, height=30, command=self.modeling.load_model)
-        self.cargar_button.grid(row=0, column=3, padx=(5, 20), pady=10, sticky="e")
+        self.load_button = ctk.CTkButton(self.button_frame, text="Load Model", font=("Arial", 20, "bold"),
+                                        width=140, height=40, command=self.load.load_model)
+        self.load_button.grid(row=0, column=3, padx=(0, 20), pady=10, sticky="e")
+
+    
