@@ -89,7 +89,7 @@ class LoadModel:
                 # Ask for input value
                 input_value = float(self.prediction_input.get())  # Ensure you have a field to get this input
                 prediction = self.model_load.predict([[input_value]])  # Make sure the model is available
-                print("Archivo cargado", f"Archivo cargado. Columna de salida: {self.output_column}, Columna de entrada: {self.input_column} , modelo {self.model_load}")
+                messagebox.showinfo("Archivo cargado", f"Archivo cargado. Columna de salida: {self.output_column}, Columna de entrada: {self.input_column} , modelo {self.model_load}")
                 prediccion_label = ctk.CTkLabel(self.info_frame, 
                                                 text=f"El valor calculado basado en la entrada proporcionada ({self.input_column} : {input_value}) es de -->  {prediction[0]:.2f} ({self.output_column})", 
                                                 font=("Arial", 12, 'bold'), 
