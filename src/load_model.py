@@ -82,7 +82,7 @@ class LoadModel:
 
         # Set window geometry for the new model info
         self.app.v.geometry("1000x500")
-
+ 
     def prediction_load_model(self):
        
         if self.output_column and self.input_column :
