@@ -1,7 +1,6 @@
 import pandas as pd
 from tkinter import messagebox, ttk
 from file_reader import FileReader
-from modeling import Modeling
 import customtkinter as ctk
 
 class DataProcessing:
@@ -16,7 +15,6 @@ class DataProcessing:
         self.generate_button = None
         self.option_frame = None
         self.file_reader = FileReader()
-        self.modeling = Modeling(self.app)
         self.input_columns = []
         self.output_columns = []
         self.original_data = None
@@ -33,8 +31,27 @@ class DataProcessing:
                 self.original_data = self.app.loaded_data.copy()
             
             self.display_data_in_treeview(self.app.loaded_data)
-            self.app.v.geometry("1000x450+200+0")
+            if self.app.modeling.graphic_frame is not None:
+                  self.app.modeling.graphic_frame.grid_forget()
+                  self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
+                  self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
+            if self.option_frame is not None:
+                  self.option_frame.grid_forget()
+            self.app.v.geometry("1000x450+0+0")
+        '''
+        self.app.deleted_rows = None
+        if file_path.endswith(('.csv', '.xlsx', '.xls')):
+            self.app.loaded_data = self.file_reader.read_csv_or_excel(file_path)
+        elif file_path.endswith(('.sqlite', '.db')):
+            self.app.loaded_data = self.file_reader.read_sqlite(file_path)
 
+        if self.app.loaded_data is not None:
+            if self.original_data is None:
+                self.original_data = self.app.loaded_data.copy()
+            
+            self.display_data_in_treeview(self.app.loaded_data)
+            self.app.v.geometry("1000x450+200+0")
+        '''
     def display_data_in_treeview(self, data):
         if self.app.tree is None:
             self.tree_frame = ctk.CTkFrame(self.app.v)
@@ -83,7 +100,7 @@ class DataProcessing:
             self.option_frame = ctk.CTkFrame(self.app.v)
 
         self.app.selection_frame = ctk.CTkFrame(self.app.v)
-        if self.modeling.graphic_frame is None:
+        if self.app.modeling.graphic_frame is None:
             self.app.selection_frame.grid(row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
         else:
             self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
@@ -139,7 +156,7 @@ class DataProcessing:
 
         messagebox.showinfo("Selections Confirmed", f"Input Column: {self.app.selected_input_column}\nOutput Column: {self.app.selected_output_column}")
 
-        if self.modeling.graphic_frame is None:
+        if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x680+200+0")
             self.option_frame.grid_columnconfigure(0, weight=1, uniform="column")
             self.option_frame.grid_columnconfigure(1, weight=1, uniform="column")
@@ -176,7 +193,7 @@ class DataProcessing:
         elif option in ["Fill with Mean", "Fill with Median", "Fill with Constant Value"]:
             self.fill_na_values(option, columns_to_process)
 
-        if self.modeling.graphic_frame is None:
+        if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x750+200+0")
 
     def fill_na_values(self, method, columns):
@@ -254,12 +271,12 @@ class DataProcessing:
                     self.remove_nan_button.configure(fg_color="#1465B1")
                     self.fill_median_button.configure(fg_color="green")
 
-        if self.modeling.graphic_frame is None:
+        if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x750+0+0")
 
     def regression_model(self):
-        self.modeling.generate_model()
-        if self.modeling.graphic_frame is not None:
+        self.app.modeling.generate_model()
+        if self.app.modeling.graphic_frame is not None:
             self.app.v.geometry("1500x680+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")

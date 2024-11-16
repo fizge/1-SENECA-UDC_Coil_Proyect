@@ -25,19 +25,19 @@ class LoadModel:
                     self.r_squared = data.get("r_squared", "No disponible")
                     self.mse = data.get("mse", "No disponible")
                     self.description = data.get("description", "No disponible")
-                    
-                    
-                
- 
+            
+                self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
+                self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
                 if self.app.modeling.graphic_frame is not None:
                     self.app.modeling.graphic_frame.grid_forget()
+                    
                 if self.app.selection_frame is not None:
                     self.app.selection_frame.grid_forget()
                 if self.app.data_processing.tree_frame is not None:
                     self.app.data_processing.tree_frame.grid_forget()
                 if self.app.data_processing.option_frame is not None:
                     self.app.data_processing.option_frame.grid_forget()
-                
+                self.app.v.geometry("1000x450+0+0")
 
                 # Create the frame to display the model data
                 self.create_model_info_frame()

@@ -114,6 +114,7 @@ class Modeling:
             messagebox.showerror("Error", f"An error occurred while generating the model: {e}")
 
 
+
    
     def make_prediction(self):
                 try:
