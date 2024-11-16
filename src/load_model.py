@@ -21,16 +21,15 @@ class LoadModel:
                     self.output_column = data.get('output_column')  
                     self.input_column = data.get('input_column') 
                     self.model_load = data.get('model')
-                    self.formula = data.get("formula", "No disponible")
-                    self.r_squared = data.get("r_squared", "No disponible")
-                    self.mse = data.get("mse", "No disponible")
-                    self.description = data.get("description", "No disponible")
+                    self.formula = data.get("formula", "Not avalable")
+                    self.r_squared = data.get("r_squared", "Not avalable")
+                    self.mse = data.get("mse", "Not avalable")
+                    self.description = data.get("description", "Not avalable")
             
                 self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
                 self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
                 if self.app.modeling.graphic_frame is not None:
-                    self.app.modeling.graphic_frame.grid_forget()
-                    
+                    self.app.modeling.graphic_frame.grid_forget()                    
                 if self.app.selection_frame is not None:
                     self.app.selection_frame.grid_forget()
                 if self.app.data_processing.tree_frame is not None:
@@ -57,14 +56,14 @@ class LoadModel:
 
         # Prediction button
         prediction2_button = ctk.CTkButton(
-            self.info_frame, text="Predicción", font=("Arial", 18, "bold"),
+            self.info_frame, text="Prediction", font=("Arial", 18, "bold"),
             width=30, height=30, command=self.prediction_load_model)
         prediction2_button.grid(row=7, column=0, padx=10, pady=5, sticky="w")
 
         # Display description
         
         if self.description == "Write the model description here...":
-            self.description = "No disponible"
+            self.description = "Not avaliable"
         description_label = ctk.CTkLabel(self.info_frame, text="Descripción:", font=("Arial", 12, 'bold'), text_color="white")
         description_label.grid(row=3, column=0, padx=10, pady=(10, 0), sticky="w")
         description_text = ctk.CTkTextbox(self.info_frame, height=5, width=50)

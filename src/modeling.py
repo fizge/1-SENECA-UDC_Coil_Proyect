@@ -1,11 +1,10 @@
 import pandas as pd
 
 from tkinter import messagebox
-from tkinter import messagebox, filedialog, Text,Tk
+from tkinter import messagebox
 import customtkinter as ctk
 from tkinter.scrolledtext import ScrolledText
 from save_model import SaveModel
-from sklearn import linear_model
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt

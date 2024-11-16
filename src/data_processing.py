@@ -1,5 +1,6 @@
 import pandas as pd
-from tkinter import messagebox, ttk
+import tkinter as tk
+from tkinter import messagebox,ttk,filedialog
 from file_reader import FileReader
 import customtkinter as ctk
 
@@ -52,6 +53,19 @@ class DataProcessing:
             self.display_data_in_treeview(self.app.loaded_data)
             self.app.v.geometry("1000x450+200+0")
         '''
+
+    def open_files(self):    
+        file = filedialog.askopenfilename(
+            title="Open",
+            filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
+        )
+        if file:
+            self.import_data(file)
+            self.app.file_path_entry.configure(state="normal")
+            self.app.file_path_entry.delete(0, tk.END)
+            self.app.file_path_entry.insert(0, file)
+            self.app.file_path_entry.configure(state="readonly")
+
     def display_data_in_treeview(self, data):
         if self.app.tree is None:
             self.tree_frame = ctk.CTkFrame(self.app.v)
