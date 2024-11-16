@@ -28,9 +28,9 @@ class LoadModel:
                     
                     
                 
-                # Hide existing frames
-                # if self.Modeling.graphic_frame is not None:
-                #     self.Modeling.graphic_frame.grid_forget()
+ 
+                if self.app.modeling.graphic_frame is not None:
+                    self.app.modeling.graphic_frame.grid_forget()
                 if self.app.selection_frame is not None:
                     self.app.selection_frame.grid_forget()
                 if self.app.data_processing.tree_frame is not None:
@@ -48,8 +48,6 @@ class LoadModel:
     def create_model_info_frame(self):
         # Create a new frame for displaying the model information
         self.app.button_frame.grid(row=0, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
-        
-        
 
         self.info_frame = ctk.CTkFrame(self.app.v)
         self.info_frame.grid(row=1, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")

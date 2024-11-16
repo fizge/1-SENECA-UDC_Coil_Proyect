@@ -10,8 +10,6 @@ class SaveModel:
         self.mse = mse
         self.description = description
         
-        
-
     def save_model(self):
         if self.model is None or self.input_column is None or self.output_column is None:
             messagebox.showerror("Error", "No model available to save. Generate a model first.")

@@ -3,8 +3,8 @@ from tkinter import filedialog, ttk, messagebox
 import customtkinter as ctk
 import pandas as pd
 from data_processing import DataProcessing
-from modeling import *
-from load_model import *
+from modeling import Modeling
+from load_model import LoadModel
 class DataViewerApp:
     def __init__(self):
         self.v = None

@@ -10,7 +10,6 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from load_model import LoadModel
 
 class Modeling:
     def __init__(self, app):
@@ -18,7 +17,6 @@ class Modeling:
         self.graphic_frame = None
         self.description_text = None
         self.model = None
-        
         self.prediction_input_value = None
         self.output_column = None
         self.input_column = None
@@ -57,7 +55,7 @@ class Modeling:
 
         X = self.app.loaded_data[[self.app.selected_input_column]]
         y = self.app.loaded_data[self.app.selected_output_column]
-
+       
         if not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_output_column]):
             messagebox.showerror("Error", "The selected input or output column contains non-numeric data. Please select numeric columns.")
             return
@@ -78,8 +76,8 @@ class Modeling:
             self.graphic_frame = ctk.CTkFrame(self.app.v)
             self.graphic_frame.grid(row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
             
-            
-            
+ 
+                  
 
             model_info_label = ctk.CTkLabel(
                 self.graphic_frame,
@@ -110,13 +108,6 @@ class Modeling:
                 self.graphic_frame, text="Actual Model Prediction ( enter input below )", font=("Arial", 18, "bold"),
                 width=30, height=30, command=self.make_prediction)
             self.prediction_button.grid(row=4, column=0,padx=40,pady=(5 ,10), sticky="ew")
-            
-            # # boton de prediccion para otro modelo que no sea la actual 
-            # self.prediction2_button = ctk.CTkButton(
-            #     self.graphic_frame, text="Load another model Prediction", font=("Arial", 18, "bold"),
-            #     width=30, height=30, command=self.prediction_load_model)
-            # self.prediction2_button.grid(row=6, column=0,padx=40,pady=(5 ,10), sticky="ew")
-
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
 
         except Exception as e:
