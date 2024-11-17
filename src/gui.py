@@ -32,7 +32,7 @@ class DataViewerApp:
 
         self.v = ctk.CTk()
         self.v.title("LINEAR REGRESION ANALYTICS")
-        self.original_window_size = "1000x80+200+0"
+        self.original_window_size = "1000x450+200+0"
         self.v.geometry(self.original_window_size)
 
         self.v.grid_rowconfigure(0, weight=1)
@@ -42,7 +42,7 @@ class DataViewerApp:
     
     def create_button(self):
         self.button_frame = ctk.CTkFrame(self.v)
-        self.button_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
+        self.button_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
         self.button_frame.grid_columnconfigure(0, weight=0)  
         self.button_frame.grid_columnconfigure(1, weight=1)  
         self.button_frame.grid_columnconfigure(2, weight=0)  

@@ -15,6 +15,13 @@ class SaveModel:
             messagebox.showerror("Error", "No model available to save. Generate a model first.")
             return
 
+        if self.description == "Write the model description here...":
+            self.description = ""
+        
+        # Check if the description is empty or contains the default placeholder text
+        if not self.description or self.description == "":
+            messagebox.showwarning("Warning", "You have not written anything in the description.")
+            
         file_path = filedialog.asksaveasfilename(
             defaultextension=".pkl",
             filetypes=[("Pickle files", "*.pkl"), ("Joblib files", "*.joblib")]
@@ -22,7 +29,7 @@ class SaveModel:
 
         if not file_path:
             return
-
+        
         self.model_data = {
             "model": self.model,
             "formula": f"{self.output_column} = ({self.model.coef_[0]:.4f}) * ({self.input_column}) + ({self.model.intercept_:.4f})",

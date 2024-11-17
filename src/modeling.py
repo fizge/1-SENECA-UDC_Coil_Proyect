@@ -1,5 +1,4 @@
 import pandas as pd
-
 from tkinter import messagebox
 from tkinter import messagebox
 import customtkinter as ctk
@@ -23,12 +22,6 @@ class Modeling:
     def save_file(self):
         # Get the text from the description
         description = self.description_text.get("1.0", "end").strip()
-        
-        # Check if the description is empty or contains the default placeholder text
-        if not description or description == "Write the model description here...":
-            messagebox.showwarning("Warning", "You have not written anything in the description.")
-            return
-        
         # If there is a description, proceed to save the model
         saver = SaveModel(
             self.model,
@@ -126,15 +119,14 @@ class Modeling:
                     # Guarda los valores de entrada y predicción en atributos de clase
                     self.prediction_input_value = input_value
                     self.prediction_result = prediction[0]
-                    prediccion_label = ctk.CTkLabel(self.graphic_frame , text =f"El valor calculado basado en la entrada proporcionada {self.app.selected_input_column} :{input_value} es de -->  {prediction[0]:.2f} ({self.app.selected_output_column})",
-                                                    font=("Arial", 12, 'bold'), text_color="white")
-                    prediccion_label.grid(row=1, column=0, columnspan=2, padx=40, pady=(20, 10), sticky="w")
-
+                    prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"Estimate calculated on the input value provided ( {self.app.selected_input_column} :{input_value} )\n<{self.app.selected_output_column}> = {prediction[0]:.2f} ",
+                                                    font=("Arial", 14, 'bold'), text_color="white")
+                    prediction_label.grid(row=1, column=0, columnspan=2, padx=40, pady=(20, 10), sticky="w")
 
                 except ValueError:
-                    messagebox.showerror("Error", "Por favor ingrese un número válido para realizar la predicción.")
+                    messagebox.showerror("Error", "Please enter a valid number to make the prediction.")
                 except Exception as e:
-                    messagebox.showerror("Error", f"Ocurrió un error al realizar la predicción: {e}")
+                    messagebox.showerror("Error", f"An error occurred during prediction: {e}")
 
     def plot_regression_plot(self, X, y, predictions, parent_frame):
         fig = self.create_regression_plot(X, y, predictions)
