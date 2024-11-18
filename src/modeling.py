@@ -15,15 +15,20 @@ class Modeling:
         self.graphic_frame = None
         self.description_text = None
         self.model = None
+        self.r_squared = None
+        self.mse = None
+        self.prediction_label = None
+        self.prediction_input = None
+        self.prediction_button = None
         self.prediction_input_value = None
         self.output_column = None
         self.input_column = None
         self.save_model_button = None
 
     def save_file(self):
-        # Get the text from the description
+    
         description = self.description_text.get("1.0", "end").strip()
-        # If there is a description, proceed to save the model
+
         saver = SaveModel(
             self.model,
             self.app.selected_input_column,
@@ -75,7 +80,7 @@ class Modeling:
             width=200, height=30, command=self.save_file)
             self.save_model_button.grid(row=0, column=0, padx=250, pady=(10,5), sticky="w")
 
-            labels_frame = ctk.CTkFrame(self.graphic_frame, fg_color="#1465B1", border_width=3,border_color='white', corner_radius=10)  
+            labels_frame = ctk.CTkFrame(self.graphic_frame,fg_color="#242424", border_width=3,border_color='white', corner_radius=10)  
             labels_frame.grid(row=1, column=0,pady=5, padx=40, sticky="nw")      
 
             formula_label = ctk.CTkLabel(labels_frame, text=f"Linear Regresion Ecuation:", font=("Arial", 14, 'bold'), text_color="white")
@@ -89,15 +94,15 @@ class Modeling:
             mse_label.grid(row=3, column=0, padx=10, pady=(0,5), sticky="w")
 
 
-            self.description_text = ctk.CTkTextbox(self.graphic_frame, wrap="word",width=280,height=120, font=("Arial", 12))
+            self.description_text = ctk.CTkTextbox(self.graphic_frame, wrap="word",width=270,height=120, fg_color="#242424", font=("Arial", 12),border_width=3,border_color='white', corner_radius=10)
             self.description_text.grid(row=1, column=0, padx=(260,0), pady=5, sticky="n")
             self.description_text.insert("1.0", "Write the model description here...")
 
             self.description_text.bind("<FocusIn>", self.clear_placeholder)
             self.description_text.bind("<FocusOut>", self.restore_placeholder)
 
-            prediction_label = ctk.CTkLabel(self.graphic_frame, text=f"Input value:", font=("Arial", 15, 'bold'), text_color="white")
-            prediction_label.grid(row=2, column=0, padx=40, pady=5, sticky="w")
+            self.prediction_label = ctk.CTkLabel(self.graphic_frame, text=f"Input value:", font=("Arial", 15, 'bold'), text_color="white")
+            self.prediction_label.grid(row=2, column=0, padx=40, pady=5, sticky="w")
 
             self.prediction_input = ctk.CTkEntry(self.graphic_frame, width=300)
             self.prediction_input.grid(row=2, column=0, padx=(140,0), pady=5, sticky="w")
@@ -116,15 +121,10 @@ class Modeling:
    
     def make_prediction(self):
                 try:
-                    # Captura el valor de entrada y lo convierte a tipo numérico
+
                     input_value = float(self.prediction_input.get())
-                    
-                    # Realiza la predicción usando el modelo
-                    prediction = self.model.predict([[input_value]])
-                    
-                    # Guarda los valores de entrada y predicción en atributos de clase
+                    prediction = self.model.predict([[input_value]])  
                     self.prediction_input_value = input_value
-                    self.prediction_result = prediction[0]
                     prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"Estimate calculated on the input value provided ( {self.app.selected_input_column} :{input_value} ) <{self.app.selected_output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 12, 'bold'), text_color="white")
                     prediction_label.grid(row=3, column=0, padx=40, pady=(0, 5), sticky="w")

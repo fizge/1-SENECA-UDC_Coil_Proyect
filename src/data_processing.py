@@ -8,15 +8,18 @@ class DataProcessing:
     def __init__(self, app):
         self.app = app
         self.tree_frame = None
+        self.selection_frame = None
+        self.option_frame = None
+        self.output_label = None
+        self.input_label = None
+        self.input_columns = []
+        self.output_columns = []
         self.preprocess_label = None
         self.fill_nan_button = None
         self.fill_mean_button = None
         self.fill_meadian_button = None
         self.fill_constant_button = None
         self.generate_button = None
-        self.option_frame = None
-        self.input_columns = []
-        self.output_columns = []
         self.original_data = None
         self.file_reader = FileReader()
 
@@ -90,37 +93,38 @@ class DataProcessing:
         self.tree_frame.grid_rowconfigure(0, weight=1)
         self.tree_frame.grid_columnconfigure(0, weight=1)
       
-        self.options_selection(data.columns)
+        self.gui_preselection(data.columns)
 
-    def options_selection(self, columns):
+    def gui_preselection(self, columns):
         self.input_columns = list(columns)
         self.output_columns = list(columns)
 
-        if self.app.selection_frame is not None:
-            self.app.selection_frame.grid_forget()
+        if self.selection_frame is not None:
+            self.selection_frame.grid_forget()
+        if self.selection_frame is None:
+            self.selection_frame = ctk.CTkFrame(self.app.v)
 
         if self.option_frame is None:
             self.option_frame = ctk.CTkFrame(self.app.v)
-        if self.app.selection_frame is None:
-            self.app.selection_frame = ctk.CTkFrame(self.app.v)
+        
         if self.app.modeling.graphic_frame is None:
-            self.app.selection_frame.grid(row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
+            self.selection_frame.grid(row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
         else:
-            self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
+            self.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
 
-        input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
-        input_label.grid(row=0, column=0,  padx=(100,20), pady=10, sticky="e")
+        self.input_label = ctk.CTkLabel(self.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
+        self.input_label.grid(row=0, column=0,  padx=(100,20), pady=10, sticky="e")
 
-        self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.input_columns, command=self.update_output_options)
+        self.app.input_select = ctk.CTkOptionMenu(self.selection_frame, values=self.input_columns, command=self.update_output_options)
         self.app.input_select.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-        output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
-        output_label.grid(row=1, column=0, padx=(100,20), pady=10, sticky="e")
+        self.output_label = ctk.CTkLabel(self.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
+        self.output_label.grid(row=1, column=0, padx=(100,20), pady=10, sticky="e")
 
-        self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.output_columns, command=self.update_input_options)
+        self.app.output_select = ctk.CTkOptionMenu(self.selection_frame, values=self.output_columns, command=self.update_input_options)
         self.app.output_select.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
-        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
+        confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=("Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
         confirm_button.grid(row=0, column=3, rowspan=2, padx=40, pady=10, sticky="ew")
 
         self.preprocess_label = ctk.CTkLabel(self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
@@ -246,7 +250,6 @@ class DataProcessing:
                 self.fill_mean_button.configure(fg_color="#1465B1")
                 self.remove_nan_button.configure(fg_color="#1465B1")
                 self.fill_constant_button.configure(fg_color="green")
-                self.app.v.update_idletasks()
 
             ctk.CTkButton(top, text="Apply", command=apply_values).pack(pady=10)
             top.protocol("WM_DELETE_WINDOW", lambda: (top.grab_release(), top.destroy()))
@@ -287,9 +290,9 @@ class DataProcessing:
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 
-            self.app.button_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
+            self.app.initial_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
             self.tree_frame.grid(row=3, column=0, columnspan=1, padx=10, pady=10, sticky="nsew")
-            self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
+            self.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
             self.option_frame.grid(row=6, column=0, columnspan=1, pady=(10, 20), padx=10, sticky="ew")
             
             

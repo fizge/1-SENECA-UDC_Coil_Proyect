@@ -7,10 +7,15 @@ from modeling import *
 class LoadModel:
     def __init__(self, app):
         self.app = app
-        self.info_frame = None 
-        self.model = None
-        self.model_load = None 
-
+        self.info_frame = None
+        self.model = None 
+        self.formula = None
+        self.r_squared = None
+        self.mse = None
+        self.description = None
+        self.output_column = None
+        self.input_column = None
+        
     def load_model(self):
         file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
         if file_path:
@@ -20,7 +25,7 @@ class LoadModel:
                     data = pickle.load(f)  # Guardamos los datos del modelo aquí
                     self.output_column = data.get('output_column')  
                     self.input_column = data.get('input_column') 
-                    self.model_load = data.get('model')
+                    self.model = data.get('model')
                     self.formula = data.get("formula", "Not avalable")
                     self.r_squared = data.get("r_squared", "Not avalable")
                     self.mse = data.get("mse", "Not avalable")
@@ -31,8 +36,8 @@ class LoadModel:
                
                 if self.app.modeling.graphic_frame is not None:
                     self.app.modeling.graphic_frame.grid_forget()                     
-                if self.app.selection_frame is not None:
-                    self.app.selection_frame.grid_forget()
+                if self.app.data_processing.selection_frame is not None:
+                    self.app.data_processing.selection_frame.grid_forget()
                 if self.app.data_processing.tree_frame is not None:
                     self.app.data_processing.tree_frame.grid_forget()
                     self.app.tree = None
@@ -48,14 +53,14 @@ class LoadModel:
 
     def create_model_info_frame(self):
        
-        self.app.button_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
+        self.app.initial_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
 
         if self.info_frame is not None:
              self.info_frame.destroy()
         self.info_frame = ctk.CTkFrame(self.app.v)
         self.info_frame.grid(row=2, column=0, columnspan=2, pady=(10,20), padx=10, sticky="ew")
 
-        labels_frame = ctk.CTkFrame(self.info_frame, fg_color="#1465B1", border_width=3,border_color='white', corner_radius=10)  
+        labels_frame = ctk.CTkFrame(self.info_frame, fg_color="#242424", border_width=3,border_color='white', corner_radius=10)  
         labels_frame.grid(row=0, column=0, rowspan=4, pady=30, padx=80, sticky="nw")      
 
         formula_label = ctk.CTkLabel(labels_frame, text=f"Linear Regresion Ecuation:", font=("Arial", 16, 'bold'), text_color="white")
@@ -69,7 +74,7 @@ class LoadModel:
 
         description_label = ctk.CTkLabel(self.info_frame, text="Description:", font=("Arial", 18, 'bold'), text_color="white")
         description_label.grid(row=0, column=1, padx=80, pady=(20,0), sticky="n")
-        description_text = ctk.CTkTextbox(self.info_frame, height=90, width=400)
+        description_text = ctk.CTkTextbox(self.info_frame, height=90, width=400, fg_color="#242424",border_width=3,border_color='white', corner_radius=10)
         description_text.insert("1.0", self.description)
         description_text.configure(state="disabled")  
         description_text.grid(row=0, column=1,rowspan=3, padx=0, pady=60,sticky="e")
@@ -92,7 +97,7 @@ class LoadModel:
         if self.output_column and self.input_column :
             try:
                 input_value = float(self.prediction_input.get())  # Ensure you have a field to get this input
-                prediction = self.model_load.predict([[input_value]])  # Make sure the model is available
+                prediction = self.model.predict([[input_value]])  # Make sure the model is available
                 prediction_label = ctk.CTkLabel(self.info_frame , text =f"Estimate calculated on the input value provided ( {self.input_column} :{input_value} )          <{self.output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 14, 'bold'), text_color="white")
                 prediction_label.grid(row=5, column=0,columnspan=2, padx=(80,0), pady=(0,30), sticky="w")
