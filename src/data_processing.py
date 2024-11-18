@@ -108,27 +108,27 @@ class DataProcessing:
         else:
             self.app.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
 
+        input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
+        input_label.grid(row=0, column=0,  padx=(100,20), pady=10, sticky="e")
+
+        self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.input_columns, command=self.update_output_options)
+        self.app.input_select.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+
+        output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
+        output_label.grid(row=1, column=0, padx=(100,20), pady=10, sticky="e")
+
+        self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.output_columns, command=self.update_input_options)
+        self.app.output_select.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
+
+        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
+        confirm_button.grid(row=0, column=3, rowspan=2, padx=40, pady=10, sticky="ew")
+
         self.preprocess_label = ctk.CTkLabel(self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
 
         self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
         self.fill_mean_button = ctk.CTkButton(self.option_frame, text="Fill with Mean", font=("Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Mean"))
         self.fill_median_button = ctk.CTkButton(self.option_frame, text="Fill with Median", font=("Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Median"))
         self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
-
-        input_label = ctk.CTkLabel(self.app.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
-        input_label.grid(row=0, column=2, padx=20, pady=10, sticky="e")
-
-        self.app.input_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.input_columns, command=self.update_output_options)
-        self.app.input_select.grid(row=0, column=3, padx=10, pady=10, sticky="ew")
-
-        output_label = ctk.CTkLabel(self.app.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
-        output_label.grid(row=1, column=2, padx=20, pady=10, sticky="e")
-
-        self.app.output_select = ctk.CTkOptionMenu(self.app.selection_frame, values=self.output_columns, command=self.update_input_options)
-        self.app.output_select.grid(row=1, column=3, padx=10, pady=10, sticky="ew")
-
-        confirm_button = ctk.CTkButton(self.app.selection_frame, text="Confirm Selections", font=("Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
-        confirm_button.grid(row=0, column=4, rowspan=2, padx=(20, 10), pady=10, sticky="ew")
 
         self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=("Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
 
@@ -283,7 +283,7 @@ class DataProcessing:
     def regression_model(self):
         self.app.modeling.generate_model()
         if self.app.modeling.graphic_frame is not None:
-            self.app.v.geometry("1500x680+0+0")
+            self.app.v.geometry("1500x730+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 

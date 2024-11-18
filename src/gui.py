@@ -23,7 +23,7 @@ class DataViewerApp:
         self.data_processing = DataProcessing(self)
         self.modeling = Modeling(self)
         self.load = LoadModel(self)
-        self.save_model_button = None
+        
         
 
     def create_window(self):

@@ -47,40 +47,45 @@ class LoadModel:
                 messagebox.showerror("Error", f"No se pudo cargar el archivo: {str(e)}")
 
     def create_model_info_frame(self):
-        # Create a new frame for displaying the model information
+       
         self.app.button_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
 
+        if self.info_frame is not None:
+             self.info_frame.destroy()
         self.info_frame = ctk.CTkFrame(self.app.v)
-        self.info_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+        self.info_frame.grid(row=2, column=0, columnspan=2, pady=(10,20), padx=10, sticky="ew")
 
-        formula_label = ctk.CTkLabel(self.info_frame, text=f"Fórmula: {self.formula}\nR²: {self.r_squared:.4f} MSE: {self.mse:.4f}", font=("Arial", 12, 'bold'), text_color="white")
-        formula_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        labels_frame = ctk.CTkFrame(self.info_frame, fg_color="#1465B1", border_width=3,border_color='white', corner_radius=10)  
+        labels_frame.grid(row=0, column=0, rowspan=4, pady=30, padx=80, sticky="nw")      
 
-        # Prediction button
-        prediction2_button = ctk.CTkButton(
-            self.info_frame, text="Prediction", font=("Arial", 18, "bold"),
-            width=30, height=30, command=self.prediction_load_model)
-        prediction2_button.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+        formula_label = ctk.CTkLabel(labels_frame, text=f"Linear Regresion Ecuation:", font=("Arial", 16, 'bold'), text_color="white")
+        formula_label.grid(row=0, column=0, padx=20, pady=(10,0), sticky="w")
+        formula2_label = ctk.CTkLabel(labels_frame, text=f"{self.formula}", font=("Arial", 14, 'bold'), text_color="white")
+        formula2_label.grid(row=1, column=0, padx=20, pady=0, sticky="w")
+        r2_label = ctk.CTkLabel(labels_frame, text=f"R²: {self.r_squared:.4f}", font=("Arial", 14, 'bold'), text_color="white")
+        r2_label.grid(row=2, column=0, padx=20, pady=0, sticky="w")
+        mse_label = ctk.CTkLabel(labels_frame, text=f"MSE: {self.mse:.4f}", font=("Arial", 14, 'bold'), text_color="white")
+        mse_label.grid(row=3, column=0, padx=20, pady=(0,10), sticky="w")
 
-        # Display description
-        
-        if self.description == "Write the model description here...":
-            self.description = "Not avaliable"
-        description_label = ctk.CTkLabel(self.info_frame, text="Descripción:", font=("Arial", 12, 'bold'), text_color="white")
-        description_label.grid(row=3, column=0, padx=10, pady=(10, 0), sticky="w")
-        description_text = ctk.CTkTextbox(self.info_frame, height=5, width=50)
+        description_label = ctk.CTkLabel(self.info_frame, text="Description:", font=("Arial", 18, 'bold'), text_color="white")
+        description_label.grid(row=0, column=1, padx=80, pady=(20,0), sticky="n")
+        description_text = ctk.CTkTextbox(self.info_frame, height=90, width=400)
         description_text.insert("1.0", self.description)
-        description_text.configure(state="disabled")  # Make it read-only
-        description_text.grid(row=4, column=0, padx=10, pady=5,sticky="ew")
+        description_text.configure(state="disabled")  
+        description_text.grid(row=0, column=1,rowspan=3, padx=0, pady=60,sticky="e")
         
-        self.prediction_input = ctk.CTkEntry(self.info_frame, width=30)
-        self.prediction_input.grid(row=6, column=0, padx=10, pady=5, sticky="ew")
+        prediction_label = ctk.CTkLabel(self.info_frame, text=f"Input value:", font=("Arial", 15, 'bold'), text_color="white")
+        prediction_label.grid(row=4, column=0,columnspan=2, padx=80, pady=(0,20), sticky="w")
 
-        self.info_frame.grid_rowconfigure(0, weight=1)
-        self.info_frame.grid_columnconfigure(0, weight=1)
+        self.prediction_input = ctk.CTkEntry(self.info_frame, width=550)
+        self.prediction_input.grid(row=4, column=0, columnspan=2, padx=(180,10), pady=(0,20), sticky="w")
 
-        # Set window geometry for the new model info
-        self.app.v.geometry("1000x500")
+        prediction_button = ctk.CTkButton(
+            self.info_frame, text="Output Prediction", font=("Arial", 16, "bold"),
+            width=30, height=30, command=self.prediction_load_model)
+        prediction_button.grid(row=4, column=0,columnspan=2, padx=(740,0), pady=(0,20), sticky="w")
+
+        self.app.v.geometry("1000x430+200+0")
  
     def prediction_load_model(self):
        
@@ -88,9 +93,9 @@ class LoadModel:
             try:
                 input_value = float(self.prediction_input.get())  # Ensure you have a field to get this input
                 prediction = self.model_load.predict([[input_value]])  # Make sure the model is available
-                prediction_label = ctk.CTkLabel(self.info_frame , text =f"Estimate calculated on the input value provided ( {self.app.selected_input_column} :{input_value} )\n<{self.app.selected_output_column}> = {prediction[0]:.2f} ",
+                prediction_label = ctk.CTkLabel(self.info_frame , text =f"Estimate calculated on the input value provided ( {self.input_column} :{input_value} )          <{self.output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 14, 'bold'), text_color="white")
-                prediction_label.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+                prediction_label.grid(row=5, column=0,columnspan=2, padx=(80,0), pady=(0,30), sticky="w")
             except ValueError:
                 messagebox.showerror("Error", "Please enter a valid number to make the prediction.")
             except Exception as e:
