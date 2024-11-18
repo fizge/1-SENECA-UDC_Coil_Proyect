@@ -60,9 +60,10 @@ class Modeling:
 
             self.r_squared = r2_score(y, predictions)
             self.mse = mean_squared_error(y, predictions)
-
+      
             formula = f"{self.app.selected_output_column} = ({self.model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({self.model.intercept_:.4f})"
-
+            if len(formula) > 47:
+                formula = f"{self.app.selected_output_column} = \n({self.model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({self.model.intercept_:.4f})"
             if self.graphic_frame is not None:
                self.graphic_frame.destroy()
 
@@ -80,6 +81,7 @@ class Modeling:
             formula_label = ctk.CTkLabel(labels_frame, text=f"Linear Regresion Ecuation:", font=("Arial", 14, 'bold'), text_color="white")
             formula_label.grid(row=0, column=0, padx=10, pady=(5,0), sticky="w")
             formula2_label = ctk.CTkLabel(labels_frame, text=f"{formula}", font=("Arial", 12, 'bold'), text_color="white")
+            
             formula2_label.grid(row=1, column=0, padx=10, pady=0, sticky="w")
             r2_label = ctk.CTkLabel(labels_frame, text=f"R²: {self.r_squared:.4f}", font=("Arial", 12, 'bold'), text_color="white")
             r2_label.grid(row=2, column=0, padx=10, pady=0, sticky="w")
@@ -88,7 +90,7 @@ class Modeling:
 
 
             self.description_text = ctk.CTkTextbox(self.graphic_frame, wrap="word",width=280,height=120, font=("Arial", 12))
-            self.description_text.grid(row=1, column=0, padx=(240,0), pady=5, sticky="n")
+            self.description_text.grid(row=1, column=0, padx=(260,0), pady=5, sticky="n")
             self.description_text.insert("1.0", "Write the model description here...")
 
             self.description_text.bind("<FocusIn>", self.clear_placeholder)
