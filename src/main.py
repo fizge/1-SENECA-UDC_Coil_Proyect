@@ -4,5 +4,5 @@ from initial_scenario import LinearRegressionAnalyitics
 if __name__ == "__main__":
     app = LinearRegressionAnalyitics()
     app.create_window()
-    app.gui_initialization()
+    app.gui_presentation()
     app.v.mainloop()

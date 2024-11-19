@@ -1,6 +1,7 @@
 import tkinter as tk
 import customtkinter as ctk
 import pandas as pd
+from PIL import Image, ImageTk
 from preselection_scenario import Preselection
 from modeling_scenario import Modeling
 from loading_scenario import LoadModel
@@ -33,8 +34,26 @@ class LinearRegressionAnalyitics:
         self.v.grid_columnconfigure(0, weight=1)
 
         return self.v
-    
+
+    def gui_presentation(self):
+        self.presentation_frame = ctk.CTkFrame(self.v, fg_color='#242424')
+        self.presentation_frame.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+
+        self.presentation1_label = ctk.CTkLabel(self.presentation_frame, text="¡Bienvenido a LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
+        self.presentation1_label.grid(row=0, column=0, padx=60, pady=40, sticky="n")
+
+        self.start_button = ctk.CTkButton(self.presentation_frame, text="Start", font=("Arial", 40, "bold"),
+                                         width=240, height=80, corner_radius=35, command=self.gui_initialization)
+        self.start_button.grid(row=1, column=0, padx=20, pady=10, sticky="n")
+
+        self.presentation2_label = ctk.CTkLabel(self.presentation_frame, text="This application is designed to help you explore and analyze data using simple linear regression models.\n You can upload your own datasets and generate graphs that display the relationship between variables,\n as well as make predictions based on your data.",
+                                                font=("Arial", 18, 'bold'))
+        self.presentation2_label.grid(row=2, column=0, padx=60, pady=40, sticky="n")
+
     def gui_initialization(self):
+        
+        if self.presentation_frame is not None:
+            self.presentation_frame.destroy()
 
         self.initial_frame = ctk.CTkFrame(self.v)
         self.initial_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
