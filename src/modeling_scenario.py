@@ -54,8 +54,8 @@ class Modeling:
         charging = ChargingWindow(self.app)
         charging.bar()
 
-        X = self.app.loaded_data[[self.app.preselection.selected_input_column]]
-        y = self.app.loaded_data[self.app.preselection.selected_output_column]
+        X = self.app.preselection.loaded_data[[self.app.preselection.selected_input_column]]
+        y = self.app.preselection.loaded_data[self.app.preselection.selected_output_column]
        
         if not pd.api.types.is_numeric_dtype(self.app.preselection.loaded_data[self.app.preselection.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.preselection.loaded_data[self.app.preselection.selected_output_column]):
             messagebox.showerror("Error", "The selected input or output column contains non-numeric data. Please select numeric columns.")
