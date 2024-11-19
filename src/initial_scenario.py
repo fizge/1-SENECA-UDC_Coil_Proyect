@@ -39,7 +39,7 @@ class LinearRegressionAnalyitics:
         self.presentation_frame = ctk.CTkFrame(self.v, fg_color='#242424')
         self.presentation_frame.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
-        self.presentation1_label = ctk.CTkLabel(self.presentation_frame, text="¡Bienvenido a LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
+        self.presentation1_label = ctk.CTkLabel(self.presentation_frame, text="¡Welcome to  LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
         self.presentation1_label.grid(row=0, column=0, padx=60, pady=40, sticky="n")
 
         self.start_button = ctk.CTkButton(self.presentation_frame, text="Start", font=("Arial", 40, "bold"),
