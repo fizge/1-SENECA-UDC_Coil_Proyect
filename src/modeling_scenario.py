@@ -104,14 +104,14 @@ class Modeling:
             self.description_text.bind("<FocusIn>", self.clear_placeholder)
             self.description_text.bind("<FocusOut>", self.restore_placeholder)
 
-            self.prediction_label = ctk.CTkLabel(self.graphic_frame, text=f"Input value:", font=("Arial", 15, 'bold'), text_color="white")
+            self.prediction_label = ctk.CTkLabel(self.graphic_frame, text=f"{self.app.preselection.selected_input_column}:", font=("Arial", 15, 'bold'), text_color="white")
             self.prediction_label.grid(row=2, column=0, padx=40, pady=5, sticky="w")
 
             self.prediction_input = ctk.CTkEntry(self.graphic_frame, width=300)
             self.prediction_input.grid(row=2, column=0, padx=(140,0), pady=5, sticky="w")
 
             self.prediction_button = ctk.CTkButton(
-                self.graphic_frame, text="Output Prediction", font=("Arial", 18, "bold"),
+                self.graphic_frame, text="Prediction", font=("Arial", 18, "bold"),
                 width=30, height=30, command=self.make_prediction)
             self.prediction_button.grid(row=2, column=0, padx=(470,0),pady=5, sticky="w")
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
