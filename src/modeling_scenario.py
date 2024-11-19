@@ -158,6 +158,8 @@ class Modeling:
         ax.grid(True, color='gray', linestyle='-', linewidth=0.5)
         for spine in ax.spines.values():
             spine.set_edgecolor('white')
+        plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
+        plt.tight_layout()
         return fig
 
     def embed_plot_in_frame(self, fig, frame):
