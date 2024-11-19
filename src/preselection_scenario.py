@@ -1,15 +1,24 @@
 import pandas as pd
 import tkinter as tk
+import customtkinter as ctk
 from tkinter import messagebox,ttk,filedialog
 from file_reader import FileReader
-import customtkinter as ctk
+from charging_bar import ChargingWindow
+
 
 class Preselection:
     def __init__(self, app):
         self.app = app
+        self.loaded_data = None
+        self.deleted_rows = None
+        self.tree = None
         self.tree_frame = None
         self.selection_frame = None
         self.option_frame = None
+        self.input_select = None
+        self.output_select = None
+        self.selected_input_column = None
+        self.selected_output_column = None
         self.output_label = None
         self.input_label = None
         self.input_columns = []
@@ -23,15 +32,8 @@ class Preselection:
         self.original_data = None
         self.file_reader = FileReader()
 
-        self.loaded_data = None
-        self.deleted_rows = None
-        self.input_select = None
-        self.output_select = None
-        self.selected_input_column = None
-        self.selected_output_column = None
-        self.tree = None
-
     def import_data(self, file_path):
+
         self.deleted_rows = None
         if file_path.endswith(('.csv', '.xlsx', '.xls')):
             self.loaded_data = self.file_reader.read_csv_or_excel(file_path)
@@ -59,11 +61,17 @@ class Preselection:
             filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
         )
         if file:
+
+            charging = ChargingWindow(self.app)
+            charging.bar()
+
             self.import_data(file)
             self.app.file_path_entry.configure(state="normal")
             self.app.file_path_entry.delete(0, tk.END)
             self.app.file_path_entry.insert(0, file)
             self.app.file_path_entry.configure(state="readonly")
+
+            charging.close_bar()
 
     def display_data_in_treeview(self, data):
         
@@ -292,6 +300,7 @@ class Preselection:
             self.app.v.geometry("1000x750+0+0")
 
     def regression_model(self):
+
         self.app.modeling.generate_model()
         if self.app.modeling.graphic_frame is not None:
             self.app.v.geometry("1500x730+0+0")
@@ -302,6 +311,7 @@ class Preselection:
             self.tree_frame.grid(row=3, column=0, columnspan=1, padx=10, pady=10, sticky="nsew")
             self.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
             self.option_frame.grid(row=6, column=0, columnspan=1, pady=(10, 20), padx=10, sticky="ew")
+
             
             
           

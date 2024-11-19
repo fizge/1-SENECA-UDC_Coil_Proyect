@@ -35,6 +35,7 @@ class LinearRegressionAnalyitics:
         return self.v
     
     def gui_initialization(self):
+
         self.initial_frame = ctk.CTkFrame(self.v)
         self.initial_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
         self.initial_frame.grid_columnconfigure(0, weight=0)  

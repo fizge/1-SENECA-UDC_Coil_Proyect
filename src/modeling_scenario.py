@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import messagebox
 import customtkinter as ctk
 from save_model import SavedModel
+from charging_bar import ChargingWindow
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
@@ -49,6 +50,9 @@ class Modeling:
 
     def generate_model(self):
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.preselection.selected_input_column} and Output: {self.app.preselection.selected_output_column}")
+        
+        charging = ChargingWindow(self.app)
+        charging.bar()
 
         X = self.app.loaded_data[[self.app.preselection.selected_input_column]]
         y = self.app.loaded_data[self.app.preselection.selected_output_column]
@@ -111,6 +115,8 @@ class Modeling:
                 width=30, height=30, command=self.make_prediction)
             self.prediction_button.grid(row=2, column=0, padx=(470,0),pady=5, sticky="w")
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
+
+            charging.close_bar()
 
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while generating the model: {e}")

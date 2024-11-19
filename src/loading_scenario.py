@@ -1,6 +1,7 @@
 import pickle
 from tkinter import messagebox, filedialog
 import customtkinter as ctk
+from charging_bar import ChargingWindow
 
 class LoadModel:
     def __init__(self, app):
@@ -17,6 +18,9 @@ class LoadModel:
     def load_model(self):
         file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
         if file_path:
+            charging = ChargingWindow(self.app)
+            charging.bar()
+
             try:
     
                 with open(file_path, "rb") as f:
@@ -44,6 +48,9 @@ class LoadModel:
                 self.app.v.geometry("1000x450+200+0")
 
                 self.create_model_info_frame()
+
+                charging.close_bar()
+
                 messagebox.showinfo("Recovered model", f"Recovered model. Output Column: {self.output_column}, Input Column: {self.input_column}")
             except (pickle.UnpicklingError, AttributeError, KeyError) as e:
                 messagebox.showerror("Error", f"No se pudo cargar el archivo: {str(e)}")
