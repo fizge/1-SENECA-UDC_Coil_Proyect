@@ -9,7 +9,7 @@ class ChargingWindow:
     def bar(self):
         self.charging_window = ctk.CTkToplevel(self.app.v)
         self.charging_window.title("Loading")
-        self.charging_window.geometry("300x100+400")
+        self.charging_window.geometry("300x100+600+200")
         self.charging_window.lift()
         self.charging_window.grab_set()
         self.charging_window.protocol("WM_DELETE_WINDOW", self.do_nothing)
