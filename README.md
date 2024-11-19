@@ -1,7 +1,7 @@
 # Trackr Version 1.0
 
 ## Overview
-Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins.
+Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. Users can use their own data model stored as an excel, data base, or comma separated values (csv) file to generate data predictions by adding their own values.
 
 ### Features
 
@@ -24,6 +24,9 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 
 ## Using Trackr
 
+### Trackr interface
+
+
 ### Opening data files
 To start using Trackr, you must open a data file. Trackr works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
 1. Open Trackr and select Open File. <br>
@@ -42,13 +45,24 @@ You can process each file to remove not a number (NaN) values, fill with mean, m
 1. Select your preprocessing option values, then select Gernerate model > OK. <br>
    The model formula graph appears with the description box.
 2. Select the description box and write a description. <br>
-![2024-11-12_12-26-51](https://github.com/user-attachments/assets/6f2ee389-feed-4bbe-9c32-22ba9dca6bfb)
+![image](https://github.com/user-attachments/assets/d1aa1ec1-bfaa-4a35-98bd-b36f90196bc9) <br>
    Note: You must write a description in order to save the file.
 4. Select Save Model. <br>
    The File explorer dialog appears. 
 5. Select Save > OK.
 
+### Predicting values from data files
+1. From the formula graph dialog, select Input value.
+2. Input a number for the y value, then select Output Prediction. <br>
+   The prediction appears below the Input value.
+3. Select Save Model to save the prediction.
+
+
 ### Loading saved data files
+1. From the main menu, select Load Model <br>
+   The File Explorer dialog appears.
+2. Select a previously saved file > Open > OK. <br>
+   The saved model will appear.
 
 
 ## Contributing to Trackr
