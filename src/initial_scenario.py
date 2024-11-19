@@ -1,26 +1,20 @@
 import tkinter as tk
 import customtkinter as ctk
 import pandas as pd
-from data_processing import DataProcessing
-from modeling import Modeling
-from load_model import LoadModel
+from preselection_scenario import Preselection
+from modeling_scenario import Modeling
+from loading_scenario import LoadModel
 
 class LinearRegressionAnalyitics:
     def __init__(self):
         self.v = None
         self.tree = None
         self.initial_frame = None
-        self.loaded_data = None
-        self.deleted_rows = None
-        self.input_select = None
-        self.output_select = None
-        self.selected_input_column = None
-        self.selected_output_column = None
         self.original_window_size = None
         self.open_button = None
         self.file_path_entry = None
         self.file_path_label = None
-        self.data_processing = DataProcessing(self)
+        self.preselection = Preselection(self)
         self.modeling = Modeling(self)
         self.load = LoadModel(self)
         
@@ -56,7 +50,7 @@ class LinearRegressionAnalyitics:
         self.file_path_entry.configure(state="readonly")
 
         self.open_button = ctk.CTkButton(self.initial_frame, text="Open File", font=("Arial", 20, "bold"),
-                                         width=140, height=40, command=self.data_processing.open_files)
+                                         width=140, height=40, command=self.preselection.open_files)
         self.open_button.grid(row=0, column=2, padx=(10, 20), pady=10, sticky="e")
 
         self.load_button = ctk.CTkButton(self.initial_frame, text="Load Model", font=("Arial", 20, "bold"),

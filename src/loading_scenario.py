@@ -1,8 +1,6 @@
-
 import pickle
 from tkinter import messagebox, filedialog
 import customtkinter as ctk
-from modeling import *
 
 class LoadModel:
     def __init__(self, app):
@@ -20,9 +18,9 @@ class LoadModel:
         file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
         if file_path:
             try:
-                # Load the model file
+    
                 with open(file_path, "rb") as f:
-                    data = pickle.load(f)  # Guardamos los datos del modelo aquí
+                    data = pickle.load(f) 
                     self.output_column = data.get('output_column')  
                     self.input_column = data.get('input_column') 
                     self.model = data.get('model')
@@ -36,16 +34,15 @@ class LoadModel:
                
                 if self.app.modeling.graphic_frame is not None:
                     self.app.modeling.graphic_frame.grid_forget()                     
-                if self.app.data_processing.selection_frame is not None:
-                    self.app.data_processing.selection_frame.grid_forget()
-                if self.app.data_processing.tree_frame is not None:
-                    self.app.data_processing.tree_frame.grid_forget()
-                    self.app.tree = None
-                if self.app.data_processing.option_frame is not None:
-                    self.app.data_processing.option_frame.grid_forget()
+                if self.app.preselection.selection_frame is not None:
+                    self.app.preselection.selection_frame.grid_forget()
+                if self.app.preselection.tree_frame is not None:
+                    self.app.preselection.tree_frame.grid_forget()
+                    self.app.preselection.tree = None
+                if self.app.preselection.option_frame is not None:
+                    self.app.preselection.option_frame.grid_forget()
                 self.app.v.geometry("1000x450+200+0")
 
-                # Create the frame to display the model data
                 self.create_model_info_frame()
                 messagebox.showinfo("Recovered model", f"Recovered model. Output Column: {self.output_column}, Input Column: {self.input_column}")
             except (pickle.UnpicklingError, AttributeError, KeyError) as e:
@@ -87,17 +84,17 @@ class LoadModel:
 
         prediction_button = ctk.CTkButton(
             self.info_frame, text="Output Prediction", font=("Arial", 16, "bold"),
-            width=30, height=30, command=self.prediction_load_model)
+            width=30, height=30, command=self.prediction_loaded_model)
         prediction_button.grid(row=4, column=0,columnspan=2, padx=(740,0), pady=(0,20), sticky="w")
 
         self.app.v.geometry("1000x430+200+0")
  
-    def prediction_load_model(self):
+    def prediction_loaded_model(self):
        
         if self.output_column and self.input_column :
             try:
-                input_value = float(self.prediction_input.get())  # Ensure you have a field to get this input
-                prediction = self.model.predict([[input_value]])  # Make sure the model is available
+                input_value = float(self.prediction_input.get())
+                prediction = self.model.predict([[input_value]])  
                 prediction_label = ctk.CTkLabel(self.info_frame , text =f"Estimate calculated on the input value provided ( {self.input_column} :{input_value} )          <{self.output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 14, 'bold'), text_color="white")
                 prediction_label.grid(row=5, column=0,columnspan=2, padx=(80,0), pady=(0,30), sticky="w")

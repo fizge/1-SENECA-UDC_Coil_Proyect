@@ -2,8 +2,7 @@ import pandas as pd
 from tkinter import messagebox
 from tkinter import messagebox
 import customtkinter as ctk
-from tkinter.scrolledtext import ScrolledText
-from save_model import SaveModel
+from save_model import SavedModel
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
@@ -29,15 +28,15 @@ class Modeling:
     
         description = self.description_text.get("1.0", "end").strip()
 
-        saver = SaveModel(
+        saving = SavedModel(
             self.model,
-            self.app.selected_input_column,
-            self.app.selected_output_column,
+            self.app.preselection.selected_input_column,
+            self.app.preselection.selected_output_column,
             self.r_squared,
             self.mse,
             description
         )
-        saver.save_model()
+        saving.save_model()
 
 
     def clear_placeholder(self, event):
@@ -49,12 +48,12 @@ class Modeling:
             self.description_text.insert("1.0", "Write the model description here...")
 
     def generate_model(self):
-        messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.selected_input_column} and Output: {self.app.selected_output_column}")
+        messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.preselection.selected_input_column} and Output: {self.app.preselection.selected_output_column}")
 
-        X = self.app.loaded_data[[self.app.selected_input_column]]
-        y = self.app.loaded_data[self.app.selected_output_column]
+        X = self.app.loaded_data[[self.app.preselection.selected_input_column]]
+        y = self.app.loaded_data[self.app.preselection.selected_output_column]
        
-        if not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.loaded_data[self.app.selected_output_column]):
+        if not pd.api.types.is_numeric_dtype(self.app.preselection.loaded_data[self.app.preselection.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.app.preselection.loaded_data[self.app.preselection.selected_output_column]):
             messagebox.showerror("Error", "The selected input or output column contains non-numeric data. Please select numeric columns.")
             return
 
@@ -66,9 +65,9 @@ class Modeling:
             self.r_squared = r2_score(y, predictions)
             self.mse = mean_squared_error(y, predictions)
       
-            formula = f"{self.app.selected_output_column} = ({self.model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({self.model.intercept_:.4f})"
+            formula = f"{self.app.preselection.selected_output_column} = ({self.model.coef_[0]:.4f}) * ({self.app.preselection.selected_input_column}) + ({self.model.intercept_:.4f})"
             if len(formula) > 47:
-                formula = f"{self.app.selected_output_column} = \n({self.model.coef_[0]:.4f}) * ({self.app.selected_input_column}) + ({self.model.intercept_:.4f})"
+                formula = f"{self.app.preselection.selected_output_column} = \n({self.model.coef_[0]:.4f}) * ({self.app.preselection.selected_input_column}) + ({self.model.intercept_:.4f})"
             if self.graphic_frame is not None:
                self.graphic_frame.destroy()
 
@@ -125,7 +124,7 @@ class Modeling:
                     input_value = float(self.prediction_input.get())
                     prediction = self.model.predict([[input_value]])  
                     self.prediction_input_value = input_value
-                    prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"Estimate calculated on the input value provided ( {self.app.selected_input_column} :{input_value} ) <{self.app.selected_output_column}> = {prediction[0]:.2f} ",
+                    prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"Estimate calculated on the input value provided ( {self.app.preselection.selected_input_column} :{input_value} ) <{self.app.preselection.selected_output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 12, 'bold'), text_color="white")
                     prediction_label.grid(row=3, column=0, padx=40, pady=(0, 5), sticky="w")
 
@@ -145,8 +144,8 @@ class Modeling:
         ax.set_facecolor('#2b2b2b')
         ax.tick_params(axis='both', colors='white')
         ax.set_title('Linear Regression', fontsize=10, color='white')
-        ax.set_xlabel(self.app.selected_input_column, fontsize=10, color='white')
-        ax.set_ylabel(self.app.selected_output_column, fontsize=10, color='white')
+        ax.set_xlabel(self.app.preselection.selected_input_column, fontsize=10, color='white')
+        ax.set_ylabel(self.app.preselection.selected_output_column, fontsize=10, color='white')
         ax.scatter(X, y, color='#1465B1', label='Actual Data')
         ax.plot(X, predictions, color='red', label='Regression Line')
         ax.legend(facecolor='#2b2b2b', edgecolor='white', fontsize=10, loc='best', frameon=True, labelcolor='white')
