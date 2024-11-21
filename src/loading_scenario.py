@@ -2,6 +2,7 @@ import pickle
 from tkinter import messagebox, filedialog
 import customtkinter as ctk
 from charging_bar import ChargingWindow
+from placeholder import PlaceholderText
 
 class LoadModel:
     def __init__(self, app):
@@ -65,7 +66,7 @@ class LoadModel:
         self.info_frame.grid(row=2, column=0, columnspan=2, pady=(10,20), padx=10, sticky="ew")
 
         labels_frame = ctk.CTkFrame(self.info_frame, fg_color="#242424", border_width=3,border_color='white', corner_radius=10)  
-        labels_frame.grid(row=0, column=0, rowspan=4, pady=30, padx=80, sticky="nw")      
+        labels_frame.grid(row=0, column=0, rowspan=4, pady=20, padx=(80,40), sticky="nw")      
 
         formula_label = ctk.CTkLabel(labels_frame, text=f"Linear Regresion Ecuation:", font=("Arial", 16, 'bold'), text_color="white")
         formula_label.grid(row=0, column=0, padx=20, pady=(10,0), sticky="w")
@@ -78,21 +79,22 @@ class LoadModel:
 
         description_label = ctk.CTkLabel(self.info_frame, text="Description:", font=("Arial", 18, 'bold'), text_color="white")
         description_label.grid(row=0, column=1, padx=80, pady=(20,0), sticky="n")
-        description_text = ctk.CTkTextbox(self.info_frame, height=90, width=400, fg_color="#242424",border_width=3,border_color='white', corner_radius=10)
+        description_text = ctk.CTkTextbox(self.info_frame, height=90, width=320, fg_color="#242424",border_width=3,border_color='white', corner_radius=10)
         description_text.insert("1.0", self.description)
         description_text.configure(state="disabled")  
-        description_text.grid(row=0, column=1,rowspan=3, padx=0, pady=60,sticky="e")
+        description_text.grid(row=0, column=1,rowspan=3, padx=(0,20), pady=(60,40),sticky="e")
         
-        prediction_label = ctk.CTkLabel(self.info_frame, text=f"Input value:", font=("Arial", 15, 'bold'), text_color="white")
-        prediction_label.grid(row=4, column=0,columnspan=2, padx=80, pady=(0,20), sticky="w")
+        title_prediction_label = ctk.CTkLabel(self.info_frame, text=f'{self.output_column.capitalize()} prediction for a {self.input_column} value:', font=("Arial", 14, 'bold'), text_color="white")
+        title_prediction_label.grid(row=4, column=0, padx=80, pady=(0,10), sticky="w")
 
-        self.prediction_input = ctk.CTkEntry(self.info_frame, width=550)
-        self.prediction_input.grid(row=4, column=0, columnspan=2, padx=(180,10), pady=(0,20), sticky="w")
+        self.prediction_input = ctk.CTkEntry(self.info_frame, width=350)
+        self.prediction_input.grid(row=5, column=0, columnspan=2, padx=(80,10) , pady=(0,10), sticky="w")
+        placeholder = PlaceholderText(self.prediction_input, f"Write here a {self.input_column} value")
 
         prediction_button = ctk.CTkButton(
-            self.info_frame, text="Output Prediction", font=("Arial", 16, "bold"),
+            self.info_frame, text=f"Predict", font=("Arial", 16, "bold"),
             width=30, height=30, command=self.prediction_loaded_model)
-        prediction_button.grid(row=4, column=0,columnspan=2, padx=(740,0), pady=(0,20), sticky="w")
+        prediction_button.grid(row=5, column=0,columnspan=2, padx=(470,0), pady=(0,10), sticky="w")
 
         self.app.v.geometry("1000x430+200+0")
  
@@ -102,9 +104,9 @@ class LoadModel:
             try:
                 input_value = float(self.prediction_input.get())
                 prediction = self.model.predict([[input_value]])  
-                prediction_label = ctk.CTkLabel(self.info_frame , text =f"Estimate calculated on the input value provided ( {self.input_column} :{input_value} )          <{self.output_column}> = {prediction[0]:.2f} ",
+                prediction_label = ctk.CTkLabel(self.info_frame , text =f"<{self.output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 14, 'bold'), text_color="white")
-                prediction_label.grid(row=5, column=0,columnspan=2, padx=(80,0), pady=(0,30), sticky="w")
+                prediction_label.grid(row=6, column=0,columnspan=2, padx=(80,0), pady=(0,20), sticky="w")
             except ValueError:
                 messagebox.showerror("Error", "Please enter a valid number to make the prediction.")
             except Exception as e:

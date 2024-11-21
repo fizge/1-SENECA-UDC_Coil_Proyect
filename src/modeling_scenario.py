@@ -4,6 +4,7 @@ from tkinter import messagebox
 import customtkinter as ctk
 from save_model import SavedModel
 from charging_bar import ChargingWindow
+from placeholder import PlaceholderText
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
@@ -40,13 +41,7 @@ class Modeling:
         saving.save_model()
 
 
-    def clear_placeholder(self, event):
-        if self.description_text.get("1.0", "end-1c") == "Write the model description here...":
-            self.description_text.delete("1.0", "end")
-
-    def restore_placeholder(self, event):
-        if not self.description_text.get("1.0", "end-1c").strip():
-            self.description_text.insert("1.0", "Write the model description here...")
+    
 
     def generate_model(self):
         messagebox.showinfo("Model Generation", f"Model generated with Input: {self.app.preselection.selected_input_column} and Output: {self.app.preselection.selected_output_column}")
@@ -97,10 +92,7 @@ class Modeling:
 
             self.description_text = ctk.CTkTextbox(self.graphic_frame, wrap="word",width=270,height=120, fg_color="#242424", font=("Arial", 12),border_width=3,border_color='white', corner_radius=10)
             self.description_text.grid(row=1, column=0, padx=(260,0), pady=5, sticky="n")
-            self.description_text.insert("1.0", "Write the model description here...")
-
-            self.description_text.bind("<FocusIn>", self.clear_placeholder)
-            self.description_text.bind("<FocusOut>", self.restore_placeholder)
+            placeholder = PlaceholderText(self.description_text, "Write the model description here...")
 
             self.save_model_button = ctk.CTkButton(
             self.graphic_frame, text="Save Model", font=("Arial", 18, "bold"),
@@ -114,12 +106,13 @@ class Modeling:
             self.prediction_label.grid(row=5, column=0, padx=40, pady=15, sticky="w")
 
             self.prediction_input = ctk.CTkEntry(self.graphic_frame, width=300)
-            self.prediction_input.grid(row=5, column=0, padx=(140,0), pady=(5,15), sticky="w")
+            self.prediction_input.grid(row=5, column=0, padx=(40,0), pady=(5,15), sticky="w")
+            placeholder = PlaceholderText(self.prediction_input, f"Write here a {self.app.preselection.selected_input_column} value")
 
             self.prediction_button = ctk.CTkButton(
-                self.graphic_frame, text="Prediction", font=("Arial", 18, "bold"),
+                self.graphic_frame, text="Predict", font=("Arial", 18, "bold"),
                 width=30, height=30, command=self.make_prediction)
-            self.prediction_button.grid(row=5, column=0, padx=(470,0),pady=(5,15), sticky="w")
+            self.prediction_button.grid(row=5, column=0, padx=(370,0),pady=(5,15), sticky="w")
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
 
             charging.close_bar()
