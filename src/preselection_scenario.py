@@ -211,11 +211,6 @@ class Preselection:
                 messagebox.showinfo("Success", "Rows with NaN have been deleted.")
             self.display_data_in_treeview(self.loaded_data)
 
-            self.fill_mean_button.configure(fg_color="#1465B1")
-            self.fill_median_button.configure(fg_color="#1465B1")
-            self.fill_constant_button.configure(fg_color="#1465B1")
-            self.remove_nan_button.configure(fg_color="green")
-
         elif option in ["Fill with Mean", "Fill with Median", "Fill with Constant Value"]:
             self.fill_na_values(option, columns_to_process)
 
@@ -262,11 +257,6 @@ class Preselection:
                 top.destroy()
                 self.display_data_in_treeview(self.loaded_data)
 
-                self.fill_median_button.configure(fg_color="#1465B1")
-                self.fill_mean_button.configure(fg_color="#1465B1")
-                self.remove_nan_button.configure(fg_color="#1465B1")
-                self.fill_constant_button.configure(fg_color="green")
-
             ctk.CTkButton(top, text="Apply", command=apply_values).pack(pady=10)
             top.protocol("WM_DELETE_WINDOW", lambda: (top.grab_release(), top.destroy()))
 
@@ -278,23 +268,13 @@ class Preselection:
                     messagebox.showinfo("Success", f"NaN values in '{column}' filled with mean: {value:.5f}")
 
                     self.display_data_in_treeview(self.loaded_data)
-
-                    self.fill_constant_button.configure(fg_color="#1465B1")
-                    self.fill_median_button.configure(fg_color="#1465B1")
-                    self.remove_nan_button.configure(fg_color="#1465B1")
-                    self.fill_mean_button.configure(fg_color="green")
-
+                
                 elif method == "Fill with Median":
                     value = round(self.original_data.copy()[column].median(), 5)
                     self.loaded_data[column] = self.original_data.copy()[column].fillna(value)
                     messagebox.showinfo("Success", f"NaN values in '{column}' filled with median: {value:.5f}")
 
                     self.display_data_in_treeview(self.loaded_data)
-                    
-                    self.fill_constant_button.configure(fg_color="#1465B1")
-                    self.fill_mean_button.configure(fg_color="#1465B1")
-                    self.remove_nan_button.configure(fg_color="#1465B1")
-                    self.fill_median_button.configure(fg_color="green")
 
         if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x750+0+0")
@@ -303,7 +283,7 @@ class Preselection:
 
         self.app.modeling.generate_model()
         if self.app.modeling.graphic_frame is not None:
-            self.app.v.geometry("1500x730+0+0")
+            self.app.v.geometry("1500x830+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 

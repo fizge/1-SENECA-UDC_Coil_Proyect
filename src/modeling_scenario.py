@@ -78,10 +78,8 @@ class Modeling:
             self.graphic_frame = ctk.CTkFrame(self.app.v)
             self.graphic_frame.grid(row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
             
-            self.save_model_button = ctk.CTkButton(
-            self.graphic_frame, text="Save Model", font=("Arial", 18, "bold"),
-            width=200, height=30, command=self.save_file)
-            self.save_model_button.grid(row=0, column=0, padx=250, pady=(10,5), sticky="w")
+            info_label = ctk.CTkLabel(self.graphic_frame, text='Model Information:\t\t\tDescription:', font=("Arial", 18, 'bold'), text_color="white")
+            info_label.grid(row=0, column=0, padx=40, pady=(20,0), sticky="W")
 
             labels_frame = ctk.CTkFrame(self.graphic_frame,fg_color="#242424", border_width=3,border_color='white', corner_radius=10)  
             labels_frame.grid(row=1, column=0,pady=5, padx=40, sticky="nw")      
@@ -104,16 +102,24 @@ class Modeling:
             self.description_text.bind("<FocusIn>", self.clear_placeholder)
             self.description_text.bind("<FocusOut>", self.restore_placeholder)
 
+            self.save_model_button = ctk.CTkButton(
+            self.graphic_frame, text="Save Model", font=("Arial", 18, "bold"),
+            width=200, height=30, command=self.save_file)
+            self.save_model_button.grid(row=2, column=0, padx=250, pady=(20,5), sticky="w")
+
+            title_prediction_label = ctk.CTkLabel(self.graphic_frame, text=f'{self.app.preselection.selected_output_column.capitalize()} prediction for a {self.app.preselection.selected_input_column} value:', font=("Arial", 14, 'bold'), text_color="white")
+            title_prediction_label.grid(row=4, column=0, padx=40, pady=(15,5), sticky="w")
+
             self.prediction_label = ctk.CTkLabel(self.graphic_frame, text=f"{self.app.preselection.selected_input_column}:", font=("Arial", 15, 'bold'), text_color="white")
-            self.prediction_label.grid(row=2, column=0, padx=40, pady=5, sticky="w")
+            self.prediction_label.grid(row=5, column=0, padx=40, pady=15, sticky="w")
 
             self.prediction_input = ctk.CTkEntry(self.graphic_frame, width=300)
-            self.prediction_input.grid(row=2, column=0, padx=(140,0), pady=5, sticky="w")
+            self.prediction_input.grid(row=5, column=0, padx=(140,0), pady=(5,15), sticky="w")
 
             self.prediction_button = ctk.CTkButton(
                 self.graphic_frame, text="Prediction", font=("Arial", 18, "bold"),
                 width=30, height=30, command=self.make_prediction)
-            self.prediction_button.grid(row=2, column=0, padx=(470,0),pady=5, sticky="w")
+            self.prediction_button.grid(row=5, column=0, padx=(470,0),pady=(5,15), sticky="w")
             self.plot_regression_plot(X, y, predictions, self.graphic_frame)
 
             charging.close_bar()
@@ -130,9 +136,9 @@ class Modeling:
                     input_value = float(self.prediction_input.get())
                     prediction = self.model.predict([[input_value]])  
                     self.prediction_input_value = input_value
-                    prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"Estimate calculated on the input value provided ( {self.app.preselection.selected_input_column} :{input_value} ) <{self.app.preselection.selected_output_column}> = {prediction[0]:.2f} ",
-                                                    font=("Arial", 12, 'bold'), text_color="white")
-                    prediction_label.grid(row=3, column=0, padx=40, pady=(0, 5), sticky="w")
+                    prediction_label = ctk.CTkLabel(self.graphic_frame , text =f"<{self.app.preselection.selected_output_column}> = {prediction[0]:.2f} ",
+                                                    font=("Arial", 17, 'bold'), text_color="white")
+                    prediction_label.grid(row=6, column=0, padx=40, pady=(0, 5), sticky="w")
 
                 except ValueError:
                     messagebox.showerror("Error", "Please enter a valid number to make the prediction.")
@@ -145,7 +151,7 @@ class Modeling:
         self.embed_plot_in_frame(fig, parent_frame)
 
     def create_regression_plot(self, X, y, predictions):
-        fig, ax = plt.subplots(figsize=(8, 6))
+        fig, ax = plt.subplots(figsize=(7, 5))
         fig.patch.set_facecolor('#2b2b2b')
         ax.set_facecolor('#2b2b2b')
         ax.tick_params(axis='both', colors='white')
@@ -158,12 +164,12 @@ class Modeling:
         ax.grid(True, color='gray', linestyle='-', linewidth=0.5)
         for spine in ax.spines.values():
             spine.set_edgecolor('white')
-        plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
+        plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
         plt.tight_layout()
         return fig
 
     def embed_plot_in_frame(self, fig, frame):
         canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
-        canvas.get_tk_widget().grid(row=4, column=0, padx=50, pady=(15, 10), sticky="nse")
+        canvas.get_tk_widget().grid(row=3, column=0, padx=50, pady=(15, 10), sticky="nsew")
         plt.close(fig)
