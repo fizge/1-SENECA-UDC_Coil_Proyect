@@ -17,6 +17,7 @@ class FileReader:
             pd.DataFrame or None: DataFrame containing the data, or None if an error occurs.
         """
         try:
+            file_path = str(file_path)
             if file_path.endswith(".csv"):
                 data = pd.read_csv(file_path)
             else:
