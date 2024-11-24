@@ -21,7 +21,21 @@ Trackr was created using a vartiety of tools and platforms to create a simple an
 The development platforms used were: <br>
 
 **Python**
-- Python was used as the programming language because of the large ammount of libraries that can be used alongside the language. The libraries used were Pandas for data analysis, 
+- Python was used as the programming language because of the large ammount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
+
+**Data File Formats**
+The datasets that were used to create Trackr were:
+- Database files (.db)
+- Excel files (.xls)
+- Pickle files (.pkl)
+- CSV files (.csv)
+
+ **Collaboration Tools**
+The teams collaborated using:
+- WhatsApp: This tool was used to contact team members throughout the project.
+- GitHub: This tool was used to store code files and documentation.
+- Visual Studio Code: This tool was used by the programmers to create the project.
+- Zoom: This tool was used to collaborate using video conferencing.
 
 ## What is AI? 
 Artificial Intelligence (AI) is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving, and even creativity. AI systems can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data.
