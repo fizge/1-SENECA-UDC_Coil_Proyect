@@ -39,6 +39,21 @@ The teams collaborated using:
 - Teams: This tool was used to collaborate using video conferencing and discussing each sprint with the product owner.
 - Taiga: This tool was used for agile project management and for keeping track and organizing sprints.
 
+## Agile Development Process
+This project was created using the agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross team collaboration. The key factors of agile development are its flexibility to changes through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint. <br>
+
+During the cycle, each sprint lasted one week, with the exception of sprint 8 which was 2 weeks. At the end of each sprint, the developers and technical writers met with the product owner to discuss what aspects of the project were going well, what parts were not going well and how the next sprint could be improved. After each sprint retrospective, the developers and technical writers met to discuss their progress, goals, and achievements. <br>
+
+**Completed Sprints and Sprint Tasks**
+1. Sprint 1: Both teams created Taiga, GitHub, code repository, and documentation plan.
+2. Sprint 2: The documentation team conducted a subject matter expert (SME) interview with the developers and completed the first half of the documentation plan. The developers researched Python libraries.
+3.  Sprint 3: The documentation team worked on completing the second half of the documentation plan. The developers further researched Python libraries (tkinter, PyQt, and wxpython).
+4.  Sprint 4: The documentation team worked on creating the preliminary README and GitHub document. The developer team worked on creating linear models for prediction using the GUI, and improving the graphical interface.
+5.  Sprint 5: The developers worked on creating file selection and saving features. The documentation team worked on revising the README and GitHub document.
+6.  Spring 6: The developers further worked on the file selection, saving features and creating a polished user interface for Trackr. The documentation team worked on revising the README by including Trackr user interface images.
+7.  Sprint 7: The developers worked on improving the user interface, incorporating making predictions using an uploaded model, and recovering previously saved models. The documentation team worked on revising the README to include these new features.
+8.  Sprint 8: The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it more user friendly.
+
 ## What is AI? 
 Artificial Intelligence (AI) is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving, and even creativity. AI systems can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data.
 
