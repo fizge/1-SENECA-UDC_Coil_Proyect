@@ -72,3 +72,16 @@ the two variables given the data.
 ### How does Trackr use Linear Regression and AI? 
 Trackr allows users to effortlessly create and work with linear regression models, helping businesses predict profits using past data. By uploading an existing spreadsheet to Trackr, users can quickly generate a linear regression model, while AI enhances the results by delivering actionable insights. This process requires minimal effort and no advanced technical knowledge, making data-driven predictions accessible to everyone.
 
+##Project Specific Information##
+This section explains who Trackr was created by, their role in the project, and the role of the documentation team. <br>
+**Developer Team**
+- Fiz Garrido: Lead developer.
+- Manuel Conde: Developer.
+- Yeyi Zheng: Developer.
+- Pablo Diaz: Developer.
+
+**Documentation Team**
+Both writers worked each sprint to develop clear, accurate, end-user and internal user documentation. The goal of the documentation team was to create clear, accurate, concise documentation tailored to both end user needs and developer needs. This meant ensuring that the user's needs were considered when creating both the README and GitHub documentation. The end user needs were to understand how to use Trackr easily, without having a technical background. The developer needs were to understand Trackr requirements, how to set up the correct environment to recreate the tool, and understand how the tool was created. <br>
+The documentation team members are:
+- Cristine Buiuzon: Writer of the GitHub documentation (Introduction, Project Background, What is AI, What is Linear Regression) and README.
+- Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) and README.
