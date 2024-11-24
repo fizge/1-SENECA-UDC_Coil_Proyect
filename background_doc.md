@@ -36,6 +36,8 @@ The teams collaborated using:
 - GitHub: This tool was used to store code files and documentation.
 - Visual Studio Code: This tool was used by the programmers to create the project.
 - Zoom: This tool was used to collaborate using video conferencing.
+- Teams: This tool was used to collaborate using video conferencing and discussing each sprint with the product owner.
+- Taiga: This tool was used for agile project management and for keeping track and organizing sprints.
 
 ## What is AI? 
 Artificial Intelligence (AI) is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving, and even creativity. AI systems can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data.
