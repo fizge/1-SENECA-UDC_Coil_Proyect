@@ -1,10 +1,27 @@
 # Trackr Internal Documentation
 This documentation provides essential background information for the Trackr project team, covering all foundational details about the
-Trackr software and its users. The purpose of this resource is to keep team members informed of the context that guides the project.
+Trackr software and its users. The purpose of this resource is to keep team members informed of the context that guides the project, and provide new team members background information on project goals, platforms used, the users, and methodology.
 
-## Audience
+## Project Background
+This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process.<br>
+The purpose of Trackr is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-seperated value files. The output datasets can be saved and uploaded only as pickle files. 
+
+### Goals
+The goal of the project was to create an application that gives the users a simple visual interface of linear regression models from data stores in the mentioned files, and allows users to make predictions with them. The users can use the application to: <br>
+- Save data models
+- Load data models
+- Make predictions using loaded data models
+
+### Audience
 The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions.  Trackr can be of use to make other industry-specific predictions from users of different professions, such as e-commerce and education.
 [User Persona graphic to be added] 
+
+### Platforms and Technology 
+Trackr was created using a vartiety of tools and platforms to create a simple and user-friendly application. <br>
+The development platforms used were: <br>
+
+**Python**
+- Python was used as the programming language because of the large ammount of libraries that can be used alongside the language. The libraries used were Pandas for data analysis, 
 
 ## What is AI? 
 Artificial Intelligence (AI) is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving, and even creativity. AI systems can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data.
