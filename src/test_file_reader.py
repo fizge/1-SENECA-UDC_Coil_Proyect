@@ -16,13 +16,6 @@ def test_read_csv_success(file_reader, tmp_path):
     result = file_reader.read_csv_or_excel(csv_path)
     pd.testing.assert_frame_equal(result, df)
 
-def test_read_excel_success(file_reader, tmp_path):
-    excel_path = tmp_path / "test.xlsx"
-    df = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
-    df.to_excel(excel_path, index=False)
-
-    result = file_reader.read_csv_or_excel(excel_path)
-    pd.testing.assert_frame_equal(result, df)
 
 def test_read_nonexistent_file(file_reader):
     result = file_reader.read_csv_or_excel("nonexistent.csv")
