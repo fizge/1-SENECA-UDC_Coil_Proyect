@@ -40,7 +40,7 @@ Trackr was created using a variety of tools and platforms to create a simple and
 The development platforms used were: <br>
 
 **Python**
-- Python was used as the programming language because of the large amount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
+Python was used as the programming language because of the large amount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
 
 **Data File Formats**
 The datasets that were used to create Trackr were:
@@ -73,22 +73,30 @@ During the cycle, each sprint lasted one week, with the exception of sprint 8 wh
 7.  Sprint 7: The developers worked on improving the user interface, incorporating making predictions using an uploaded model, and recovering previously saved models. The documentation team worked on revising the README to include these new features.
 8.  Sprint 8: The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it more user friendly.
 
-## What is AI? 
-Artificial Intelligence (AI) is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving, and even creativity. AI systems can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data.
+## AI, Machine Learning, and Linear Regression
+Understanding these concepts is integral to understanding how Trackr functions. 
 
-## What is Linear Regression? 
-Linear regression is a method in data science and machine learning that helps predict future outcomes by finding a straight-line relationship between two variables. The independent variable is the known data, and the dependent variable is what we want to predict. This method can be used to make informed guesses about things like sales, age, housing prices, and product costs. 
+### Artificial Intelligence (AI) and Machine Learning (ML)
+**Machine Learning (ML)** is a subset of **Artificial Intelligence (AI)**, but it is not necessarily the same. AI is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving. AI can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data that it is given.
 
-### The Linear Regression Model
+While Trackr’s processes rely on data to improve its output, it does not use AI explicitly. Instead, Machine Learning works by analyzing input data to identify patterns and make predictions. Trackr relies on these processes to improve its output by building models that predict outcomes based on the datasets it processes. It uses ML techniques to create accurate and reliable predictions tailored to user data.
+
+
+
+### Linear Regression
+Linear regression is a type of machine-learning algorithm that helps predict future outcomes by finding a straight-line relationship between two variables. The independent variable is the known data, and the dependent variable is what we want to predict. This method can be used to make informed guesses about variables such as sales, age, housing prices, and product costs. Trackr uses Simple Linear Regression, which means that the model will produce the relationship between 1 independent variable (known data) and 1 dependent variable (the value to predict).
+
+**Features of the Linear Regression Model**
 
 In simple linear regression, a line is formed based on the data points of the independent and dependent variables. The line consists of two parts:
-* A slope - Displays how the dependent variable changes each time there is a change in the independent variable.
-* Intercept -This is the predicted value of the dependent variable when the independent variable is zero.
+* **A slope** - Displays how the dependent variable changes each time there is a change in the independent variable, specifically for every unit increase in the independent variable. It shows the strength and direction of the relationship between the two variables.
++ **Intercept** - The value of the dependent variable when the independent variable equals zero. It represents the starting point or baseline value in the absence of any effect from the independent variable.
+* **Line of best fit/ Regression line** - This line minimizes the error between the predicted and actual values, ensuring the smallest possible difference across all data points. It represents the relationship between the dependent and independent variables. 
 
 The purpose of this line is to make future predictions by showing a clear, straightforward relationship between
 the two variables given the data.
 
-### How does Trackr use Linear Regression and AI? 
+### How does Trackr use Linear Regression and Machine Learning? 
 Trackr allows users to effortlessly create and work with linear regression models, helping businesses predict profits using past data. By uploading an existing spreadsheet to Trackr, users can quickly generate a linear regression model, while AI enhances the results by delivering actionable insights. This process requires minimal effort and no advanced technical knowledge, making data-driven predictions accessible to everyone.
 
 ## Project Specific Information
@@ -107,5 +115,5 @@ The documentation team delivers documents that refer to the [Microsoft Style Gui
 
 The documentation team members are:
 
-- Cristine Buizon: Writer of the GitHub documentation (Introduction, Project Background, What is AI, What is Linear Regression) and the README.
+- Cristine Buizon: Writer of the GitHub documentation (Introduction, Project Background, AI, Machine Learning, and Linear Regression) and the README.
 - Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) the and README.
