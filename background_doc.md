@@ -30,7 +30,7 @@ This chart shows the traits, motivations, and pain points of Trackr's target use
 | Occupation | Small to medium-scale business owners. |
 | Technical Skill Level |  Trackr users have varying levels of technical expertise, ranging from beginners unfamiliar with data analysis tools to more experienced users seeking a straightforward way to predict profits and make data-driven decisions. |
 | Motivations | Our users want to gain more insights about analytics such as saving costs, how to increase yearly profits, etc. |
-| Pain Points | Lack of time for self-learning. Long, complex instructions with technical jargon, lack of experience and knowledge of statistics and data analytics, and external sources to further understand how to use Trackr. |
+| Pain Points | Lack of time for self-learning. Long, complex instructions with technical jargon, lack of experience and knowledge of statistics and data analytics, and having to consult multiple external sources to further understand how to use data analytic tools. |
 | Expectations | Empathetic and concise instructions that are labelled,  the user’s existing data should be fully compatible with Trackr’s upload feature. They expect to understand how to use correct input that will result in helpful and informative output results to support their goals. |
 
 </details>
