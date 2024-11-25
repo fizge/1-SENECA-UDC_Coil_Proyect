@@ -9,15 +9,15 @@ The purpose of Trackr is to predict data from data sets. The data sets that are 
 
 
 ### Goals
-The goal of the project was to create an application that gives the users a simple visual interface of linear regression models from data stores in the mentioned files, and allows users to make predictions with them. The users can use the application to: <br>
+The goal of the project was to create an application that gives users a simple visual interface of linear regression models from data, and allows users to make predictions. The users can use the application to: <br>
 - Save data models
-- Load data models
-- Make predictions using loaded data models
+- Upoad data models stored on their device
+- Make predictions using data models
 
 ### Audience
-The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions.  Trackr can be of use to make other industry-specific predictions from users of different professions, such as e-commerce and education.
+The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions. Trackr can be used to make other industry-specific predictions by users in different professions, such as e-commerce and education.
 
-Trackr's priority is to create an intuitive tool that simplifies data processing, allowing users to quickly gain actionable insights. By focusing on accessibility and ease of use, we aim to empower our audience with the confidence to use data analytics without requiring advanced technical skills or training. While our example below is an example of a target user, always consider the diverse technical backgrounds of our users and prioritize features that streamline processes, minimize confusion, and provide clear, impactful insights.
+Trackr's priority is to create an intuitive tool that simplifies data processing, allowing users to quickly gain actionable insights. By focusing on accessibility and ease of use, we aim to empower our audience with the confidence to use data analytics without requiring advanced technical skills or training. While our example below is an example of a target user, always consider the diverse technical backgrounds of users and prioritize features that streamline processes, minimize confusion, and provide clear, impactful insights.
 
 <details>
 <summary>View Trackr’s Target User</summary>
@@ -37,41 +37,42 @@ This chart shows the traits, motivations, and pain points of Trackr's target use
 
 ### Platforms and Technology 
 Trackr was created using a variety of tools and platforms to create a simple and user-friendly application. <br>
-The development platforms used were: <br>
+The development platforms used were:<br>
 
-**Python**
+**Python**<br>
 Python was used as the programming language because of the large amount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
 
-**Data File Formats**
-The datasets that were used to create Trackr were:
+**Data File Formats**<br>
+The dataset formats that were used to create Trackr were:
 - Database files (.db)
 - Excel files (.xls)
 - Pickle files (.pkl)
 - CSV files (.csv)
+  **Note:** Trackr can only be used with these data file formats.
 
- **Collaboration Tools**
-The teams collaborated using:
+ **Collaboration Tools**<br>
+The development and documentation teams collaborated using:
 - [WhatsApp](https://web.whatsapp.com/): This tool was used to contact team members throughout the project.
 - [GitHub](https://github.com/): This tool was used to store code files and documentation.
 - [Visual Studio Code](https://code.visualstudio.com/): This tool was used by the programmers to create the project.
 - [Zoom](https://www.zoom.com/): This tool was used to collaborate using video conferencing.
-- [Microsoft Teams](https://www.microsoft.com/en-ca/microsoft-teams/group-chat-software): This tool was used to collaborate using video conferencing and discussing each sprint with the product owner.
-- [Taiga](https://taiga.io/): This tool was used for agile project management, for keeping track of sprints and organizing tasks.
+- [Microsoft Teams](https://www.microsoft.com/en-ca/microsoft-teams/group-chat-software): This tool was used to collaborate using video conferencing and discuss sprints with the product owner.
+- [Taiga](https://taiga.io/): This tool was used for agile project management, and for keeping track of sprints and organizing tasks.
 
 ## Agile Development Process
-This project was created using the agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross-team collaboration. The key factors of agile development are its flexibility to change through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint. <br>
+Trackr was created using agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross-team collaboration. The key factors of agile development are its flexibility to change through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint.<br>
 
-During the cycle, each sprint lasted one week, with the exception of sprint 8 which was 2 weeks. At the end of each sprint, the developers and technical writers met with the product owner to discuss what aspects of the project were going well, what parts were not going well and how the next sprint could be improved. After each sprint retrospective, the developers and technical writers met to discuss their progress, goals, and achievements. <br>
+During the cycle, each sprint lasted one week, with the exception of sprint 8 which was 2 weeks long. At the end of each sprint, the developers and technical writers met with the product owner to discuss what aspects of the project were going well, what parts were not going well, and how the next sprint could be improved. After each sprint retrospective, the developers and technical writers met to discuss their progress, goals, and achievements. <br>
 
 **Completed Sprints and Sprint Tasks**
-1. Sprint 1: Both teams created Taiga, GitHub, code repository, and documentation plan.
-2. Sprint 2: The documentation team conducted a subject matter expert (SME) interview with the developers and completed the first half of the documentation plan. The developers researched Python libraries.
-3.  Sprint 3: The documentation team worked on completing the second half of the documentation plan. The developers further researched Python libraries (tkinter, PyQt, and wxpython).
-4.  Sprint 4: The documentation team worked on creating the preliminary README and GitHub document. The developer team worked on creating linear models for prediction using the GUI, and improving the graphical interface.
+1. Sprint 1: Both teams created Taiga accounts, GitHub accounts, and the code and documentation repository on GitHub. The documentation team began the Documentation Plan.
+2. Sprint 2: The documentation team conducted a subject matter expert (SME) interview with the developers and completed the first half of the Documentation Plan. The developers researched Python libraries.
+3.  Sprint 3: The documentation team worked on completing the second half of the Documentation Plan. The developers further researched Python libraries (tkinter, PyQt, and wxpython). 
+4.  Sprint 4: The documentation team worked on creating the preliminary README and GitHub document. The developer team worked on creating linear models for prediction using the GUI, and improving Trackr's graphical interface.
 5.  Sprint 5: The developers worked on creating file selection and saving features. The documentation team worked on revising the README and GitHub document.
-6.  Sprint 6: The developers further worked on the file selection, saving features and creating a polished user interface for Trackr. The documentation team worked on revising the README by including Trackr user interface images.
+6.  Sprint 6: The developers further worked on the file selection feature, saving features, and creating a polished user interface for Trackr. The documentation team worked on revising the README by including Trackr user interface images.
 7.  Sprint 7: The developers worked on improving the user interface, incorporating making predictions using an uploaded model, and recovering previously saved models. The documentation team worked on revising the README to include these new features.
-8.  Sprint 8: The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it more user friendly.
+8.  Sprint 8: The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it user friendly.
 
 ## AI, Machine Learning, and Linear Regression
 Understanding these concepts is integral to understanding how Trackr functions. 
@@ -116,4 +117,4 @@ The documentation team delivers documents that refer to the [Microsoft Style Gui
 The documentation team members are:
 
 - Cristine Buizon: Writer of the GitHub documentation (Introduction, Project Background, AI, Machine Learning, and Linear Regression) and the README.
-- Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) the and README.
+- Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) and the and README.
