@@ -9,7 +9,7 @@ The purpose of Trackr is to predict data from data sets. The data sets that are 
 
 
 ### Goals
-The goal of the project was to create an application that gives users a simple visual interface of linear regression models from data, and allows users to make predictions. The users can use the application to: <br>
+The goal of the project was to create an application that gives users a simple visual interface of linear regression models from data sets and allows users to make predictions. The users can use the application to: <br>
 - Save data models
 - Upoad data models stored on their device
 - Make predictions using data models
