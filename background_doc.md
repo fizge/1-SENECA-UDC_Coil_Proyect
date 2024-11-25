@@ -16,7 +16,23 @@ The goal of the project was to create an application that gives the users a simp
 
 ### Audience
 The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions.  Trackr can be of use to make other industry-specific predictions from users of different professions, such as e-commerce and education.
-[User Persona graphic to be added] 
+
+<details>
+<summary>Learn more about Trackr’s Target User</summary>
+<br>
+Trackr's priority is to create an intuitive tool that simplifies data processing and visualization, allowing users to quickly gain actionable insights. By focusing on accessibility and ease of use, we aim to empower our audience with the confidence to use data analytics without requiring advanced technical skills or training. While this is an example of a target user, always consider the diverse technical backgrounds of our users and prioritize features that streamline processes, minimize confusion, and provide clear, impactful insights.
+
+
+| User Trait | Description |
+| --- | --- |
+| Age | 20 + |
+| Occupation | Small to medium-scale business owners. |
+| Technical Skill Level |  Trackr users have varying levels of technical expertise, ranging from beginners unfamiliar with data analysis tools to more experienced users seeking a straightforward way to predict profits and make data-driven decisions. |
+| Motivations | Our users want to gain more insights about analytics such as saving costs, how to increase yearly profits, etc. |
+| Pain Points | Lack of time for self-learning. Long, complex instructions with technical jargon, lack of experience and knowledge of statistics and data analytics, and external sources to further understand how to use Trackr. |
+| Expectations | Empathetic and concise instructions that are labelled,  the user’s existing data should be fully compatible with Trackr’s upload feature. They expect to understand how to use correct input that will result in helpful and informative output results to support their goals. |
+
+</details>
 
 ### Platforms and Technology 
 Trackr was created using a variety of tools and platforms to create a simple and user-friendly application. <br>
