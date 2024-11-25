@@ -17,7 +17,7 @@ The goal of the project was to create an application that gives the users a simp
 ### Audience
 The intended audience of Trackr are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions.  Trackr can be of use to make other industry-specific predictions from users of different professions, such as e-commerce and education.
 
-Trackr's priority is to create an intuitive tool that simplifies data processing and visualization, allowing users to quickly gain actionable insights. By focusing on accessibility and ease of use, we aim to empower our audience with the confidence to use data analytics without requiring advanced technical skills or training. While this is an example of a target user, always consider the diverse technical backgrounds of our users and prioritize features that streamline processes, minimize confusion, and provide clear, impactful insights.
+Trackr's priority is to create an intuitive tool that simplifies data processing and visualization, allowing users to quickly gain actionable insights. By focusing on accessibility and ease of use, we aim to empower our audience with the confidence to use data analytics without requiring advanced technical skills or training. While our example below is an example of a target user, always consider the diverse technical backgrounds of our users and prioritize features that streamline processes, minimize confusion, and provide clear, impactful insights.
 
 <details>
 <summary>View Trackr’s Target User</summary>
