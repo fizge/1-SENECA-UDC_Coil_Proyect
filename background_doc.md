@@ -5,7 +5,7 @@ Trackr software and its users. The purpose of this resource is to keep team memb
 ## Project Background
 This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process. This project leverages international perspectives to create a universal tool to deliver an accessible, user-friendly solution for data analytics.<br>
 
-The purpose of Trackr is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-seperated value files. The output datasets can be saved and uploaded only as pickle files. 
+The purpose of Trackr is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-separated value files. The output datasets can be saved and uploaded only as pickle files. 
 
 
 ### Goals
@@ -19,11 +19,11 @@ The intended audience of Trackr are small to medium-scale business owners with l
 [User Persona graphic to be added] 
 
 ### Platforms and Technology 
-Trackr was created using a vartiety of tools and platforms to create a simple and user-friendly application. <br>
+Trackr was created using a variety of tools and platforms to create a simple and user-friendly application. <br>
 The development platforms used were: <br>
 
 **Python**
-- Python was used as the programming language because of the large ammount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
+- Python was used as the programming language because of the large amount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.
 
 **Data File Formats**
 The datasets that were used to create Trackr were:
@@ -35,11 +35,11 @@ The datasets that were used to create Trackr were:
  **Collaboration Tools**
 The teams collaborated using:
 - [WhatsApp](https://web.whatsapp.com/): This tool was used to contact team members throughout the project.
-- GitHub: This tool was used to store code files and documentation.
-- Visual Studio Code: This tool was used by the programmers to create the project.
-- Zoom: This tool was used to collaborate using video conferencing.
-- Teams: This tool was used to collaborate using video conferencing and discussing each sprint with the product owner.
-- Taiga: This tool was used for agile project management and for keeping track and organizing sprints.
+- [GitHub](https://github.com/): This tool was used to store code files and documentation.
+- [Visual Studio Code](https://code.visualstudio.com/): This tool was used by the programmers to create the project.
+- [Zoom](https://www.zoom.com/): This tool was used to collaborate using video conferencing.
+- [Microsoft Teams](https://www.microsoft.com/en-ca/microsoft-teams/group-chat-software): This tool was used to collaborate using video conferencing and discussing each sprint with the product owner.
+- [Taiga](https://taiga.io/): This tool was used for agile project management, for keeping track of sprints and organizing tasks.
 
 ## Agile Development Process
 This project was created using the agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross team collaboration. The key factors of agile development are its flexibility to changes through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint. <br>
