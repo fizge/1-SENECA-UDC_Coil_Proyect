@@ -21,7 +21,9 @@ Trackr's priority is to create an intuitive tool that simplifies data processing
 
 <details>
 <summary>View Trackr’s Target User</summary>
-<br>
+
+This chart shows the traits, motivations, and pain points of Trackr's target user:
+
 | User Trait | Description |
 | --- | --- |
 | Age | 20 + |
