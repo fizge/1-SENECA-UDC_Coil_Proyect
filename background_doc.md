@@ -34,7 +34,7 @@ The datasets that were used to create Trackr were:
 
  **Collaboration Tools**
 The teams collaborated using:
-- [WhatsApp]( (https://web.whatsapp.com/): This tool was used to contact team members throughout the project.
+- [WhatsApp](https://web.whatsapp.com/): This tool was used to contact team members throughout the project.
 - GitHub: This tool was used to store code files and documentation.
 - Visual Studio Code: This tool was used by the programmers to create the project.
 - Zoom: This tool was used to collaborate using video conferencing.
