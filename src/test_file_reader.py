@@ -1,4 +1,4 @@
-import os
+
 import pytest
 import pandas as pd
 from file_reader import FileReader
@@ -8,6 +8,26 @@ import sqlite3
 def file_reader():
     return FileReader()
 
+@pytest.fixture
+def excel_test_paths(tmp_path):
+    excel_path = tmp_path / "test.xlsx"
+    df = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
+    df.to_excel(excel_path, index=False)
+
+    empty_excel_path = tmp_path / "empty.xlsx"
+    pd.DataFrame().to_excel(empty_excel_path, index=False)
+
+    multi_sheet_excel_path = tmp_path / "multi_sheet.xlsx"
+    with pd.ExcelWriter(multi_sheet_excel_path) as writer:
+        df.to_excel(writer, sheet_name="Sheet1", index=False)
+        pd.DataFrame({"colA": [10, 20], "colB": [30, 40]}).to_excel(writer, sheet_name="Sheet2", index=False)
+
+    return {
+        "excel": excel_path,
+        "empty_excel": empty_excel_path,
+        "multi_sheet_excel": multi_sheet_excel_path,
+    }
+
 def test_read_csv_success(file_reader, tmp_path):
     csv_path = tmp_path / "test.csv"
     df = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
@@ -16,6 +36,22 @@ def test_read_csv_success(file_reader, tmp_path):
     result = file_reader.read_csv_or_excel(csv_path)
     pd.testing.assert_frame_equal(result, df)
 
+def test_read_excel_success(file_reader, excel_test_paths):
+    result = file_reader.read_csv_or_excel(excel_test_paths["excel"])
+    pd.testing.assert_frame_equal(result, pd.DataFrame({"col1": [1, 2], "col2": [3, 4]}))
+
+
+        
+def test_open_file_empty_excel(file_reader, excel_test_paths):
+    result = file_reader.read_csv_or_excel(excel_test_paths["empty_excel"])
+    assert result is not None  
+    assert result.empty 
+
+
+def test_open_file_multi_sheet_excel(file_reader, excel_test_paths):
+    df = file_reader.read_csv_or_excel(excel_test_paths["multi_sheet_excel"])
+    assert not df.empty
+    assert list(df.columns) == ["col1", "col2"]
 
 def test_read_nonexistent_file(file_reader):
     result = file_reader.read_csv_or_excel("nonexistent.csv")
@@ -27,8 +63,6 @@ def test_read_invalid_file(file_reader, tmp_path):
     
     result = file_reader.read_csv_or_excel(invalid_path)
     assert result is None
-
-
 
 def test_read_sqlite_success(file_reader, tmp_path):
     db_path = tmp_path / "test.db"
@@ -45,7 +79,7 @@ def test_read_sqlite_success(file_reader, tmp_path):
 
 def test_read_sqlite_no_table(file_reader, tmp_path):
     db_path = tmp_path / "empty.db"
-    sqlite3.connect(db_path).close()  # Create an empty database
+    sqlite3.connect(db_path).close()
 
     result = file_reader.read_sqlite(db_path)
     assert result is None
@@ -53,7 +87,3 @@ def test_read_sqlite_no_table(file_reader, tmp_path):
 def test_read_sqlite_nonexistent_file(file_reader):
     result = file_reader.read_sqlite("nonexistent.db")
     assert result is None
-
-
-
-### poner en el terminal pytest .
