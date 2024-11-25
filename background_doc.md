@@ -3,8 +3,9 @@ This documentation provides essential background information for the Trackr proj
 Trackr software and its users. The purpose of this resource is to keep team members informed of the context that guides the project, and provide new team members background information on project goals, platforms used, the users, and methodology.
 
 ## Project Background
-This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process.<br>
+This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process. This project leverages international perspectives to create a universal tool to deliver an accessible, user-friendly solution for data analytics.<br>
 The purpose of Trackr is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-seperated value files. The output datasets can be saved and uploaded only as pickle files. 
+
 
 ### Goals
 The goal of the project was to create an application that gives the users a simple visual interface of linear regression models from data stores in the mentioned files, and allows users to make predictions with them. The users can use the application to: <br>
@@ -50,7 +51,7 @@ During the cycle, each sprint lasted one week, with the exception of sprint 8 wh
 3.  Sprint 3: The documentation team worked on completing the second half of the documentation plan. The developers further researched Python libraries (tkinter, PyQt, and wxpython).
 4.  Sprint 4: The documentation team worked on creating the preliminary README and GitHub document. The developer team worked on creating linear models for prediction using the GUI, and improving the graphical interface.
 5.  Sprint 5: The developers worked on creating file selection and saving features. The documentation team worked on revising the README and GitHub document.
-6.  Spring 6: The developers further worked on the file selection, saving features and creating a polished user interface for Trackr. The documentation team worked on revising the README by including Trackr user interface images.
+6.  Sprint 6: The developers further worked on the file selection, saving features and creating a polished user interface for Trackr. The documentation team worked on revising the README by including Trackr user interface images.
 7.  Sprint 7: The developers worked on improving the user interface, incorporating making predictions using an uploaded model, and recovering previously saved models. The documentation team worked on revising the README to include these new features.
 8.  Sprint 8: The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it more user friendly.
 
