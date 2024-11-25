@@ -4,7 +4,7 @@ Trackr software and its users. The purpose of this resource is to keep team memb
 
 ## Project Background
 This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process. This project leverages international perspectives to create a universal tool to deliver an accessible, user-friendly solution for data analytics.<be>
-<be>
+<br>
 The purpose of Trackr is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-seperated value files. The output datasets can be saved and uploaded only as pickle files. 
 
 
