@@ -42,7 +42,7 @@ The teams collaborated using:
 - [Taiga](https://taiga.io/): This tool was used for agile project management, for keeping track of sprints and organizing tasks.
 
 ## Agile Development Process
-This project was created using the agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross team collaboration. The key factors of agile development are its flexibility to changes through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint. <br>
+This project was created using the agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross-team collaboration. The key factors of agile development are its flexibility to change through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint. <br>
 
 During the cycle, each sprint lasted one week, with the exception of sprint 8 which was 2 weeks. At the end of each sprint, the developers and technical writers met with the product owner to discuss what aspects of the project were going well, what parts were not going well and how the next sprint could be improved. After each sprint retrospective, the developers and technical writers met to discuss their progress, goals, and achievements. <br>
 
@@ -86,7 +86,9 @@ This section explains who Trackr was created by, their role in the project, and 
 **Documentation Team** <br>
 Both writers worked each sprint to develop clear, accurate, end-user and internal user documentation. The goal of the documentation team was to create clear, accurate, concise documentation tailored to both end user needs and developer needs. This meant ensuring that the user's needs were considered when creating both the README and GitHub documentation. The end user needs were to understand how to use Trackr easily, without having a technical background. The developer needs were to understand Trackr requirements, how to set up the correct environment to recreate the tool, and understand how the tool was created. <br>
 
+The documentation team delivers documents that refer to the [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/) and follow [Github's Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+
 The documentation team members are:
 
-- Cristine Buiuzon: Writer of the GitHub documentation (Introduction, Project Background, What is AI, What is Linear Regression) and the README.
+- Cristine Buizon: Writer of the GitHub documentation (Introduction, Project Background, What is AI, What is Linear Regression) and the README.
 - Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) the and README.
