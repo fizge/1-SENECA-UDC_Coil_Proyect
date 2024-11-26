@@ -3,6 +3,43 @@ import pytest
 import pandas as pd
 from file_reader import FileReader
 import sqlite3
+from unittest.mock import MagicMock
+from unittest.mock import MagicMock
+from preselection_scenario import Preselection
+
+
+class MockApp:
+    def __init__(self):
+        self.v = MagicMock()  
+        self.deleted_rows = MagicMock()  
+        self.output_select = MagicMock() 
+        self.modeling = MagicMock() 
+        self.load = MagicMock() 
+     
+        self.modeling.graphic_frame = None 
+
+@pytest.fixture
+def preselection():
+    app = MockApp()
+    preselection_instance = Preselection(app)
+    return preselection_instance
+
+def test_import_data(preselection):
+  
+    preselection.app.v = MagicMock() 
+    preselection.tree = None  
+    preselection.original_data = pd.DataFrame({"A": [1,None,5,7], "B": [3,4,None,90]})
+    preselection.import_data("data.db")
+    assert preselection.original_data is not None
+    preselection.import_data("data.xlsx")
+    assert preselection.original_data is not None
+    preselection.import_data("data.csv")
+    assert preselection.original_data is not None
+    preselection.import_data("data.sqlite")
+    assert preselection.original_data is not None
+    preselection.import_data("data.xls")
+    assert preselection.original_data is not None
+
 
 @pytest.fixture
 def file_reader():
