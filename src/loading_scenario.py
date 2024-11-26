@@ -18,7 +18,7 @@ class LoadModel:
         self.prediction_res_label = None
                 
     def load_model(self):
-        file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
+        file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl")])
         if file_path:
             charging = ChargingWindow(self.app)
             charging.bar()
