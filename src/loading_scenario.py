@@ -15,7 +15,8 @@ class LoadModel:
         self.description = None
         self.output_column = None
         self.input_column = None
-        
+        self.prediction_res_label = None
+                
     def load_model(self):
         file_path = filedialog.askopenfilename(filetypes=[("Model files", "*.pkl *.joblib")])
         if file_path:
@@ -93,8 +94,8 @@ class LoadModel:
 
         prediction_button = ctk.CTkButton(
             self.info_frame, text=f"Predict", font=("Arial", 16, "bold"),
-            width=30, height=30, command=self.prediction_loaded_model)
-        prediction_button.grid(row=5, column=0,columnspan=2, padx=(470,0), pady=(0,10), sticky="w")
+            width=90, height=30, command=self.prediction_loaded_model)
+        prediction_button.grid(row=5, column=0,columnspan=2, padx=(460,0), pady=(0,10), sticky="w")
 
         self.app.v.geometry("1000x430+200+0")
  
@@ -104,9 +105,11 @@ class LoadModel:
             try:
                 input_value = float(self.prediction_input.get())
                 prediction = self.model.predict([[input_value]])  
-                prediction_label = ctk.CTkLabel(self.info_frame , text =f"<{self.output_column}> = {prediction[0]:.2f} ",
+                if self.prediction_res_label is not None:
+                    self.prediction_res_label.destroy()
+                self.prediction_res_label = ctk.CTkLabel(self.info_frame , text =f"<{self.output_column}> = {prediction[0]:.2f} ",
                                                     font=("Arial", 14, 'bold'), text_color="white")
-                prediction_label.grid(row=6, column=0,columnspan=2, padx=(80,0), pady=(0,20), sticky="w")
+                self.prediction_res_label.grid(row=6, column=0,columnspan=2, padx=(80,0), pady=(0,20), sticky="w")
             except ValueError:
                 messagebox.showerror("Error", "Please enter a valid number to make the prediction.")
             except Exception as e:

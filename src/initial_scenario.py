@@ -56,7 +56,7 @@ class LinearRegressionAnalyitics:
             self.presentation_frame.destroy()
 
         self.initial_frame = ctk.CTkFrame(self.v)
-        self.initial_frame.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
+        self.initial_frame.grid(row=0, column=0, pady=(20,10), padx=10, sticky="new")
         self.initial_frame.grid_columnconfigure(0, weight=0)  
         self.initial_frame.grid_columnconfigure(1, weight=1)  
         self.initial_frame.grid_columnconfigure(2, weight=0)  
