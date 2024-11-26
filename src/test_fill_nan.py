@@ -27,7 +27,7 @@ def test_fill_na_values_mean(preselection):
 
     preselection.display_data_in_treeview = MagicMock()
 
-    preselection.fill_na_values("Fill with Median", ["A", "B"])
+    preselection.fill_na_values("Fill with Mean", ["A", "B"])
 
     preselection.display_data_in_treeview.assert_called_with(preselection.loaded_data)
     assert preselection.display_data_in_treeview.call_count == 1
@@ -38,7 +38,7 @@ def test_fill_na_values_median(preselection):
 
     preselection.display_data_in_treeview = MagicMock()
 
-    preselection.fill_na_values("Fill with Mean", ["A", "B"])
+    preselection.fill_na_values("Fill with Median", ["A", "B"])
 
     preselection.display_data_in_treeview.assert_called_with(preselection.loaded_data)
     assert preselection.display_data_in_treeview.call_count == 1
