@@ -6,6 +6,7 @@ class SavedModel:
     """
     Clase para gestionar el guardado de modelos entrenados con sus atributos, métricas y descripción.
     """
+
     def __init__(self, model, input_column, output_column, r_squared, mse, description):
         self.model = model
         self.input_column = input_column
@@ -16,14 +17,16 @@ class SavedModel:
 
     def save_model(self):
         if self.model is None or self.input_column is None or self.output_column is None:
-            messagebox.showerror("Error", "No model available to save. Generate a model first.")
+            messagebox.showerror(
+                "Error", "No model available to save. Generate a model first.")
             return
 
         if self.description == "Write the model description here...":
             self.description = ""
 
         if not self.description or self.description == "":
-            messagebox.showwarning("Warning", "You have not written anything in the description.")
+            messagebox.showwarning(
+                "Warning", "You have not written anything in the description.")
 
         file_path = filedialog.asksaveasfilename(
             defaultextension=".pkl",
@@ -53,6 +56,7 @@ class SavedModel:
             with open(file_path, 'wb') as file:
                 pickle.dump(self.model_data, file)
             # Ajuste del mensaje para incluir el salto de línea (\n)
-            messagebox.showinfo("Success", f"Model saved successfully to:{file_path}")
+            messagebox.showinfo(
+                "Success", f"Model saved successfully to:{file_path}")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save the model: {e}")

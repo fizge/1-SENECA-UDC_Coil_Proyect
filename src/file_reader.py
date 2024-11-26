@@ -2,6 +2,7 @@ import pandas as pd
 import sqlite3
 import os
 
+
 class FileReader:
     def __init__(self):
         pass
@@ -9,7 +10,7 @@ class FileReader:
     def read_csv_or_excel(self, file_path):
         """
         Reads a CSV or Excel file and returns the data as a DataFrame.
-        
+
         Args:
             file_path (str): Path to the file to be read.
 
@@ -32,7 +33,7 @@ class FileReader:
     def read_sqlite(self, db_path):
         """
         Reads data from the first table of a SQLite database and returns it as a DataFrame.
-        
+
         Args:
             db_path (str): Path to the SQLite database.
 
@@ -53,11 +54,3 @@ class FileReader:
         except Exception as e:
             print(f"An error occurred while reading the SQLite database: {e}")
             return None
-
-
-
-
-
-        
-
-        

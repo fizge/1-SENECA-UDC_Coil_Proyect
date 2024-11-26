@@ -6,6 +6,7 @@ from preselection_scenario import Preselection
 from modeling_scenario import Modeling
 from loading_scenario import LoadModel
 
+
 class LinearRegressionAnalyitics:
     def __init__(self):
         self.v = None
@@ -18,8 +19,6 @@ class LinearRegressionAnalyitics:
         self.preselection = Preselection(self)
         self.modeling = Modeling(self)
         self.load = LoadModel(self)
-        
-        
 
     def create_window(self):
         ctk.set_appearance_mode("Dark")
@@ -37,44 +36,53 @@ class LinearRegressionAnalyitics:
 
     def gui_presentation(self):
         self.presentation_frame = ctk.CTkFrame(self.v, fg_color='#242424')
-        self.presentation_frame.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
+        self.presentation_frame.grid(
+            row=0, column=0, pady=10, padx=10, sticky="nsew")
 
-        self.presentation1_label = ctk.CTkLabel(self.presentation_frame, text="¡Welcome to  LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
-        self.presentation1_label.grid(row=0, column=0, padx=60, pady=40, sticky="n")
+        self.presentation1_label = ctk.CTkLabel(
+            self.presentation_frame, text="¡Welcome to  LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
+        self.presentation1_label.grid(
+            row=0, column=0, padx=60, pady=40, sticky="n")
 
         self.start_button = ctk.CTkButton(self.presentation_frame, text="Start", font=("Arial", 40, "bold"),
-                                         width=240, height=80, corner_radius=35, command=self.gui_initialization)
+                                          width=240, height=80, corner_radius=35, command=self.gui_initialization)
         self.start_button.grid(row=1, column=0, padx=20, pady=10, sticky="n")
 
         self.presentation2_label = ctk.CTkLabel(self.presentation_frame, text="This application is designed to help you explore and analyze data using simple linear regression models.\n You can upload your own datasets and generate graphs that display the relationship between variables,\n as well as make predictions based on your data.",
                                                 font=("Arial", 18, 'bold'))
-        self.presentation2_label.grid(row=2, column=0, padx=60, pady=40, sticky="n")
+        self.presentation2_label.grid(
+            row=2, column=0, padx=60, pady=40, sticky="n")
 
     def gui_initialization(self):
-        
+
         if self.presentation_frame is not None:
             self.presentation_frame.destroy()
 
         self.initial_frame = ctk.CTkFrame(self.v)
-        self.initial_frame.grid(row=0, column=0, pady=(20,10), padx=10, sticky="new")
-        self.initial_frame.grid_columnconfigure(0, weight=0)  
-        self.initial_frame.grid_columnconfigure(1, weight=1)  
-        self.initial_frame.grid_columnconfigure(2, weight=0)  
+        self.initial_frame.grid(row=0, column=0, pady=(
+            20, 10), padx=10, sticky="new")
+        self.initial_frame.grid_columnconfigure(0, weight=0)
+        self.initial_frame.grid_columnconfigure(1, weight=1)
+        self.initial_frame.grid_columnconfigure(2, weight=0)
 
-        self.file_path_label = ctk.CTkLabel(self.initial_frame, text="Path:", font=("Arial", 18, 'bold'))
-        self.file_path_label.grid(row=0, column=0, padx=(40, 10), pady=10, sticky="w")
+        self.file_path_label = ctk.CTkLabel(
+            self.initial_frame, text="Path:", font=("Arial", 18, 'bold'))
+        self.file_path_label.grid(
+            row=0, column=0, padx=(40, 10), pady=10, sticky="w")
 
-        self.file_path_entry = ctk.CTkEntry(self.initial_frame, width=100, font=("Arial", 12))
-        self.file_path_entry.grid(row=0, column=1, padx=(0, 10), pady=10, sticky="ew")
+        self.file_path_entry = ctk.CTkEntry(
+            self.initial_frame, width=100, font=("Arial", 12))
+        self.file_path_entry.grid(
+            row=0, column=1, padx=(0, 10), pady=10, sticky="ew")
         self.file_path_entry.insert(0, "No file selected")
         self.file_path_entry.configure(state="readonly")
 
         self.open_button = ctk.CTkButton(self.initial_frame, text="Open File", font=("Arial", 20, "bold"),
                                          width=140, height=40, command=self.preselection.open_files)
-        self.open_button.grid(row=0, column=2, padx=(10, 20), pady=10, sticky="e")
+        self.open_button.grid(row=0, column=2, padx=(
+            10, 20), pady=10, sticky="e")
 
         self.load_button = ctk.CTkButton(self.initial_frame, text="Load Model", font=("Arial", 20, "bold"),
-                                        width=140, height=40, command=self.load.load_model)
-        self.load_button.grid(row=0, column=3, padx=(0, 20), pady=10, sticky="e")
-
-    
+                                         width=140, height=40, command=self.load.load_model)
+        self.load_button.grid(
+            row=0, column=3, padx=(0, 20), pady=10, sticky="e")

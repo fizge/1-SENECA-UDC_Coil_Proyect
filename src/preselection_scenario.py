@@ -1,7 +1,7 @@
 import pandas as pd
 import tkinter as tk
 import customtkinter as ctk
-from tkinter import messagebox,ttk,filedialog
+from tkinter import messagebox, ttk, filedialog
 from file_reader import FileReader
 from charging_bar import ChargingWindow
 
@@ -44,18 +44,18 @@ class Preselection:
             self.original_data = self.loaded_data.copy()
             self.display_data_in_treeview(self.loaded_data)
         if self.app.modeling.graphic_frame is not None:
-                self.app.modeling.graphic_frame.destroy()
-                self.app.modeling.graphic_frame = None
-                self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
-                self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
+            self.app.modeling.graphic_frame.destroy()
+            self.app.modeling.graphic_frame = None
+            self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
+            self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
         if self.option_frame is not None:
-                self.option_frame.grid_forget()
+            self.option_frame.grid_forget()
         if self.app.load.info_frame is not None:
-                self.app.load.info_frame.destroy()
-        self.selected_input_column,self.selected_output_column = None, None
+            self.app.load.info_frame.destroy()
+        self.selected_input_column, self.selected_output_column = None, None
         self.app.v.geometry("1000x450+200+0")
 
-    def open_files(self):    
+    def open_files(self):
         file = filedialog.askopenfilename(
             title="Open",
             filetypes=[("Supported Files", "*.csv *.xlsx *.xls *.sqlite *.db")]
@@ -74,13 +74,15 @@ class Preselection:
             charging.close_bar()
 
     def display_data_in_treeview(self, data):
-        
+
         if self.tree is None:
             self.tree_frame = ctk.CTkFrame(self.app.v)
-            self.tree_frame.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+            self.tree_frame.grid(row=3, column=0, columnspan=2,
+                                 padx=10, pady=10, sticky="nsew")
             self.tree = ttk.Treeview(self.tree_frame)
             self.tree.grid(row=0, column=0, sticky="nsew")
-            scrollbar_x = ttk.Scrollbar(self.tree_frame, orient="horizontal", command=self.tree.xview)
+            scrollbar_x = ttk.Scrollbar(
+                self.tree_frame, orient="horizontal", command=self.tree.xview)
             self.tree.configure(xscrollcommand=scrollbar_x.set)
             scrollbar_x.grid(row=1, column=0, sticky="ew")
             self.app.v.grid_rowconfigure(5, weight=1)
@@ -91,24 +93,28 @@ class Preselection:
 
         style = ttk.Style()
         style.theme_use('clam')
-        style.configure("Treeview.Heading", background="#2B2B2B", foreground="white", font=("Arial", 10, 'bold'))
+        style.configure("Treeview.Heading", background="#2B2B2B",
+                        foreground="white", font=("Arial", 10, 'bold'))
 
         for col in self.tree['columns']:
             self.tree.heading(col, text=col)
             self.tree.column(col, width=190, stretch=False)
 
-        self.tree.tag_configure('oddrow', background='#333333', foreground='white')
-        self.tree.tag_configure('evenrow', background='#2B2B2B', foreground='white')
+        self.tree.tag_configure(
+            'oddrow', background='#333333', foreground='white')
+        self.tree.tag_configure(
+            'evenrow', background='#2B2B2B', foreground='white')
 
         for i, (_, row) in enumerate(data.iterrows()):
             if i % 2 == 0:
-                self.tree.insert("", "end", values=list(row), tags=('evenrow',))
+                self.tree.insert("", "end", values=list(row),
+                                 tags=('evenrow',))
             else:
                 self.tree.insert("", "end", values=list(row), tags=('oddrow',))
 
         self.tree_frame.grid_rowconfigure(0, weight=1)
         self.tree_frame.grid_columnconfigure(0, weight=1)
-      
+
         self.gui_preselection(data.columns)
 
     def gui_preselection(self, columns):
@@ -122,41 +128,57 @@ class Preselection:
 
         if self.option_frame is None:
             self.option_frame = ctk.CTkFrame(self.app.v)
-        
+
         if self.app.modeling.graphic_frame is None:
-            self.selection_frame.grid(row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
+            self.selection_frame.grid(
+                row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
         else:
-            self.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
+            self.selection_frame.grid(
+                row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
 
-        self.input_label = ctk.CTkLabel(self.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
-        self.input_label.grid(row=0, column=0,  padx=(100,20), pady=10, sticky="e")
+        self.input_label = ctk.CTkLabel(
+            self.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
+        self.input_label.grid(row=0, column=0,  padx=(
+            100, 20), pady=10, sticky="e")
 
-        self.input_select = ctk.CTkOptionMenu(self.selection_frame,width=180, values=self.input_columns, command=self.update_output_options)
+        self.input_select = ctk.CTkOptionMenu(
+            self.selection_frame, width=180, values=self.input_columns, command=self.update_output_options)
         self.input_select.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-        self.output_label = ctk.CTkLabel(self.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
-        self.output_label.grid(row=1, column=0, padx=(100,20), pady=10, sticky="e")
+        self.output_label = ctk.CTkLabel(
+            self.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
+        self.output_label.grid(row=1, column=0, padx=(
+            100, 20), pady=10, sticky="e")
 
-        self.output_select = ctk.CTkOptionMenu(self.selection_frame,width=180, values=self.output_columns, command=self.update_input_options)
+        self.output_select = ctk.CTkOptionMenu(
+            self.selection_frame, width=180, values=self.output_columns, command=self.update_input_options)
         self.output_select.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
-        confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=("Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
-        confirm_button.grid(row=0, column=3, rowspan=2, padx=40, pady=10, sticky="ew")
+        confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=(
+            "Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
+        confirm_button.grid(row=0, column=3, rowspan=2,
+                            padx=40, pady=10, sticky="ew")
 
-        self.preprocess_label = ctk.CTkLabel(self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
+        self.preprocess_label = ctk.CTkLabel(
+            self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
 
-        self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
-        self.fill_mean_button = ctk.CTkButton(self.option_frame, text="Fill with Mean", font=("Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Mean"))
-        self.fill_median_button = ctk.CTkButton(self.option_frame, text="Fill with Median", font=("Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Median"))
-        self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=("Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
+        self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=(
+            "Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
+        self.fill_mean_button = ctk.CTkButton(self.option_frame, text="Fill with Mean", font=(
+            "Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Mean"))
+        self.fill_median_button = ctk.CTkButton(self.option_frame, text="Fill with Median", font=(
+            "Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Median"))
+        self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=(
+            "Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
 
-        self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=("Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
+        self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=(
+            "Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
 
         if self.input_columns and self.output_columns:
             if self.selected_input_column is not None and self.selected_output_column is not None:
                 self.input_select.set(self.selected_input_column)
                 self.output_select.set(self.selected_output_column)
-            else:   
+            else:
                 self.input_select.set(self.input_columns[0])
                 if len(self.output_columns) > 1:
                     self.output_select.set(self.output_columns[1])
@@ -165,14 +187,16 @@ class Preselection:
 
     def update_output_options(self, selected_input):
         if selected_input:
-            self.output_columns = [col for col in self.original_data.columns if col != selected_input]
+            self.output_columns = [
+                col for col in self.original_data.columns if col != selected_input]
             self.output_select.configure(values=self.output_columns)
             if self.output_select.get() == selected_input:
                 self.output_select.set(self.output_columns[0])
 
     def update_input_options(self, selected_output):
         if selected_output:
-            self.input_columns = [col for col in self.original_data.columns if col != selected_output]
+            self.input_columns = [
+                col for col in self.original_data.columns if col != selected_output]
             self.input_select.configure(values=self.input_columns)
             if self.input_select.get() == selected_output:
                 self.input_select.set(self.input_columns[0])
@@ -181,38 +205,53 @@ class Preselection:
         self.selected_input_column = self.input_select.get()
         self.selected_output_column = self.output_select.get()
 
-        messagebox.showinfo("Selections Confirmed", f"Input Column: {self.selected_input_column}\nOutput Column: {self.selected_output_column}")
+        messagebox.showinfo(
+            "Selections Confirmed", f"Input Column: {self.selected_input_column}\nOutput Column: {self.selected_output_column}")
         if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x680+200+0")
-            
-            self.option_frame.grid_columnconfigure(0, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(1, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(2, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(3, weight=1, uniform="column")
 
-            self.option_frame.grid(row=6, column=0, columnspan=2, pady=(10, 10), padx=10, sticky="ew")
+            self.option_frame.grid_columnconfigure(
+                0, weight=1, uniform="column")
+            self.option_frame.grid_columnconfigure(
+                1, weight=1, uniform="column")
+            self.option_frame.grid_columnconfigure(
+                2, weight=1, uniform="column")
+            self.option_frame.grid_columnconfigure(
+                3, weight=1, uniform="column")
 
-            self.preprocess_label.grid(row=2, column=0, columnspan=4, padx=100, pady=10, sticky="nsew") 
-            self.remove_nan_button.grid(row=3, column=0, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_mean_button.grid(row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_median_button.grid(row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_constant_button.grid(row=3, column=3, padx=(15, 15), pady=10, sticky="ew")
-            self.generate_button.grid(row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
-            
-        self.loaded_data = self.original_data    
+            self.option_frame.grid(row=6, column=0, columnspan=2, pady=(
+                10, 10), padx=10, sticky="ew")
+
+            self.preprocess_label.grid(
+                row=2, column=0, columnspan=4, padx=100, pady=10, sticky="nsew")
+            self.remove_nan_button.grid(
+                row=3, column=0, padx=(15, 0), pady=10, sticky="ew")
+            self.fill_mean_button.grid(
+                row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
+            self.fill_median_button.grid(
+                row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
+            self.fill_constant_button.grid(
+                row=3, column=3, padx=(15, 15), pady=10, sticky="ew")
+            self.generate_button.grid(
+                row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
+
+        self.loaded_data = self.original_data
         self.display_data_in_treeview(self.loaded_data)
-        
+
     def apply_preprocessing(self, option):
-        columns_to_process = [self.selected_input_column, self.selected_output_column]
+        columns_to_process = [self.selected_input_column,
+                              self.selected_output_column]
 
         if option == "Remove rows with NaN":
             self.loaded_data = self.original_data.copy()
             self.loaded_data.dropna(subset=columns_to_process, inplace=True)
-            self.deleted_rows = pd.concat([self.original_data.copy(), self.loaded_data]).drop_duplicates(keep=False)
+            self.deleted_rows = pd.concat(
+                [self.original_data.copy(), self.loaded_data]).drop_duplicates(keep=False)
             if self.deleted_rows.empty:
                 messagebox.showinfo("No Rows Deleted", "No rows were deleted.")
             else:
-                messagebox.showinfo("Success", "Rows with NaN have been deleted.")
+                messagebox.showinfo(
+                    "Success", "Rows with NaN have been deleted.")
             self.display_data_in_treeview(self.loaded_data)
 
         elif option in ["Fill with Mean", "Fill with Median", "Fill with Constant Value"]:
@@ -221,10 +260,12 @@ class Preselection:
     def fill_na_values(self, method, columns):
         self.loaded_data = self.original_data.copy()
         # Obtener todas las columnas que contienen NaN
-        columns_with_nan = [col for col in columns if self.loaded_data[col].isna().any()]
+        columns_with_nan = [
+            col for col in columns if self.loaded_data[col].isna().any()]
 
         if not columns_with_nan:
-            messagebox.showinfo("No NaN", "No columns with NaN values found in the selected Input and Output.")
+            messagebox.showinfo(
+                "No NaN", "No columns with NaN values found in the selected Input and Output.")
             return
 
         if method == "Fill with Constant Value":
@@ -233,9 +274,11 @@ class Preselection:
             top.title("Fill NaN Values")
             top.lift()
             top.grab_set()
-            top.geometry(f"+{self.app.v.winfo_x() + 250}+{self.app.v.winfo_y() + 250}")
+            top.geometry(
+                f"+{self.app.v.winfo_x() + 250}+{self.app.v.winfo_y() + 250}")
 
-            ctk.CTkLabel(top, text="Enter constant values for the selected columns with NaN:").pack(pady=10,padx=20)
+            ctk.CTkLabel(top, text="Enter constant values for the selected columns with NaN:").pack(
+                pady=10, padx=20)
 
             entries = {}
             for column in columns_with_nan:
@@ -251,31 +294,39 @@ class Preselection:
                         entry = entries[column]
                         if entry.get():
                             constant_value = float(entry.get())
-                            self.loaded_data[column] = self.original_data[column].fillna(constant_value)
-                            messagebox.showinfo("Success", f"NaN values in '{column}' filled with: {constant_value}")
+                            self.loaded_data[column] = self.original_data[column].fillna(
+                                constant_value)
+                            messagebox.showinfo(
+                                "Success", f"NaN values in '{column}' filled with: {constant_value}")
                     top.grab_release()
                     top.destroy()
                     self.display_data_in_treeview(self.loaded_data)
                 except ValueError:
-                    messagebox.showerror("Error", f"Invalid numeric value for '{column}'.")
+                    messagebox.showerror(
+                        "Error", f"Invalid numeric value for '{column}'.")
                     return
 
-            ctk.CTkButton(top, text="Apply", command=apply_values).pack(pady=10)
-            top.protocol("WM_DELETE_WINDOW", lambda: (top.grab_release(), top.destroy()))
+            ctk.CTkButton(top, text="Apply",
+                          command=apply_values).pack(pady=10)
+            top.protocol("WM_DELETE_WINDOW", lambda: (
+                top.grab_release(), top.destroy()))
 
         else:
             # Llenar con media o mediana
             for column in columns_with_nan:
                 if method == "Fill with Mean":
                     value = round(self.original_data[column].mean(), 5)
-                    self.loaded_data[column] = self.original_data[column].fillna(value)
-                    messagebox.showinfo("Success", f"NaN values in '{column}' filled with mean: {value:.5f}")
+                    self.loaded_data[column] = self.original_data[column].fillna(
+                        value)
+                    messagebox.showinfo(
+                        "Success", f"NaN values in '{column}' filled with mean: {value:.5f}")
                 elif method == "Fill with Median":
                     value = round(self.original_data[column].median(), 5)
-                    self.loaded_data[column] = self.original_data[column].fillna(value)
-                    messagebox.showinfo("Success", f"NaN values in '{column}' filled with median: {value:.5f}")
+                    self.loaded_data[column] = self.original_data[column].fillna(
+                        value)
+                    messagebox.showinfo(
+                        "Success", f"NaN values in '{column}' filled with median: {value:.5f}")
             self.display_data_in_treeview(self.loaded_data)
-
 
     def regression_model(self):
 
@@ -285,11 +336,11 @@ class Preselection:
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 
-            self.app.initial_frame.grid(row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
-            self.tree_frame.grid(row=3, column=0, columnspan=1, padx=10, pady=10, sticky="nsew")
-            self.selection_frame.grid(row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
-            self.option_frame.grid(row=6, column=0, columnspan=1, pady=(10, 20), padx=10, sticky="ew")
-
-            
-            
-          
+            self.app.initial_frame.grid(
+                row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
+            self.tree_frame.grid(row=3, column=0, columnspan=1,
+                                 padx=10, pady=10, sticky="nsew")
+            self.selection_frame.grid(
+                row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
+            self.option_frame.grid(row=6, column=0, columnspan=1, pady=(
+                10, 20), padx=10, sticky="ew")

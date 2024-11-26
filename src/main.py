@@ -1,6 +1,6 @@
 
 from initial_scenario import LinearRegressionAnalyitics
-#DOCUMENTAR FUNCIONES Y CLASES, MANTENER VALORES DE SELECTION DESPUES DE REINICIO
+# DOCUMENTAR FUNCIONES Y CLASES Y HACER RELEASE, ORGANIZAR POR CARPETAS
 
 if __name__ == "__main__":
     app = LinearRegressionAnalyitics()

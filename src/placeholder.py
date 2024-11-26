@@ -1,4 +1,6 @@
 import customtkinter as ctk
+
+
 class PlaceholderText:
     def __init__(self, text_widget, placeholder_text):
         self.text_widget = text_widget

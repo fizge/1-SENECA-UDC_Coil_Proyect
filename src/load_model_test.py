@@ -1,10 +1,12 @@
 import pytest
-import pickle  
+import pickle
 from loading_scenario import LoadModel
+
 
 class MockModel:
     def predict(self, input_data):
         return [value[0] * 2 for value in input_data]
+
 
 @pytest.fixture
 def mock_app(mocker):
@@ -15,9 +17,11 @@ def mock_app(mocker):
     mock_app.initial_frame = mocker.MagicMock()
     return mock_app
 
+
 @pytest.fixture
 def load_model_instance(mock_app):
     return LoadModel(mock_app)
+
 
 def test_load_model_logic(mocker):
     mock_data = {
@@ -43,6 +47,7 @@ def test_load_model_logic(mocker):
     assert result["mse"] == 0.1
     assert result["description"] == "Test model description"
 
+
 def test_model_prediction(mocker):
     mock_data = {
         "output_column": "target",
@@ -59,7 +64,7 @@ def test_model_prediction(mocker):
 
     with open("test_model.pkl", "rb") as f:
         result = pickle.load(f)
-    
+
     model = result["model"]
     prediction = model.predict([[50.0]])
 

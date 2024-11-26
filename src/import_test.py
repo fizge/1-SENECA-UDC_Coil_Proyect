@@ -10,13 +10,14 @@ from preselection_scenario import Preselection
 
 class MockApp:
     def __init__(self):
-        self.v = MagicMock()  
-        self.deleted_rows = MagicMock()  
-        self.output_select = MagicMock() 
-        self.modeling = MagicMock() 
-        self.load = MagicMock() 
-     
-        self.modeling.graphic_frame = None 
+        self.v = MagicMock()
+        self.deleted_rows = MagicMock()
+        self.output_select = MagicMock()
+        self.modeling = MagicMock()
+        self.load = MagicMock()
+
+        self.modeling.graphic_frame = None
+
 
 @pytest.fixture
 def preselection():
@@ -24,11 +25,13 @@ def preselection():
     preselection_instance = Preselection(app)
     return preselection_instance
 
+
 def test_import_data(preselection):
-  
-    preselection.app.v = MagicMock() 
-    preselection.tree = None  
-    preselection.original_data = pd.DataFrame({"A": [1,None,5,7], "B": [3,4,None,90]})
+
+    preselection.app.v = MagicMock()
+    preselection.tree = None
+    preselection.original_data = pd.DataFrame(
+        {"A": [1, None, 5, 7], "B": [3, 4, None, 90]})
     preselection.import_data("data.db")
     assert preselection.original_data is not None
     preselection.import_data("data.xlsx")
@@ -45,6 +48,7 @@ def test_import_data(preselection):
 def file_reader():
     return FileReader()
 
+
 @pytest.fixture
 def excel_test_paths(tmp_path):
     excel_path = tmp_path / "test.xlsx"
@@ -57,13 +61,15 @@ def excel_test_paths(tmp_path):
     multi_sheet_excel_path = tmp_path / "multi_sheet.xlsx"
     with pd.ExcelWriter(multi_sheet_excel_path) as writer:
         df.to_excel(writer, sheet_name="Sheet1", index=False)
-        pd.DataFrame({"colA": [10, 20], "colB": [30, 40]}).to_excel(writer, sheet_name="Sheet2", index=False)
+        pd.DataFrame({"colA": [10, 20], "colB": [30, 40]}).to_excel(
+            writer, sheet_name="Sheet2", index=False)
 
     return {
         "excel": excel_path,
         "empty_excel": empty_excel_path,
         "multi_sheet_excel": multi_sheet_excel_path,
     }
+
 
 def test_read_csv_success(file_reader, tmp_path):
     csv_path = tmp_path / "test.csv"
@@ -73,16 +79,17 @@ def test_read_csv_success(file_reader, tmp_path):
     result = file_reader.read_csv_or_excel(csv_path)
     pd.testing.assert_frame_equal(result, df)
 
+
 def test_read_excel_success(file_reader, excel_test_paths):
     result = file_reader.read_csv_or_excel(excel_test_paths["excel"])
-    pd.testing.assert_frame_equal(result, pd.DataFrame({"col1": [1, 2], "col2": [3, 4]}))
+    pd.testing.assert_frame_equal(
+        result, pd.DataFrame({"col1": [1, 2], "col2": [3, 4]}))
 
 
-        
 def test_open_file_empty_excel(file_reader, excel_test_paths):
     result = file_reader.read_csv_or_excel(excel_test_paths["empty_excel"])
-    assert result is not None  
-    assert result.empty 
+    assert result is not None
+    assert result.empty
 
 
 def test_open_file_multi_sheet_excel(file_reader, excel_test_paths):
@@ -90,23 +97,27 @@ def test_open_file_multi_sheet_excel(file_reader, excel_test_paths):
     assert not df.empty
     assert list(df.columns) == ["col1", "col2"]
 
+
 def test_read_nonexistent_file(file_reader):
     result = file_reader.read_csv_or_excel("nonexistent.csv")
     assert result is None
 
+
 def test_read_invalid_file(file_reader, tmp_path):
     invalid_path = tmp_path / "invalid.txt"
     invalid_path.write_text("not,a,valid,csv")
-    
+
     result = file_reader.read_csv_or_excel(invalid_path)
     assert result is None
+
 
 def test_read_sqlite_success(file_reader, tmp_path):
     db_path = tmp_path / "test.db"
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("CREATE TABLE test_table (col1 INTEGER, col2 INTEGER);")
-    cursor.execute("INSERT INTO test_table (col1, col2) VALUES (1, 3), (2, 4);")
+    cursor.execute(
+        "INSERT INTO test_table (col1, col2) VALUES (1, 3), (2, 4);")
     connection.commit()
     connection.close()
 
@@ -114,12 +125,14 @@ def test_read_sqlite_success(file_reader, tmp_path):
     expected_df = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
     pd.testing.assert_frame_equal(result, expected_df)
 
+
 def test_read_sqlite_no_table(file_reader, tmp_path):
     db_path = tmp_path / "empty.db"
     sqlite3.connect(db_path).close()
 
     result = file_reader.read_sqlite(db_path)
     assert result is None
+
 
 def test_read_sqlite_nonexistent_file(file_reader):
     result = file_reader.read_sqlite("nonexistent.db")

@@ -1,12 +1,11 @@
 
 
-
-
 import pytest
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 from modeling_scenario import Modeling
 from sklearn.metrics import r2_score, mean_squared_error
+
 
 @pytest.fixture
 def sample_data():
@@ -16,9 +15,10 @@ def sample_data():
         'output_column': [2, 4, 6, 8, 10]
     })
 
+
 def test_generate_model(sample_data):
     app_mock = type('MockApp', (), {})()
-    app_mock.v = None  
+    app_mock.v = None
     app_mock.preselection = type('MockPreselection', (), {})()
     app_mock.preselection.loaded_data = sample_data
     app_mock.preselection.selected_input_column = 'input_column'
