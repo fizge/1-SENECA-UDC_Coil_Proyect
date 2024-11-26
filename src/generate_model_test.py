@@ -2,7 +2,7 @@ import pytest
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 from modeling_scenario import Modeling
-
+from sklearn.metrics import r2_score, mean_squared_error
 
 @pytest.fixture
 def sample_data():
@@ -31,8 +31,12 @@ def test_generate_model(sample_data):
     assert isinstance(modeling.model, LinearRegression)
 
     # Verificar métricas
-    expected_r2 = 1.0
-    expected_mse = 0.0
+    X = app_mock.preselection.loaded_data[['input_column']]
+    y = app_mock.preselection.loaded_data['output_column']
+    predictions = modeling.model.predict(X)
+
+    expected_r2 = r2_score(y, predictions)
+    expected_mse = mean_squared_error(y, predictions)
+
     assert modeling.r_squared == pytest.approx(expected_r2, rel=1e-3)
     assert modeling.mse == pytest.approx(expected_mse, rel=1e-3)
-

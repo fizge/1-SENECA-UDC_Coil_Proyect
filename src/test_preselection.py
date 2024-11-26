@@ -63,7 +63,6 @@ def test_fill_na_values_median(preselection):
 
 
 
-
 @pytest.fixture
 def preselection3():
     app = MagicMock()  
