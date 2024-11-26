@@ -64,7 +64,7 @@ def preselection3():
 
 
 def test_remove_nan_rows(preselection3): 
-   
+     
     preselection3.display_data_in_treeview = MagicMock()
     preselection3.apply_preprocessing("Remove rows with NaN")
 
