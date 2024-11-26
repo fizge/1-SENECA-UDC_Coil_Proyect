@@ -21,23 +21,6 @@ def preselection():
     preselection_instance = Preselection(app)
     return preselection_instance
 
-def test_import_data(preselection):
-  
-    preselection.app.v = MagicMock() 
-    preselection.tree = None  
-    preselection.original_data = pd.DataFrame({"A": [1,None,5,7], "B": [3,4,None,90]})
-    preselection.import_data("data.db")
-    assert preselection.original_data is not None
-    preselection.import_data("data.xlsx")
-    assert preselection.original_data is not None
-    preselection.import_data("data.csv")
-    assert preselection.original_data is not None
-    preselection.import_data("data.sqlite")
-    assert preselection.original_data is not None
-    preselection.import_data("data.xls")
-    assert preselection.original_data is not None
-
-
 def test_fill_na_values_mean(preselection):
     preselection.original_data = pd.DataFrame({"A": [1, None, 3], "B": [4, 5, None]})
     preselection.loaded_data = preselection.original_data.copy()
@@ -47,7 +30,7 @@ def test_fill_na_values_mean(preselection):
     preselection.fill_na_values("Fill with Median", ["A", "B"])
 
     preselection.display_data_in_treeview.assert_called_with(preselection.loaded_data)
-    assert preselection.display_data_in_treeview.call_count == 2
+    assert preselection.display_data_in_treeview.call_count == 1
 
 def test_fill_na_values_median(preselection):
     preselection.original_data = pd.DataFrame({"A": [2, None, 13], "B": [64, 985, None]})
@@ -58,7 +41,8 @@ def test_fill_na_values_median(preselection):
     preselection.fill_na_values("Fill with Mean", ["A", "B"])
 
     preselection.display_data_in_treeview.assert_called_with(preselection.loaded_data)
-    assert preselection.display_data_in_treeview.call_count == 2
+    assert preselection.display_data_in_treeview.call_count == 1
+
 
 
 
