@@ -88,7 +88,6 @@ def test_save_model_success(mock_info, mock_asksave, tmp_path):
     # Verifica que el mensaje de éxito coincide con el formato del código
     mock_info.assert_called_once_with("Success", f"Model saved successfully to:{test_file}")
 
-
 # Test: Error de escritura en archivo
 @patch("tkinter.messagebox.showerror")
 @patch("tkinter.filedialog.asksaveasfilename", return_value="/tmp/test_model.pkl")
@@ -122,3 +121,7 @@ def test_save_model_formula():
 
     formula = f"{saved_model.output_column} = ({saved_model.model.coef_[0]:.4f}) * ({saved_model.input_column}) + ({saved_model.model.intercept_:.4f})"
     assert formula == "Target = (0.5000) * (Feature1) + (1.2000)", "La fórmula generada no es correcta."
+
+
+
+
