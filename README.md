@@ -21,6 +21,12 @@ StatWizard is a tool that uses linear regression models to predict profit values
 | Mac              | *Mac OS 11 or higher     |
 
 ## Installation Instructions
+Before downloading StatWizard, ensure your device meets the system requirements. While the installation process differs slightly for Mac and Windows, the StatWizard interface and features are identical on both platforms.
+
+### To install StatWizard 
+1. On your browser, visit StatWizard's [Download page](www.placeholderstatwizardweb.com).
+2. Select the download link that fits your system requirements (See System Requirements Table)
+STILL EDITING :))) - Cristine
 
 ## Using StatWizard
 
