@@ -1,7 +1,7 @@
-# Trackr Version 1.0
+# StatWizard Version 1.0
 
 ## Overview
-Trackr is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. Users can use their own data model stored as an excel, data base, or comma separated values (csv) file to generate data predictions by adding their own values.
+StatWizard is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. Users can use their own data model stored as an excel, data base, or comma separated values (csv) file to generate data predictions by adding their own values.
 
 ### Features
 
@@ -22,19 +22,19 @@ Trackr is a tool that uses linear regression models to predict profit values. Th
 
 ## Installation Instructions
 
-## Using Trackr
+## Using StatWizard
 
-### Trackr interface
+### StatWizard interface
 
 
 ### Opening data files
-To start using Trackr, you must open a data file. Trackr works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
-1. Open Trackr and select Open File. <br>
+To start using StatWizard, you must open a data file. StatWizard works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
+1. Open StatWizard and select Open File. <br>
    The File Explorer dialog appears.
 2. Select a file > Open. <br>
    The Linear Regression chart appears with data values. <br>
    ![2024-11-12_12-24-32](https://github.com/user-attachments/assets/1684d3a5-e3a9-4041-99ce-18c156f69298)
-   Note: Trackr can only work with excel, Data Base, and CSV files. <br>
+   Note: StatWizard can only work with excel, Data Base, and CSV files. <br>
 3. Select values for input and output.
 4.  Select Confirm Selections > OK. <br>
    The Preprocessing Options selections appear.
@@ -65,9 +65,9 @@ You can process each file to remove not a number (NaN) values, fill with mean, m
    The saved model will appear.
 
 
-## Contributing to Trackr
+## Contributing to StatWizard
 
-To contribute, please contact the creator of Trackr through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
+To contribute, please contact the creator of StatWizard through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
 
 ### Guidelines
 **Contribution Process**:
