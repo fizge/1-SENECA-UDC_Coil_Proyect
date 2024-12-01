@@ -1,7 +1,12 @@
 # DataPilot Version 1.0
 
 ## Overview
-DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to increase their yearly profit margins, identify data trends, and analyze data to make informed decisions for their business. Users can use their own data models stored as an excel (.xls), data base(.db), or comma separated values (.csv) file to generate data predictions by entering their values.
+DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to: <br>
+- Increase yearly profit margins
+- Identify data trends
+- Analyze data to make informed decisions for a business <br>
+
+You can use your own data models stored as an excel (.xls), data base(.db), or comma separated value (.csv) file to generate data predictions by selecting the independent variables (features) and dependent variables (target) to create a prediction model.
 
 ## Getting Started
 
