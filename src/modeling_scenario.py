@@ -75,7 +75,7 @@ class Modeling:
             messagebox.showinfo(
                 "Model Generation", f"Model generated with Input: {self.app.preselection.selected_input_column} and Output: {self.app.preselection.selected_output_column}")
 
-            self.graphic_frame = ctk.CTkFrame(self.app.v)
+            self.graphic_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
             self.graphic_frame.grid(
                 row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
 
@@ -110,7 +110,7 @@ class Modeling:
                 self.description_text, "Write the model description here...")
 
             self.save_model_button = ctk.CTkButton(self.graphic_frame, text="Save Model", font=(
-                "Arial", 18, "bold"), width=200, height=30, command=self.save_file)
+                "Arial", 18, "bold"), width=200, height=40,corner_radius=30, command=self.save_file)
             self.save_model_button.grid(
                 row=2, column=0, padx=250, pady=(20, 5), sticky="w")
 
@@ -131,7 +131,7 @@ class Modeling:
                 self.prediction_input, f"Write here a {self.app.preselection.selected_input_column} value")
 
             self.prediction_button = ctk.CTkButton(self.graphic_frame, text="Predict", font=(
-                "Arial", 18, "bold"), width=90, height=30, command=self.make_prediction)
+                "Arial", 18, "bold"), width=90, height=40,corner_radius=30, command=self.make_prediction)
             self.prediction_button.grid(
                 row=5, column=0, padx=(360, 0), pady=(5, 15), sticky="w")
 
@@ -172,8 +172,8 @@ class Modeling:
 
     def create_regression_plot(self, X, y, predictions):
         fig, ax = plt.subplots(figsize=(7, 5))
-        fig.patch.set_facecolor('#2b2b2b')
-        ax.set_facecolor('#2b2b2b')
+        fig.patch.set_facecolor('#242424')
+        ax.set_facecolor('#242424')
         ax.tick_params(axis='both', colors='white')
         ax.set_title('Linear Regression', fontsize=10, color='white')
         ax.set_xlabel(self.app.preselection.selected_input_column,

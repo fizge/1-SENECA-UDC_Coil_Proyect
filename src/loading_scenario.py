@@ -74,7 +74,7 @@ class LoadModel:
 
         if self.info_frame is not None:
             self.info_frame.destroy()
-        self.info_frame = ctk.CTkFrame(self.app.v)
+        self.info_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
         self.info_frame.grid(row=2, column=0, columnspan=2,
                              pady=(10, 20), padx=10, sticky="ew")
 
@@ -120,7 +120,7 @@ class LoadModel:
 
         prediction_button = ctk.CTkButton(
             self.info_frame, text=f"Predict", font=("Arial", 16, "bold"),
-            width=90, height=30, command=self.prediction_loaded_model)
+            width=90, height=40,corner_radius=30, command=self.prediction_loaded_model)
         prediction_button.grid(row=5, column=0, columnspan=2, padx=(
             460, 0), pady=(0, 10), sticky="w")
 

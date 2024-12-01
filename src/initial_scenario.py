@@ -58,7 +58,7 @@ class LinearRegressionAnalyitics:
         if self.presentation_frame is not None:
             self.presentation_frame.destroy()
 
-        self.initial_frame = ctk.CTkFrame(self.v)
+        self.initial_frame = ctk.CTkFrame(self.v,fg_color='#242424')
         self.initial_frame.grid(row=0, column=0, pady=(
             20, 10), padx=10, sticky="new")
         self.initial_frame.grid_columnconfigure(0, weight=0)
@@ -78,11 +78,11 @@ class LinearRegressionAnalyitics:
         self.file_path_entry.configure(state="readonly")
 
         self.open_button = ctk.CTkButton(self.initial_frame, text="Open File", font=("Arial", 20, "bold"),
-                                         width=140, height=40, command=self.preselection.open_files)
+                                         width=140, height=40, corner_radius=100, command=self.preselection.open_files)
         self.open_button.grid(row=0, column=2, padx=(
             10, 20), pady=10, sticky="e")
 
         self.load_button = ctk.CTkButton(self.initial_frame, text="Load Model", font=("Arial", 20, "bold"),
-                                         width=140, height=40, command=self.load.load_model)
+                                         width=140, height=40, corner_radius=100, command=self.load.load_model)
         self.load_button.grid(
             row=0, column=3, padx=(0, 20), pady=10, sticky="e")

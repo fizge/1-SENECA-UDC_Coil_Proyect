@@ -23,11 +23,9 @@ class Preselection:
         self.input_label = None
         self.input_columns = []
         self.output_columns = []
+        self.confirm_button = None
         self.preprocess_label = None
-        self.fill_nan_button = None
-        self.fill_mean_button = None
-        self.fill_meadian_button = None
-        self.fill_constant_button = None
+        self.option_menu = None
         self.generate_button = None
         self.original_data = None
         self.file_reader = FileReader()
@@ -77,8 +75,8 @@ class Preselection:
 
         if self.tree is None:
             self.tree_frame = ctk.CTkFrame(self.app.v)
-            self.tree_frame.grid(row=3, column=0, columnspan=2,
-                                 padx=10, pady=10, sticky="nsew")
+            self.tree_frame.grid(row=3, column=0,
+                                 padx=10, pady=(10,0), sticky="nsew")
             self.tree = ttk.Treeview(self.tree_frame)
             self.tree.grid(row=0, column=0, sticky="nsew")
             scrollbar_x = ttk.Scrollbar(
@@ -124,26 +122,23 @@ class Preselection:
         if self.selection_frame is not None:
             self.selection_frame.grid_forget()
         if self.selection_frame is None:
-            self.selection_frame = ctk.CTkFrame(self.app.v)
+            self.selection_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
 
         if self.option_frame is None:
-            self.option_frame = ctk.CTkFrame(self.app.v)
+            self.option_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
 
-        if self.app.modeling.graphic_frame is None:
-            self.selection_frame.grid(
-                row=5, column=0, columnspan=3, pady=10, padx=10, sticky="ew")
-        else:
-            self.selection_frame.grid(
-                row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
+      
+        self.selection_frame.grid(
+            row=5, column=0,pady=0, padx=(0,10), sticky="new")
 
         self.input_label = ctk.CTkLabel(
             self.selection_frame, text="Select Input:", font=("Arial", 14, 'bold'))
         self.input_label.grid(row=0, column=0,  padx=(
-            100, 20), pady=10, sticky="e")
+            100, 20), pady=(40,10), sticky="e")
 
         self.input_select = ctk.CTkOptionMenu(
-            self.selection_frame, width=180, values=self.input_columns, command=self.update_output_options)
-        self.input_select.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+            self.selection_frame, width=230,corner_radius=30, values=self.input_columns, command=self.update_output_options)
+        self.input_select.grid(row=0, column=1, padx=10, pady=(40,10), sticky="ew")
 
         self.output_label = ctk.CTkLabel(
             self.selection_frame, text="Select Output:", font=("Arial", 14, 'bold'))
@@ -151,28 +146,43 @@ class Preselection:
             100, 20), pady=10, sticky="e")
 
         self.output_select = ctk.CTkOptionMenu(
-            self.selection_frame, width=180, values=self.output_columns, command=self.update_input_options)
-        self.output_select.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
+            self.selection_frame, width=230,corner_radius=30, values=self.output_columns, command=self.update_input_options)
+        self.output_select.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
-        confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=(
-            "Arial", 14, "bold"), width=100, height=40, command=self.confirm_selections)
-        confirm_button.grid(row=0, column=3, rowspan=2,
-                            padx=40, pady=10, sticky="ew")
+        self.confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=(
+            "Arial", 14, "bold"), width=100, height=40,corner_radius=100, command=self.confirm_selections)
+        if self.app.modeling.graphic_frame is None:   
+            self.confirm_button.grid(row=0, column=3, rowspan=2,
+                            padx=50, pady=(40,10), sticky="ew")
 
         self.preprocess_label = ctk.CTkLabel(
             self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
 
-        self.remove_nan_button = ctk.CTkButton(self.option_frame, text="Remove rows with NaN", font=(
-            "Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Remove rows with NaN"))
-        self.fill_mean_button = ctk.CTkButton(self.option_frame, text="Fill with Mean", font=(
-            "Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Mean"))
-        self.fill_median_button = ctk.CTkButton(self.option_frame, text="Fill with Median", font=(
-            "Arial", 13, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Median"))
-        self.fill_constant_button = ctk.CTkButton(self.option_frame, text="Fill with Constant Value", font=(
-            "Arial", 12, "bold"), width=160, height=40, command=lambda: self.apply_preprocessing("Fill with Constant Value"))
+        options = [
+            "Remove rows with NaN", 
+            "Fill with Mean", 
+            "Fill with Median", 
+            "Fill with Constant Value"
+        ]
 
-        self.generate_button = ctk.CTkButton(self.option_frame, text="Generate model", font=(
-            "Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
+        # Crear una variable para almacenar la opción seleccionada
+        self.selected_option = ctk.StringVar(value='Choose one fill option')
+
+        # Crear el OptionMenu
+        self.option_menu = ctk.CTkOptionMenu(
+            self.option_frame, 
+            variable=self.selected_option, 
+            values=options, 
+            width=250,
+            height=40,
+            corner_radius=30,
+            font=("Arial", 14, 'bold'), 
+            command=self.apply_preprocessing
+        )
+        
+
+        self.generate_button = ctk.CTkButton(self.option_frame,corner_radius=40, text="Generate model", font=(
+           "Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
 
         if self.input_columns and self.output_columns:
             if self.selected_input_column is not None and self.selected_output_column is not None:
@@ -208,32 +218,17 @@ class Preselection:
         messagebox.showinfo(
             "Selections Confirmed", f"Input Column: {self.selected_input_column}\nOutput Column: {self.selected_output_column}")
         if self.app.modeling.graphic_frame is None:
-            self.app.v.geometry("1000x680+200+0")
+            self.app.v.geometry("1000x610+200+0")
 
-            self.option_frame.grid_columnconfigure(
-                0, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(
-                1, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(
-                2, weight=1, uniform="column")
-            self.option_frame.grid_columnconfigure(
-                3, weight=1, uniform="column")
+            self.option_frame.grid(row=7, column=0, pady=(
+                10, 10), padx=10, sticky="new")
 
-            self.option_frame.grid(row=6, column=0, columnspan=2, pady=(
-                10, 10), padx=10, sticky="ew")
-
-            self.preprocess_label.grid(
-                row=2, column=0, columnspan=4, padx=100, pady=10, sticky="nsew")
-            self.remove_nan_button.grid(
-                row=3, column=0, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_mean_button.grid(
-                row=3, column=1, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_median_button.grid(
-                row=3, column=2, padx=(15, 0), pady=10, sticky="ew")
-            self.fill_constant_button.grid(
-                row=3, column=3, padx=(15, 15), pady=10, sticky="ew")
-            self.generate_button.grid(
-                row=4, column=1, columnspan=2, rowspan=2, padx=70, pady=(20, 20), sticky="nsew")
+        self.preprocess_label.grid(
+            row=0, column=0, padx=100,pady=(0,10), sticky="w")
+        self.option_menu.grid(
+            row=1, column=0, padx=100,pady=(0,30), sticky="w")
+        self.generate_button.grid(
+            row=0, column=0,rowspan=2, padx=510,pady=30, sticky="nw")
 
         self.loaded_data = self.original_data
         self.display_data_in_treeview(self.loaded_data)
@@ -259,7 +254,7 @@ class Preselection:
 
     def fill_na_values(self, method, columns):
         self.loaded_data = self.original_data.copy()
-        # Obtener todas las columnas que contienen NaN
+     
         columns_with_nan = [
             col for col in columns if self.loaded_data[col].isna().any()]
 
@@ -269,7 +264,7 @@ class Preselection:
             return
 
         if method == "Fill with Constant Value":
-            # Ventana de entrada para el valor constante
+
             top = ctk.CTkToplevel(self.app.v)
             top.title("Fill NaN Values")
             top.lift()
@@ -289,7 +284,7 @@ class Preselection:
 
             def apply_values():
                 try:
-                    # Asignar valores constantes a las columnas con NaN
+                   
                     for column in columns_with_nan:
                         entry = entries[column]
                         if entry.get():
@@ -328,19 +323,23 @@ class Preselection:
                         "Success", f"NaN values in '{column}' filled with median: {value:.5f}")
             self.display_data_in_treeview(self.loaded_data)
 
-    def regression_model(self):
 
+    def regression_model(self):
         self.app.modeling.generate_model()
         if self.app.modeling.graphic_frame is not None:
+            
             self.app.v.geometry("1500x830+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
 
             self.app.initial_frame.grid(
                 row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
-            self.tree_frame.grid(row=3, column=0, columnspan=1,
+            self.tree_frame.grid(row=3, column=0,
                                  padx=10, pady=10, sticky="nsew")
             self.selection_frame.grid(
-                row=5, column=0, columnspan=1, pady=10, padx=10, sticky="ew")
-            self.option_frame.grid(row=6, column=0, columnspan=1, pady=(
-                10, 20), padx=10, sticky="ew")
+                row=5, column=0, pady=10, padx=10, sticky="new")
+            self.option_frame.grid(row=7, column=0, pady=(
+                10, 60), padx=10, sticky="new")
+            
+            
+        
