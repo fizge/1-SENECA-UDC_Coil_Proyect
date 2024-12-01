@@ -21,16 +21,23 @@ StatWizard is a tool that uses linear regression models to predict profit values
 | Mac              | *Mac OS 11 or higher     |
 
 ## Installation Instructions
-Before downloading StatWizard, ensure your device meets the system requirements. While the installation process differs slightly for Mac and Windows, the StatWizard interface and features are identical on both platforms.
+Once you review if your device is compatible, you can download StatWizard to your desktop and start using all of its data analyzing features. The installation process differs slightly on both Mac and Windows operating systems, but the StatWizard interface.
 
-### To install StatWizard 
+### To install StatWizard [needs work- will be editing tonight]
 1. On your browser, visit StatWizard's [Download page](www.placeholderstatwizardweb.com).
 2. Select the download link that fits your system requirements (See System Requirements Table)
-STILL EDITING :))) - Cristine
+3. Open your downloads folder and click the file. The StatWizard Setup Wizard appears.
+4. Click Start Install.
+5. Click Finish Install to exit setup. 
 
-## Using StatWizard
+### To launch StatWizard [needs work- editing tonight]
+1. Locate the StatWizard file on your desktop.
+2. Click the file. The StatWizard welcome screen opens.
+3. Click Start. 
 
-### StatWizard interface
+## The StatWizard Interface [will label main interface for latitude, longitude and selections]
+StatWizard has many features to help you customize the result 
+
 
 
 ### Opening data files
