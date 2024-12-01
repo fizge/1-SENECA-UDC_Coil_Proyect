@@ -77,7 +77,7 @@ class Modeling:
 
             self.graphic_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
             self.graphic_frame.grid(
-                row=0, column=1, rowspan=8, padx=10, pady=10, sticky="nsew")
+                row=0, column=2, rowspan=8, padx=10, pady=10, sticky="nsew")
 
             info_label = ctk.CTkLabel(self.graphic_frame, text='Model Information:\t\t\tDescription:', font=(
                 "Arial", 18, 'bold'), text_color="white")

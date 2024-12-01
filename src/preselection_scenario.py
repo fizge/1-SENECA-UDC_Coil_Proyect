@@ -330,16 +330,18 @@ class Preselection:
             
             self.app.v.geometry("1500x830+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
-            self.app.v.grid_columnconfigure(1, weight=2, uniform="column")
+            self.app.v.grid_columnconfigure(2, weight=2, uniform="column")
+
+            separator = tk.Frame(self.app.v, width=2, bg='gray')
+            separator.grid(row=0, column=1, rowspan=8, padx=(20,0),pady=60, sticky="ns")
 
             self.app.initial_frame.grid(
-                row=2, column=0, columnspan=1, pady=10, padx=10, sticky="nsew")
+                row=2, column=0, pady=10, padx=10, sticky="nsew")
             self.tree_frame.grid(row=3, column=0,
-                                 padx=10, pady=10, sticky="nsew")
+                                padx=10, pady=10, sticky="nsew")
             self.selection_frame.grid(
                 row=5, column=0, pady=10, padx=10, sticky="new")
-            self.option_frame.grid(row=7, column=0, pady=(
-                10, 60), padx=10, sticky="new")
+            self.option_frame.grid(row=7, column=0, pady=(10, 60), padx=10, sticky="new")
+
+                
             
-            
-        
