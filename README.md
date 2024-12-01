@@ -1,7 +1,9 @@
-# StatWizard Version 1.0
+# DataPilot Version 1.0
 
 ## Overview
-StatWizard is a tool that uses linear regression models to predict profit values. This tool is intended for use by retail businesses looking to increase their yearly profit margins. Users can use their own data model stored as an excel, data base, or comma separated values (csv) file to generate data predictions by adding their own values.
+DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to increase their yearly profit margins, identify data trends, and analyze data to make informed decisions for their business. Users can use their own data models stored as an excel (.xls), data base(.db), or comma separated values (.csv) file to generate data predictions by entering their values.
+
+## Getting Started
 
 ### Features
 
@@ -14,40 +16,40 @@ StatWizard is a tool that uses linear regression models to predict profit values
 | **Confirm Selections** | Generates the data once input and output selected. A dialog appears when this button is selected.   |
 |**Generate model**      | Creates linear regression chart and the model formula.                                              |
 
-## System Requirements
+### System Requirements
 | Operating system | Requirements |
 | ---------------- | -------------            |
 | Windows          | *Windows XP or higher    |
 | Mac              | *Mac OS 11 or higher     |
 
-## Installation Instructions
-Once you review if your device is compatible, you can download StatWizard to your desktop and start using all of its data analyzing features. The installation process differs slightly on both Mac and Windows operating systems, but the StatWizard interface.
+### Installation Instructions
+Once you review if your device is compatible, you can download DataPilot to your desktop and start using all of its data analyzing features. The installation process differs slightly on both Mac and Windows operating systems, but the DataPilot interface.
 
-### To install StatWizard [needs work- will be editing tonight]
-1. On your browser, visit StatWizard's [Download page](www.placeholderstatwizardweb.com).
+### To install DataPilot [needs work- will be editing tonight]
+1. On your browser, visit DataPilot's [Download page](www.placeholderDataPilotweb.com).
 2. Select the download link that fits your system requirements (See System Requirements Table)
-3. Open your downloads folder and click the file. The StatWizard Setup Wizard appears.
+3. Open your downloads folder and click the file. The DataPilot Setup Wizard appears.
 4. Click Start Install.
 5. Click Finish Install to exit setup. 
 
-### To launch StatWizard [needs work- editing tonight]
-1. Locate the StatWizard file on your desktop.
-2. Click the file. The StatWizard welcome screen opens.
+### To launch DataPilot [needs work- editing tonight]
+1. Locate the DataPilot file on your desktop.
+2. Click the file. The DataPilot welcome screen opens.
 3. Click Start. 
 
-## The StatWizard Interface [will label main interface for latitude, longitude and selections]
-StatWizard has many features to help you customize the result 
+### The DataPilot Interface [will label main interface for latitude, longitude and selections]
+DataPilot has many features to help you customize the result 
 
 
 
 ### Opening data files
-To start using StatWizard, you must open a data file. StatWizard works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
-1. Open StatWizard and select Open File. <br>
+To start using DataPilot, you must open a data file. DataPilot works with Excel (.xls), Data Base (.db), and Comma Separated Values (.csv) files.
+1. Open DataPilot and select Open File. <br>
    The File Explorer dialog appears.
 2. Select a file > Open. <br>
    The Linear Regression chart appears with data values. <br>
    ![2024-11-12_12-24-32](https://github.com/user-attachments/assets/1684d3a5-e3a9-4041-99ce-18c156f69298)
-   Note: StatWizard can only work with excel, Data Base, and CSV files. <br>
+   Note: DataPilot can only work with excel, Data Base, and CSV files. <br>
 3. Select values for input and output.
 4.  Select Confirm Selections > OK. <br>
    The Preprocessing Options selections appear.
@@ -78,9 +80,9 @@ You can process each file to remove not a number (NaN) values, fill with mean, m
    The saved model will appear.
 
 
-## Contributing to StatWizard
+## Contributing to DataPilot
 
-To contribute, please contact the creator of StatWizard through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
+To contribute, please contact the creator of DataPilot through GitHub (Fiz Garrido Escudero). We welcome any contributions to this project. 
 
 ### Guidelines
 **Contribution Process**:
