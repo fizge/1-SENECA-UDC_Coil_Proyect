@@ -45,7 +45,7 @@ class LoadModel:
 
                 self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
                 self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
-
+                self.app.v.grid_columnconfigure(2, weight=0, uniform="column3")
                 if self.app.modeling.graphic_frame is not None:
                     self.app.modeling.graphic_frame.grid_forget()
                 if self.app.preselection.selection_frame is not None:
@@ -71,7 +71,8 @@ class LoadModel:
 
         self.app.initial_frame.grid(
             row=0, column=0, pady=10, padx=10, sticky="ew")
-
+        if self.app.preselection.separator is not None:
+            self.app.preselection.separator.grid_forget()
         if self.info_frame is not None:
             self.info_frame.destroy()
         self.info_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')

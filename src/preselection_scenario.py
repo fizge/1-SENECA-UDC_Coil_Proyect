@@ -27,6 +27,7 @@ class Preselection:
         self.preprocess_label = None
         self.option_menu = None
         self.generate_button = None
+        self.separator = None
         self.original_data = None
         self.file_reader = FileReader()
 
@@ -46,10 +47,13 @@ class Preselection:
             self.app.modeling.graphic_frame = None
             self.app.v.grid_columnconfigure(0, weight=1, uniform="column")
             self.app.v.grid_columnconfigure(1, weight=0, uniform="column2")
+            self.app.v.grid_columnconfigure(2, weight=0, uniform="column3")
         if self.option_frame is not None:
             self.option_frame.grid_forget()
         if self.app.load.info_frame is not None:
             self.app.load.info_frame.destroy()
+        if self.app.preselection.separator is not None:
+            self.app.preselection.separator.grid_forget()
         self.selected_input_column, self.selected_output_column = None, None
         self.app.v.geometry("1000x450+200+0")
 
@@ -151,9 +155,8 @@ class Preselection:
 
         self.confirm_button = ctk.CTkButton(self.selection_frame, text="Confirm Selections", font=(
             "Arial", 14, "bold"), width=100, height=40,corner_radius=100, command=self.confirm_selections)
-        if self.app.modeling.graphic_frame is None:   
-            self.confirm_button.grid(row=0, column=3, rowspan=2,
-                            padx=50, pady=(40,10), sticky="ew")
+        self.confirm_button.grid(row=0, column=3, rowspan=2,
+                            padx=50, pady=(0,30), sticky="sw")
 
         self.preprocess_label = ctk.CTkLabel(
             self.option_frame, text="Preprocessing Options:", font=("Arial", 15, 'bold'))
@@ -182,7 +185,7 @@ class Preselection:
         
 
         self.generate_button = ctk.CTkButton(self.option_frame,corner_radius=40, text="Generate model", font=(
-           "Arial", 20, "bold"), height=50, width=40, command=self.regression_model)
+           "Arial", 20, "bold"), height=60, width=40, command=self.regression_model)
 
         if self.input_columns and self.output_columns:
             if self.selected_input_column is not None and self.selected_output_column is not None:
@@ -220,15 +223,15 @@ class Preselection:
         if self.app.modeling.graphic_frame is None:
             self.app.v.geometry("1000x610+200+0")
 
-            self.option_frame.grid(row=7, column=0, pady=(
-                10, 10), padx=10, sticky="new")
+            self.option_frame.grid(row=6, column=0, pady=(
+                10, 20), padx=10, sticky="new")
 
         self.preprocess_label.grid(
             row=0, column=0, padx=100,pady=(0,10), sticky="w")
         self.option_menu.grid(
             row=1, column=0, padx=100,pady=(0,30), sticky="w")
         self.generate_button.grid(
-            row=0, column=0,rowspan=2, padx=510,pady=30, sticky="nw")
+            row=0, column=0,rowspan=2, padx=490,pady=(0,30), sticky="sw")
 
         self.loaded_data = self.original_data
         self.display_data_in_treeview(self.loaded_data)
@@ -326,14 +329,15 @@ class Preselection:
 
     def regression_model(self):
         self.app.modeling.generate_model()
+
         if self.app.modeling.graphic_frame is not None:
             
             self.app.v.geometry("1500x830+0+0")
             self.app.v.grid_columnconfigure(0, weight=2, uniform="column")
             self.app.v.grid_columnconfigure(2, weight=2, uniform="column")
 
-            separator = tk.Frame(self.app.v, width=2, bg='gray')
-            separator.grid(row=0, column=1, rowspan=8, padx=(20,0),pady=60, sticky="ns")
+            self.separator = tk.Frame(self.app.v, width=2, bg='gray')
+            self.separator.grid(row=0, column=1, rowspan=8, padx=(20,0),pady=60, sticky="ns")
 
             self.app.initial_frame.grid(
                 row=2, column=0, pady=10, padx=10, sticky="nsew")
@@ -341,7 +345,9 @@ class Preselection:
                                 padx=10, pady=10, sticky="nsew")
             self.selection_frame.grid(
                 row=5, column=0, pady=10, padx=10, sticky="new")
-            self.option_frame.grid(row=7, column=0, pady=(10, 60), padx=10, sticky="new")
+            self.option_frame.grid(row=6, column=0, pady=(10, 100), padx=10, sticky="nsew")
+
+            
 
                 
             

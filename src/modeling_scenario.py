@@ -74,7 +74,7 @@ class Modeling:
 
             messagebox.showinfo(
                 "Model Generation", f"Model generated with Input: {self.app.preselection.selected_input_column} and Output: {self.app.preselection.selected_output_column}")
-
+        
             self.graphic_frame = ctk.CTkFrame(self.app.v,fg_color='#242424')
             self.graphic_frame.grid(
                 row=0, column=2, rowspan=8, padx=10, pady=10, sticky="nsew")

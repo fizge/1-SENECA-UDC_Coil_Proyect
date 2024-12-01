@@ -25,7 +25,7 @@ class LinearRegressionAnalyitics:
         ctk.set_default_color_theme("blue")
 
         self.v = ctk.CTk()
-        self.v.title("LINEAR REGRESION ANALYTICS")
+        self.v.title("DataPilot")
         self.original_window_size = "1000x450+200+0"
         self.v.geometry(self.original_window_size)
 
@@ -40,18 +40,21 @@ class LinearRegressionAnalyitics:
             row=0, column=0, pady=10, padx=10, sticky="nsew")
 
         self.presentation1_label = ctk.CTkLabel(
-            self.presentation_frame, text="¡Welcome to  LINEAR REGRESSION ANALYTICS!", font=("Arial", 36, 'bold'))
+            self.presentation_frame, text="¡Welcome to  DataPilot!", font=("Arial", 36, 'bold'))
         self.presentation1_label.grid(
             row=0, column=0, padx=60, pady=40, sticky="n")
 
         self.start_button = ctk.CTkButton(self.presentation_frame, text="Start", font=("Arial", 40, "bold"),
-                                          width=240, height=80, corner_radius=35, command=self.gui_initialization)
-        self.start_button.grid(row=1, column=0, padx=20, pady=10, sticky="n")
+                                          width=240, height=80, corner_radius=100, command=self.gui_initialization)
+        self.start_button.grid(row=1, column=0, padx=20, pady=(10,50), sticky="n")
 
-        self.presentation2_label = ctk.CTkLabel(self.presentation_frame, text="This application is designed to help you explore and analyze data using simple linear regression models.\n You can upload your own datasets and generate graphs that display the relationship between variables,\n as well as make predictions based on your data.",
+        self.separator = tk.Frame(self.presentation_frame, width=2, bg='white')
+        self.separator.grid(row=2, column=0, padx= 60, sticky="eW")
+
+        self.presentation2_label = ctk.CTkLabel(self.presentation_frame, text="This application is designed to help you explore and analyze data using simple linear regression models.\n\n You can upload your own datasets and generate graphs that display the relationship between variables,\n\n as well as make predictions based on your data and save your regression models.",
                                                 font=("Arial", 18, 'bold'))
         self.presentation2_label.grid(
-            row=2, column=0, padx=60, pady=40, sticky="n")
+            row=3, column=0, padx=60, pady=30, sticky="n")
 
     def gui_initialization(self):
 
