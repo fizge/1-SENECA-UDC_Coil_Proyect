@@ -344,8 +344,8 @@ class Preselection:
             self.tree_frame.grid(row=3, column=0,
                                 padx=10, pady=10, sticky="nsew")
             self.selection_frame.grid(
-                row=5, column=0, pady=10, padx=10, sticky="new")
-            self.option_frame.grid(row=6, column=0, pady=(10, 100), padx=10, sticky="nsew")
+                row=5, column=0, pady=10, padx=10, sticky="new") 
+            self.option_frame.grid(row=6, column=0, pady=(10, 120), padx=10, sticky="nsew")
 
             
 

@@ -40,7 +40,7 @@ class LinearRegressionAnalyitics:
             row=0, column=0, pady=10, padx=10, sticky="nsew")
 
         self.presentation1_label = ctk.CTkLabel(
-            self.presentation_frame, text="¡Welcome to  DataPilot!", font=("Arial", 36, 'bold'))
+            self.presentation_frame, text="¡ Welcome to  DataPilot !", font=("Arial", 36, 'bold'))
         self.presentation1_label.grid(
             row=0, column=0, padx=60, pady=40, sticky="n")
 
