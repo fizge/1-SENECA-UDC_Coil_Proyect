@@ -217,7 +217,11 @@ class Preselection:
     def confirm_selections(self):
         self.selected_input_column = self.input_select.get()
         self.selected_output_column = self.output_select.get()
-
+        
+        if self.selected_input_column not in self.input_columns or self.selected_output_column not in self.output_columns or self.selected_input_column is None or self.selected_output_column is None:
+            messagebox.showerror("Error", "Column/s is not in data")
+            return
+        
         messagebox.showinfo(
             "Selections Confirmed", f"Input Column: {self.selected_input_column}\nOutput Column: {self.selected_output_column}")
         if self.app.modeling.graphic_frame is None:
@@ -239,6 +243,10 @@ class Preselection:
     def apply_preprocessing(self, option):
         columns_to_process = [self.selected_input_column,
                               self.selected_output_column]
+
+        if not pd.api.types.is_numeric_dtype(self.loaded_data[self.selected_input_column]) or not pd.api.types.is_numeric_dtype(self.loaded_data[self.selected_output_column]):
+                messagebox.showerror("Error", "The selected input or output column contains non-numeric data. Please select numeric columns.")
+                return
 
         if option == "Remove rows with NaN":
             self.loaded_data = self.original_data.copy()

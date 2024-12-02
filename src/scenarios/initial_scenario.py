@@ -49,7 +49,7 @@ class LinearRegressionAnalyitics:
         self.start_button.grid(row=1, column=0, padx=20, pady=(10,50), sticky="n")
 
         self.separator = tk.Frame(self.presentation_frame, width=2, bg='white')
-        self.separator.grid(row=2, column=0, padx= 60, sticky="eW")
+        self.separator.grid(row=2, column=0, padx= 60, sticky="ew")
 
         self.presentation2_label = ctk.CTkLabel(self.presentation_frame, text="This application is designed to help you explore and analyze data using simple linear regression models.\n\n You can upload your own datasets and generate graphs that display the relationship between variables,\n\n as well as make predictions based on your data and save your regression models.",
                                                 font=("Arial", 18, 'bold'))
