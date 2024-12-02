@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from save_model import SavedModel
+from logical.save_model import SavedModel
 
 # Clase MockModel para simular el modelo
 

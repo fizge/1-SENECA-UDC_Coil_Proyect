@@ -2,9 +2,9 @@ import pandas as pd
 from tkinter import messagebox
 from tkinter import messagebox
 import customtkinter as ctk
-from save_model import SavedModel
-from charging_bar import ChargingWindow
-from placeholder import PlaceholderText
+from logical.save_model import SavedModel
+from utils.charging_bar import ChargingWindow
+from utils.placeholder import PlaceholderText
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt

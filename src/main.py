@@ -1,6 +1,6 @@
 
-from initial_scenario import LinearRegressionAnalyitics
-# DOCUMENTAR FUNCIONES Y CLASES Y HACER RELEASE, ORGANIZAR POR CARPETAS
+from scenarios.initial_scenario import LinearRegressionAnalyitics
+# DOCUMENTAR FUNCIONES Y CLASES Y HACER RELEASE
 
 if __name__ == "__main__":
     app = LinearRegressionAnalyitics()

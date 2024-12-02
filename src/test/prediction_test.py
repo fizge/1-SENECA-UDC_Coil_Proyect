@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from tkinter import messagebox
-from modeling_scenario import Modeling
+from scenarios.modeling_scenario import Modeling
 
 
 class MockModel:

@@ -1,11 +1,11 @@
 
 import pytest
 import pandas as pd
-from file_reader import FileReader
+from logical.file_reader import FileReader
 import sqlite3
 from unittest.mock import MagicMock
 from unittest.mock import MagicMock
-from preselection_scenario import Preselection
+from scenarios.preselection_scenario import Preselection
 
 
 class MockApp:

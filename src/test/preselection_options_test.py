@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 import pytest
 from unittest.mock import MagicMock
 import pandas as pd
-from preselection_scenario import Preselection
+from scenarios.preselection_scenario import Preselection
 
 
 class MockApp:

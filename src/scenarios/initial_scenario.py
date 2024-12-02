@@ -2,9 +2,9 @@ import tkinter as tk
 import customtkinter as ctk
 import pandas as pd
 from PIL import Image, ImageTk
-from preselection_scenario import Preselection
-from modeling_scenario import Modeling
-from loading_scenario import LoadModel
+from scenarios.preselection_scenario import Preselection
+from scenarios.modeling_scenario import Modeling
+from scenarios.loading_scenario import LoadModel
 
 
 class LinearRegressionAnalyitics:

@@ -2,8 +2,8 @@ import pickle
 import tkinter as tk
 from tkinter import messagebox, filedialog
 import customtkinter as ctk
-from charging_bar import ChargingWindow
-from placeholder import PlaceholderText
+from utils.charging_bar import ChargingWindow
+from utils.placeholder import PlaceholderText
 
 
 class LoadModel:

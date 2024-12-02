@@ -2,8 +2,8 @@ import pandas as pd
 import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox, ttk, filedialog
-from file_reader import FileReader
-from charging_bar import ChargingWindow
+from logical.file_reader import FileReader
+from utils.charging_bar import ChargingWindow
 
 
 class Preselection:
@@ -52,8 +52,8 @@ class Preselection:
             self.option_frame.grid_forget()
         if self.app.load.info_frame is not None:
             self.app.load.info_frame.destroy()
-        if self.app.preselection.separator is not None:
-            self.app.preselection.separator.grid_forget()
+        if self.separator is not None:
+            self.separator.grid_forget()
         self.selected_input_column, self.selected_output_column = None, None
         self.app.v.geometry("1000x450+200+0")
 

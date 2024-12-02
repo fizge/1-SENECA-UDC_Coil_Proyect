@@ -3,7 +3,7 @@
 import pytest
 from sklearn.linear_model import LinearRegression
 import pandas as pd
-from modeling_scenario import Modeling
+from scenarios.modeling_scenario import Modeling
 from sklearn.metrics import r2_score, mean_squared_error
 
 

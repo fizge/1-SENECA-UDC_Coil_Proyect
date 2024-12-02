@@ -1,6 +1,6 @@
 import pytest
 import pickle
-from loading_scenario import LoadModel
+from scenarios.loading_scenario import LoadModel
 
 
 class MockModel:
