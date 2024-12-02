@@ -1,7 +1,7 @@
 # Table of Contents 
 - [1. Overview ](#1-introduction)
 - [2. Getting Started with Data Pilot](#2-getting-started-with-datapilot)
-	- [2.1 System Requirements](#21-system-requirements)
+- [2.1 System Requirements](#21-system-requirements)
   - [2.2 Features](#22-features)
   - [2.3 The DataPilot Interface](#23-the-datapilot-interface)
   - [2.4 The Graph and Loading Interface](#24-the-graph-and-loading-interface)
@@ -18,5 +18,11 @@
 - [7. Acknowledgments](#7-acknowledgments)
 
 # DataPilot Version 1.0 :chart_with_upwards_trend:
+DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to: <br>
+- Increase yearly profit margins
+- Identify data trends
+- Analyze data to make informed decisions for a business <br>
+
+You can use your own data models stored as an excel (.xls), data base(.db), or comma separated value (.csv) file to generate data predictions by selecting the independent variables (features) and dependent variables (target) to create a prediction model.
 
 # Getting Started with DataPilot 
