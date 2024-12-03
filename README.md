@@ -175,7 +175,7 @@ Please contact the creators of DataPilot through GitHub to discuss contributions
 3. Make the necessary changes, then commit to your branch.  
 4. Submit a pull request. The creators will be notified and will contact you when the request is confirmed, or if more information is needed before the changes are approved.  
 
-**Reporting Issues**
+**Reporting Issues** <br>
 If you find a bug within DataPilot, please open an issue [**here**](https://github.com/fizge/1-SENECA-UDC_Coil_Proyect/issues/new). The creators will get back to you as soon as possible.  
 
 ## Acknowledgments  
