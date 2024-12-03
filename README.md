@@ -1,6 +1,6 @@
 # DataPilot Version 1.0
 
-DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to:  
+DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to:
 
 - **Increase yearly profit margins**  
 - **Identify data trends**  
@@ -10,7 +10,7 @@ You can use your own data models stored as an Excel (.xls), database (.db), or c
 
 ## Getting Started with DataPilot  
 
-Welcome to DataPilot! Before you start using DataPilot and the features designed to simplify data analysis to achieve your business goals, you will need to familiarize yourself with important parts of the interface. This section will help you get started by covering device requirements and introducing DataPilot’s main functions.  
+Welcome to DataPilot! Before you start using DataPilot and the features designed to simplify data analysis to achieve your business goals, you will need to familiarize yourself with important parts of the interface. This section will help you get started by covering device requirements and introducing DataPilot’s main functions.
 
 ### System Requirements  
 
@@ -26,15 +26,15 @@ DataPilot works on both Mac (macOS) and Windows. The download file varies slight
 
 ### Navigating the DataPilot Interfaces  
 
-Once you review if your device is compatible, you can download DataPilot to your desktop and start using all of its data analysis features. DataPilot has three main interfaces, each with its own features:  
+Once you review if your device is compatible, you can download DataPilot to your desktop and start using all of its data analyzing features. DataPilot has three main interfaces that with their own features: 
 
-1. **Loading a model interface**  
-2. **Model generating interface**  
-3. **Graph interface**  
+- **Loading a model interface**  
+- **Model generating interface**  
+- **Graph interface**  
 
 #### Loading a Model Interface  
 
-After starting the application, the loading interface appears. Here, you can upload your existing data files or load a past DataPilot model using the **Open File** and **Load Model** buttons(See [Figure 1](#figure-1-loading-interface). To learn more about loading models, see "Opening Data Files".
+After you start the application, the loading a model interface appears. On this screen, you can upload your existing data files or load a past DataPilot model  with the **Open File** and **Load Model** buttons (See [Figure 1](#figure-1-loading-interface). To learn more about loading models, see "Opening Data Files". 
 
 ![image](https://github.com/user-attachments/assets/96f756fd-28fd-42dd-a83d-e0afa58852c9)
 <a id="figure-1-loading-interface"></a> 
@@ -70,7 +70,6 @@ Generating a model loads the graph interface, displaying the linear regression m
 To use DataPilot, make sure your data file is up to date and all data is correctly defined. You can use DataPilot to process and save data sets, generate models for data analysis and predictions, and reload saved models for continuous analysis and customization. 
 
 ### Opening Data Files  
-
 To start using DataPilot, open a data file. DataPilot works with Excel (.xls), Data Base (.db), and Comma Separated Value (.csv) files. 
 **Note:** Input refers to independent variables, while output refers to dependent variables.  
 
