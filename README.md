@@ -39,7 +39,7 @@ After you start the application, the loading a model interface appears. On this 
 
 ![image](https://github.com/user-attachments/assets/96f756fd-28fd-42dd-a83d-e0afa58852c9)
 <a id="figure-1-loading-interface"></a> 
-**Figure 1:** Loading a Model Interface with button features.  
+_**Figure 1:** Loading a Model Interface with button features._
 
 #### Model Generating Interface  
 
@@ -50,13 +50,13 @@ When you upload a data file, additional features appear to help you customize th
   
 ![image](https://github.com/user-attachments/assets/367a3fde-78b2-4ddc-b9bf-5e4a7e423cd0)
 <a id="figure-2-model-generating-interface"></a>  
-**Figure 2:** Model Generating Interface with button features.  
+_**Figure 2:** Model Generating Interface with button features._  
 
 Confirming your selections make the **Preprocessing Options** drop-down and the **Generate Model** button appear (See [Figure 3](#figure-3-preprocessing-options)). These features allow you to customize your linear regression models by filling empty variables.
 
 ![image](https://github.com/user-attachments/assets/80afc017-3c6a-4134-9157-f14f06591bfd)
 <a id="figure-3-preprocessing-options"></a>  
-**Figure 3:** Preprocessing options and Generate Model buttons.  
+_**Figure 3:** Preprocessing options and Generate Model buttons._ 
 
 #### Graph Interface  
 
@@ -64,7 +64,7 @@ Generating a model loads the graph interface, displaying the linear regression m
 
 ![image](https://github.com/user-attachments/assets/ff434a7b-9f2b-4e00-b259-3cce0cd9f7bb)
 <a id="figure-4-graph-interface"></a>  
-**Figure 4:** The Graph Interface with key features and buttons.  
+_**Figure 4:** The Graph Interface with key features and buttons._
 
 ## Using DataPilot  
 
@@ -84,7 +84,7 @@ To start using DataPilot, open a data file. DataPilot works with Excel (.xls), D
    *The Preprocessing options appear.*
    
 ![image](https://github.com/user-attachments/assets/471d5e6b-3485-4946-b8a0-c02b56705e07) <br>
-**Figure 5:** The preprocessing options and 'Generate model' button appear when 'Confirm Selections' is selected
+_**Figure 5:** The preprocessing options and 'Generate model' button appear when 'Confirm Selections' is selected._
 
 ### Processing and Saving Data Files  
 
@@ -111,7 +111,7 @@ DataPilot can predict values quickly from your data. Once you process the data m
 
 1. From the generated model, enter a number in the prediction field.
    ![image](https://github.com/user-attachments/assets/5beec88f-c587-4688-af02-689f60564164) <br>
-   **Figure 6:** The prediction value section, indicating a prediction value field and Predict button.
+   _**Figure 6:** The prediction value section, indicating a prediction value field and Predict button._
 2. Select **Predict**.  
    *The prediction result text appears.* <br>
    ![image](https://github.com/user-attachments/assets/4b0efd01-b840-4691-8119-35fca3480967) <br>
