@@ -124,16 +124,17 @@
         <p>La aplicación se inicializa con una ventana de presentación que contiene el nombre y descripción de dicha aplicación y un botón de inicio.</p>
         <h3>Caso base:</h3>
         <p>El usuario deberá pulsar el botón <strong>Start</strong> para comenzar el programa.</p>
-        <img src="images.image1" alt="Ventana de presentación">
+        <img src="image1.jpg" alt="Ventana de presentación">
     </div>
 
     <!-- Carga de datos (csv, excel, sqlite) -->
     <div class="section">
         <h2>Carga de datos (CSV, Excel, SQLite):</h2>
         <p>Inicialmente al usuario se le mostrará la ventana que aparece en pantalla. Para la carga de su base de datos, deberá utilizar el botón <strong>“Open file”</strong>.</p>
+        <img src="image2.jpg" alt="">
         <h3>Caso base:</h3>
         <p>Al pulsar dicho botón aparecerá el explorador de archivos de su máquina local (con un filtro de archivos específicos) y deberá buscar el archivo que contiene la base de datos. Una vez elegido, desaparece el explorador y aparece una nueva ventana con las funcionalidades de la ventana anterior, junto a una tabla que refleja los datos importados y un menú de selección de columnas de entrada y de salida. Además, en la entrada a la izquierda del botón <strong>Open File</strong> aparecerá la dirección de ruta del archivo seleccionado.</p>
-        <img src="images.image2" alt="Carga de datos">
+        <img src="image3.jpg" alt="Carga de datos">
 
         <h3>Casos especiales:</h3>
         <ul>
@@ -153,7 +154,7 @@
         <h2>Selección de columnas de entrada y salida:</h2>
         <h3>Caso base:</h3>
         <p>Una vez realizados los pasos anteriores, el usuario puede desplegar el menú de columnas de entrada y de salida y seleccionar las que requiera. Para aplicar dichas elecciones debe pulsar el botón <strong>Confirm Selections</strong>. Tras realizar esto, aparece una ventana emergente con los nombres de dichas columnas. Para continuar con el proceso, es necesario cerrar la ventana.</p>
-        <img src="images.image3" alt="Selección de columnas">
+        <img src="image4.jpg" alt="Selección de columnas">
 
         <h3>Casos especiales:</h3>
         <ul>
@@ -181,7 +182,7 @@
             <li><strong>“File with median”:</strong> En el caso de que existan valores NaN en la columna de input y/o output, se sustituye el valor NaN por la mediana de la columna.</li>
             <li><strong>“File with constant values”:</strong> En el caso de que existan valores NaN en la columna de input y/o output, se sustituye el valor NaN por otro aplicado manualmente en una ventana emergente.</li>
         </ul>
-        <img src="images.image4" alt="Preprocesado de datos">
+        <img src="image5.jpg" alt="Preprocesado de datos">
 
         <h3>Casos especiales:</h3>
         <ul>
@@ -202,7 +203,7 @@
         <h2>Creación del modelo de regresión lineal (visualización del gráfico y fórmula y métricas del modelo):</h2>
         <h3>Caso base:</h3>
         <p>Tras pulsar el botón <strong>Generate model</strong>, aparece una ventana emergente que indica la correcta generación del modelo y sus columnas de entrada y salida.</p>
-        <img src="images.image5" alt="Generación del modelo de regresión">
+        <img src="image6.jpg" alt="Generación del modelo de regresión">
 
         <h3>Casos especiales:</h3>
         <ul>
@@ -225,7 +226,7 @@
         <h2>Guardado del modelo:</h2>
         <h3>Caso base:</h3>
         <p>Tras la generación del modelo tenemos en el lado derecho de la ventana el botón <strong>Save Model</strong> para su guardado. Si lo ejecutamos se abrirá el explorador para guardar en nuestra máquina local un archivo .pkl (pickle) cuyo nombre podremos elegir, y este contendrá todos los atributos necesarios de nuestro modelo.</p>
-        <img src="images.image6" alt="Guardado del modelo">
+        <img src="image7.jpg" alt="Guardado del modelo">
 
         <h3>Casos especiales:</h3>
         <ul>
@@ -239,7 +240,7 @@
         <h2>Predicción de un valor de salida del modelo generado:</h2>
         <h3>Caso base:</h3>
         <p>Introducimos un valor numérico de la entrada seleccionada en la caja de texto para que al ejecutar el botón <strong>Predict</strong> aparezca el valor de salida estimado.</p>
-        <img src="images.image7" alt="Predicción de salida">
+        <img src="image8.jpg" alt="Predicción de salida">
 
         <div class="error-handling">
             <h3>Manejo de errores:</h3>
@@ -252,13 +253,13 @@
         <h2>Cargado de modelo de la máquina local:</h2>
         <h3>Caso base:</h3>
         <p>Tras ejecutar el botón de inicio aparece la ventana inicial de la aplicación. En ella podemos observar el botón <strong>Load Model</strong>. Al ejecutarlo se abrirá el explorador de archivos con filtro para archivos pickle. Elegimos un archivo que contenga un modelo previamente guardado.</p>
-        <img src="images.image8" alt="Cargado de modelo">
+        <img src="image9.jpg" alt="Cargado de modelo">
 
         <h3>Casos especiales:</h3>
         <ul>
             <li><strong>Para todos los casos posibles como carga de datos anterior, elegir opción de preprocesado, generar modelo, guardar modelo, etc:</strong> La ventana presente desaparece una vez se ejecuta <strong>Load Model</strong> para dar paso a la ventana del modelo cargado.</li>
         </ul>
-
+        <img src="image10.jpg" alt="Cargado de modelo">
         <div class="error-handling">
             <h3>Manejo de errores:</h3>
             <p>Si el archivo cargado contiene errores o no es un modelo de nuestra aplicación, aparecerá una ventana emergente notificando el error y impedirá el cargado del modelo.</p>
@@ -270,7 +271,7 @@
         <h2>Predicción de un valor de salida del modelo cargado:</h2>
         <h3>Caso base:</h3>
         <p>Introducimos un valor numérico de la entrada seleccionada en la caja de texto para que al ejecutar el botón <strong>Predict</strong> aparezca el valor de salida estimado.</p>
-        <img src="images.image9" alt="Predicción de modelo cargado">
+        <img src="image11.jpg" alt="Predicción de modelo cargado">
 
         <div class="error-handling">
             <h3>Manejo de errores:</h3>
