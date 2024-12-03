@@ -1,4 +1,5 @@
-# DataPilot Version 1.0
+# DataPilot Version 1.0      <img src="https://github.com/user-attachments/assets/d9173d6d-f7dc-4c51-85b3-5fcb6d298525" width="100" />
+
 
 DataPilot uses linear regression models to predict profit values. This tool is designed for retail businesses aiming to:
 
