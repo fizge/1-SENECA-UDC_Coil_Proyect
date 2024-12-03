@@ -117,6 +117,7 @@ DataPilot can predict values quickly from your data. Once you process the data m
    ![image](https://github.com/user-attachments/assets/4b0efd01-b840-4691-8119-35fca3480967) <br>
    **Figure 7:** The prediction value result text appears after the Predict button is selected. <br>
    **Note:** If you do not see this text result, you may need to maximize the DataPilot window to full screen. 
+
 3. Select **Save Model** to save the prediction.  
 
 ### Loading Models
@@ -169,10 +170,10 @@ Variables are a type of data in your dataset that can change. In DataPilot, you 
 Please contact the creators of DataPilot through GitHub to discuss contributions to the application. We welcome any contributions to this project if you discuss them with us first. We have created guidelines for the contribution process below. Carefully look through the steps and contact us if you have questions.  
 
 **Contribution Process**
-- Fork the repository, making sure not to override any code in the main branch.  
-- Create a new branch for your features or bug fixes.  
-- Make the necessary changes, then commit to your branch.  
-- Submit a pull request. The creators will be notified and will contact you when the request is confirmed, or if more information is needed before the changes are approved.  
+1. Fork the repository, making sure not to override any code in the main branch.  
+2. Create a new branch for your features or bug fixes.  
+3. Make the necessary changes, then commit to your branch.  
+4. Submit a pull request. The creators will be notified and will contact you when the request is confirmed, or if more information is needed before the changes are approved.  
 
 **Reporting Issues**
 If you find a bug within DataPilot, please open an issue [**here**](https://github.com/fizge/1-SENECA-UDC_Coil_Proyect/issues/new). The creators will get back to you as soon as possible.  
