@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataPilot Internal Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #007acc;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+        h2, h3, h4 {
+            color: #007acc;
+        }
+        ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #007acc;
+            color: white;
+        }
+        details {
+            margin: 1rem 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1rem;
+        }
+        details summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            background: #007acc;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DataPilot Internal Documentation</h1>
+    </header>
+    <div class="container">
+        <h2>Project Background</h2>
+        <p>This project was created by four student developers in the Universidade da Coruna and two technical writers in Seneca Polytechnic working together as part of a Collaborative Online Learning Project (COIL) for a semester using an agile development process. This project leverages international perspectives to create a universal tool to deliver an accessible, user-friendly solution for data analytics.</p>
+
+        <p>The purpose of DataPilot is to predict data from data sets. The data sets that are input into the application must be database, excel, pickle, or comma-separated value files. The output datasets can be saved and uploaded only as pickle files.</p>
+
+        <h3>Goals</h3>
+        <p>The goal of the project was to create an application that gives users a simple visual interface of linear regression models from data sets and allows users to make predictions. The users can use the application to:</p>
+        <ul>
+            <li>Save data models</li>
+            <li>Upload data models stored on their device</li>
+            <li>Make predictions using data models</li>
+        </ul>
+
+        <h3>Audience</h3>
+        <p>The intended audience of DataPilot are small to medium-scale business owners with low to average technical expertise who want to gain data-based insights that can inform their decisions. DataPilot can be used to make other industry-specific predictions by users in different professions, such as e-commerce and education.</p>
+        <details>
+            <summary>View DataPilot’s Target User</summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Trait</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Age</td>
+                        <td>20 +</td>
+                    </tr>
+                    <tr>
+                        <td>Occupation</td>
+                        <td>Small to medium-scale business owners.</td>
+                    </tr>
+                    <tr>
+                        <td>Technical Skill Level</td>
+                        <td>DataPilot users have varying levels of technical expertise, ranging from beginners unfamiliar with data analysis tools to more experienced users seeking a straightforward way to predict profits and make data-driven decisions.</td>
+                    </tr>
+                    <tr>
+                        <td>Motivations</td>
+                        <td>Our users want to gain more insights about analytics such as saving costs, how to increase yearly profits, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Points</td>
+                        <td>Lack of time for self-learning. Long, complex instructions with technical jargon, lack of experience and knowledge of statistics and data analytics, and having to consult multiple external sources to further understand how to use data analytic tools.</td>
+                    </tr>
+                    <tr>
+                        <td>Expectations</td>
+                        <td>Empathetic and concise instructions that are labelled, the user’s existing data should be fully compatible with DataPilot’s upload feature. They expect to understand how to use correct input that will result in helpful and informative output results to support their goals.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </details>
+
+        <h3>Platforms and Technology</h3>
+        <h4>Python</h4>
+        <p>Python was used as the programming language because of the large amount of libraries that can be used alongside the language. The libraries used were pandas for data analysis and manipulation, tkinter for creating the GUI, and joblib for saving and loading large datasets.</p>
+
+        <h4>Data File Formats</h4>
+        <p>The dataset formats that were used to create DataPilot were:</p>
+        <ul>
+            <li>Database files (.db)</li>
+            <li>Excel files (.xls)</li>
+            <li>Pickle files (.pkl)</li>
+            <li>CSV files (.csv)</li>
+        </ul>
+        <p><strong>Note:</strong> DataPilot can only be used with these data file formats.</p>
+
+        <h4>Collaboration Tools</h4>
+        <ul>
+            <li><a href="https://web.whatsapp.com/">WhatsApp</a>: This tool was used to contact team members throughout the project.</li>
+            <li><a href="https://github.com/">GitHub</a>: This tool was used to store code files and documentation.</li>
+            <li><a href="https://code.visualstudio.com/">Visual Studio Code</a>: This tool was used by the programmers to create the project.</li>
+            <li><a href="https://www.zoom.com/">Zoom</a>: This tool was used to collaborate using video conferencing.</li>
+            <li><a href="https://www.microsoft.com/en-ca/microsoft-teams/group-chat-software">Microsoft Teams</a>: This tool was used to collaborate using video conferencing and discuss sprints with the product owner.</li>
+            <li><a href="https://taiga.io/">Taiga</a>: This tool was used for agile project management, and for keeping track of sprints and organizing tasks.</li>
+        </ul>
+
+        <h2>Agile Development Process</h2>
+        <p>DataPilot was created using agile development methodologies. Agile is a software development method that is used to minimize risks and increase cross-team collaboration. The key factors of agile development are its flexibility to change through an iterative process, collaboration with product owners, and the use of user stories that lead each sprint.</p>
+
+        <h3>Completed Sprints and Sprint Tasks</h3>
+        <ol>
+            <li><strong>Sprint 1:</strong> Both teams created Taiga accounts, GitHub accounts, and the code and documentation repository on GitHub. The documentation team began the Documentation Plan.</li>
+            <li><strong>Sprint 2:</strong> The documentation team conducted a subject matter expert (SME) interview with the developers and completed the first half of the Documentation Plan. The developers researched Python libraries.</li>
+            <li><strong>Sprint 3:</strong> The documentation team worked on completing the second half of the Documentation Plan. The developers further researched Python libraries (tkinter, PyQt, and wxpython).</li>
+            <li><strong>Sprint 4:</strong> The documentation team worked on creating the preliminary README and GitHub document. The developer team worked on creating linear models for prediction using the GUI, and improving DataPilot's graphical interface.</li>
+            <li><strong>Sprint 5:</strong> The developers worked on creating file selection and saving features. The documentation team worked on revising the README and GitHub document.</li>
+            <li><strong>Sprint 6:</strong> The developers further worked on the file selection feature, saving features, and creating a polished user interface for DataPilot. The documentation team worked on revising the README by including DataPilot user interface images.</li>
+            <li><strong>Sprint 7:</strong> The developers worked on improving the user interface, incorporating making predictions using an uploaded model, and recovering previously saved models. The documentation team worked on revising the README to include these new features.</li>
+            <li><strong>Sprint 8:</strong> The documentation team worked on completing the GitHub documentation and README. The developers worked on revising the user interface to make it user friendly.</li>
+            <li><strong>Sprint 9:</strong> The developers made the functional proofs plan.</li>
+            <li><strong>Sprint 10:</strong> The developers add code documentation and released the initial version of the app.</li>
+        </ol>
+
+        <h2>AI, Machine Learning, and Linear Regression</h2>
+        <p>Understanding these concepts is integral to understanding how DataPilot functions.</p>
+
+        <h3>Artificial Intelligence (AI) and Machine Learning (ML)</h3>
+        <p><strong>Machine Learning (ML)</strong> is a subset of <strong>Artificial Intelligence (AI)</strong>, but it is not necessarily the same. AI is a technology that enables computers and machines to stimulate human abilities, comprehension, problem solving. AI can analyze large amounts of data to recognize patterns and adapt over time, constantly learning and adapting from new data that it is given.</p>
+
+        <p>While DataPilot’s processes rely on data to improve its output, it does not use AI explicitly. Instead, Machine Learning works by analyzing input data to identify patterns and make predictions. DataPilot relies on these processes to improve its output by building models that predict outcomes based on the datasets it processes. It uses ML techniques to create accurate and reliable predictions tailored to user data.</p>
+
+        <h3>Linear Regression</h3>
+        <p>Linear regression is a type of machine-learning algorithm that helps predict future outcomes by finding a straight-line relationship between two variables. The independent variable is the known data, and the dependent variable is what we want to predict. This method can be used to make informed guesses about variables such as sales, age, housing prices, and product costs. DataPilot uses Simple Linear Regression, which means that the model will produce the relationship between 1 independent variable (known data) and 1 dependent variable (the value to predict).</p>
+
+        <h4>Features of the Linear Regression Model</h4>
+        <ul>
+            <li><strong>A slope:</strong> Displays how the dependent variable changes each time there is a change in the independent variable, specifically for every unit increase in the independent variable. It shows the strength and direction of the relationship between the two variables.</li>
+            <li><strong>Intercept:</strong> The value of the dependent variable when the independent variable equals zero. It represents the starting point or baseline value in the absence of any effect from the independent variable.</li>
+            <li><strong>Line of best fit/ Regression line:</strong> This line minimizes the error between the predicted and actual values, ensuring the smallest possible difference across all data points. It represents the relationship between the dependent and independent variables.</li>
+        </ul>
+
+        <h3>How does DataPilot use Linear Regression and Machine Learning?</h3>
+        <p>DataPilot allows users to effortlessly create and work with linear regression models, helping businesses predict profits using past data. By uploading an existing spreadsheet to DataPilot, users can quickly generate a linear regression model, while AI enhances the results by delivering actionable insights. This process requires minimal effort and no advanced technical knowledge, making data-driven predictions accessible to everyone.</p>
+
+        <h2>Project Specific Information</h2>
+        <h3>Developer Team</h3>
+        <ul>
+            <li>Fiz Garrido: Lead developer.</li>
+            <li>Manuel Conde: Developer.</li>
+            <li>Yeyi Zheng: Developer.</li>
+            <li>Pablo Diaz: Developer.</li>
+        </ul>
+
+        <h3>Documentation Team</h3>
+        <p>Both writers worked each sprint to develop clear, accurate, end-user and internal user documentation. The goal of the documentation team was to create clear, accurate, concise documentation tailored to both end user needs and developer needs. This meant ensuring that the user's needs were considered when creating both the README and GitHub documentation. The end user needs were to understand how to use DataPilot easily, without having a technical background. The developer needs were to understand DataPilot requirements, how to set up the correct environment to recreate the tool, and understand how the tool was created.</p>
+
+        <p>The documentation team delivers documents that refer to the <a href="https://learn.microsoft.com/en-us/style-guide/welcome/">Microsoft Style Guide</a> and follow <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">Github's Markdown syntax</a>.</p>
+
+        <ul>
+            <li>Cristine Buizon: Writer of the GitHub documentation (Introduction, Project Background, AI, Machine Learning, and Linear Regression) and the README.</li>
+            <li>Hasti Noushabadi: Writer of the GitHub documentation (Project Background, Agile Development Process, and Project Specific Information) and the README.</li>
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2024 DataPilot Team</p>
+    </footer>
+</body>
+</html>
